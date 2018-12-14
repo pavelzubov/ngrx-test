@@ -4,6 +4,7 @@ import {Observable} from 'rxjs';
 import {map} from 'rxjs/operators';
 import {Column} from '../table/column';
 import {PlatformStatistic} from '../api';
+import {getPlatformStatistic} from '../store/reducers';
 
 @Component({
   selector: 'app-statistic',
@@ -22,11 +23,7 @@ export class StatisticComponent implements OnInit {
   ];
 
   constructor(private store: Store<{ platform: any }>) {
-    this.statistic = store.pipe(select('platform'), map(res => {
-      const {statistic} = res;
-      console.log(res);
-      return statistic;
-    }));
+    this.statistic = store.pipe(select(getPlatformStatistic));
   }
 
   ngOnInit() {

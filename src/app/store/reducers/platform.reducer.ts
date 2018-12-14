@@ -16,4 +16,4 @@ export function platformReducer(state = initialState, action: PlatformActions): 
   }
 }
 
-// export const getStatistics= (state: State)=
+export const getStatistics = (state: PlatformState) => state.statistic;

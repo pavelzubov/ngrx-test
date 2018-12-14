@@ -1,5 +1,7 @@
-import { ActionReducerMap, createSelector, createFeatureSelector,
-  ActionReducer, MetaReducer } from '@ngrx/store';
+import {
+  ActionReducerMap, createSelector, createFeatureSelector,
+  ActionReducer, MetaReducer
+} from '@ngrx/store';
 import * as platform from './platform.reducer';
 import * as programs from './programs.reducer';
 
@@ -7,6 +9,7 @@ export interface State {
   platform: platform.PlatformState;
   programs: programs.ProgramsState;
 }
+
 export const reducers: ActionReducerMap<State> = {
   platform: platform.platformReducer,
   programs: programs.programsReducer,
@@ -20,4 +23,11 @@ export function logger(reducer: ActionReducer<State>):
     return reducer(state, action);
   };
 }
+
 export const metaReducers: MetaReducer<State>[] = [logger];
+
+export const getPlatformState =
+  createFeatureSelector<platform.PlatformState>('platform');
+
+export const getPlatformStatistic =
+  createSelector(getPlatformState, platform.getStatistics);
