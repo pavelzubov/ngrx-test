@@ -1,0 +1,7 @@
+<ul *ngIf="list">
+  <ng-container *ngIf="list.length">
+    <li *ngFor="let item of list">
+      <strong>id{{ item.e }}:</strong> {{ item.E }} {{ item.s }} {{ item.c }} {{ item.o }}
+    </li>
+  </ng-container>
+</ul>
