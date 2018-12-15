@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, DoCheck, Input, OnInit} from '@angular/core';
 import {PlatformStatistic} from '../../api';
 
 @Component({
@@ -12,5 +12,4 @@ export class StatisticViewComponent implements OnInit {
 
   ngOnInit() {
   }
-
 }

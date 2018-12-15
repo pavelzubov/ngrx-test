@@ -10,7 +10,7 @@ export const initialState: PlatformState = {statistic: {}};
 export function platformReducer(state = initialState, action: PlatformActions): PlatformState {
   switch (action.type) {
     case ActionTypes.GetStatisticsSuccess:
-      return {statistic: action.payload};
+      return {...state, statistic: action.payload};
     default:
       return state;
   }

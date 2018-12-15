@@ -22,7 +22,6 @@ export class InsideBlockComponent implements OnInit {
 
   constructor(private store: Store<{ programs: any }>) {
     this.programs = store.pipe(select('programs'), map(res => {
-      console.log(res);
       return res;
     }), map(res => res.programs));
   }

@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {ChangeDetectionStrategy, Component, DoCheck, OnChanges, OnInit} from '@angular/core';
 import {select, Store} from '@ngrx/store';
 import {Observable} from 'rxjs';
 import {map} from 'rxjs/operators';
@@ -9,7 +9,8 @@ import {getPlatformStatistic} from '../store/reducers';
 @Component({
   selector: 'app-statistic',
   templateUrl: './statistic.component.html',
-  styleUrls: ['./statistic.component.sass']
+  styleUrls: ['./statistic.component.sass'],
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class StatisticComponent implements OnInit {
   statistic: Observable<PlatformStatistic>;
