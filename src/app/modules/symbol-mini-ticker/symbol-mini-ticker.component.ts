@@ -1,32 +1,42 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
 import { select, Store } from '@ngrx/store';
-import {
-    getPlatformStatistic,
-    getSocketMiniTracker,
-    getSocketAllMarketTickets,
-    getSocketSymbolMiniTicker
-} from '../../store/reducers';
 import { map } from 'rxjs/operators';
 import {
-    GetMiniTrackerArrSocketRequest,
+    GetSymbolMiniTickerSocket,
     GetSymbolMiniTickerSocketRequest
-} from '../../store/actions/socket.actions';
+} from './symbol-mini-ticker.actions';
+import { getSymbolSwitchSelector } from '../symbol-switch/symbol-switch.reducer';
+import { getSymbolMiniTickerSelector } from './symbol-mini-ticker.reducer';
+import { WebsocketService } from '../../services/websocket.service';
 
 @Component({
     selector: 'app-symbol-mini-ticker',
     templateUrl: './symbol-mini-ticker.component.html',
     styleUrls: ['./symbol-mini-ticker.component.sass'],
-    changeDetection: ChangeDetectionStrategy.OnPush
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    providers: [WebsocketService]
 })
 export class SymbolMiniTickerComponent implements OnInit {
     SymbolMiniTicker$: Observable<any>;
+    Symbol$: Observable<any>;
 
-    constructor(private store: Store<{ socket: any }>) {
-        this.SymbolMiniTicker$ = store.pipe(select(getSocketSymbolMiniTicker));
+    update = '';
+
+    constructor(private store: Store<{ socket: any }>, private websocketService: WebsocketService) {
+        this.SymbolMiniTicker$ = store.pipe(select(getSymbolMiniTickerSelector));
+        this.Symbol$ = store.pipe(select(getSymbolSwitchSelector));
     }
 
     ngOnInit() {
-        this.store.dispatch(new GetSymbolMiniTickerSocketRequest());
+        // this.service.symbolTradeSocket();
+        this.Symbol$.subscribe(symbol => {
+            this.store.dispatch(
+                new GetSymbolMiniTickerSocketRequest(
+                    this.websocketService.symbolMiniTickerSocket(symbol)
+                )
+            );
+        });
+        // this.store.dispatch(new GetSymbolMiniTickerSocketRequest());
     }
 }

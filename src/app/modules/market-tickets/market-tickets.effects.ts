@@ -3,20 +3,20 @@ import { Action } from '@ngrx/store';
 import { Actions, Effect, ofType } from '@ngrx/effects';
 import { Observable } from 'rxjs';
 import { map, mergeMap } from 'rxjs/operators';
-import { ActionTypes, EffectAction } from './symbol-depth.actions';
+import { ActionTypes, EffectAction } from './market-tickets.actions';
 import { WebsocketService } from '../../services/websocket.service';
 
 @Injectable()
-export class SymbolDepthEffects {
+export class MarketTicketsEffects {
     constructor(private websocketService: WebsocketService, private actions$: Actions) {}
 
     @Effect()
-    SymbolDepth$: Observable<Action> = this.actions$.pipe(
-        ofType(ActionTypes.GetSymbolDepthSocketRequest),
+    MarketTickets$: Observable<Action> = this.actions$.pipe(
+        ofType(ActionTypes.GetMarketTicketsSocketRequest),
         mergeMap((action: EffectAction) =>
             action.payload.pipe(
                 map(data => ({
-                    type: ActionTypes.GetSymbolDepthSocketSuccess,
+                    type: ActionTypes.GetMarketTicketsSocketSuccess,
                     payload: data
                 }))
             )

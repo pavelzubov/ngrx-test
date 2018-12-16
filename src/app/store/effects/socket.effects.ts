@@ -10,7 +10,7 @@ import { WebsocketService } from '../../services/websocket.service';
 export class SocketEffects {
     constructor(private websocketService: WebsocketService, private actions$: Actions) {}
 
-    @Effect()
+    /*@Effect()
     MiniTrackerArr$: Observable<Action> = this.actions$.pipe(
         ofType(ActionTypes.GetMiniTrackerArrSocketRequest),
         mergeMap(action =>
@@ -21,9 +21,9 @@ export class SocketEffects {
                 }))
             )
         )
-    );
+    );*/
 
-    @Effect()
+    /* @Effect()
     MarketTickets$: Observable<Action> = this.actions$.pipe(
         ofType(ActionTypes.GetAllMarketTicketsSocketRequest),
         mergeMap(action =>
@@ -34,7 +34,7 @@ export class SocketEffects {
                 }))
             )
         )
-    );
+    );*/
 
     /*@Effect()
     SymbolTicket$: Observable<Action> = this.actions$.pipe(
@@ -62,7 +62,7 @@ export class SocketEffects {
         )
     );*/
 
-    @Effect()
+    /*@Effect()
     SymbolMiniTicker$: Observable<Action> = this.actions$.pipe(
         ofType(ActionTypes.GetSymbolMiniTickerSocketRequest),
         mergeMap(action =>
@@ -73,5 +73,5 @@ export class SocketEffects {
                 }))
             )
         )
-    );
+    );*/
 }

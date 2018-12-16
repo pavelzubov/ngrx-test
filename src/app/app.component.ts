@@ -7,7 +7,6 @@ import { GetAll } from './store/actions/programs.actions';
 import { map } from 'rxjs/operators';
 import { GetStatisticsRequest } from './store/actions/platform.actions';
 import { WS } from './websocket.events';
-import { GetMiniTrackerArrSocketRequest } from './store/actions/socket.actions';
 import { getSymbolSwitchSelector } from './modules/symbol-switch/symbol-switch.reducer';
 
 @Component({

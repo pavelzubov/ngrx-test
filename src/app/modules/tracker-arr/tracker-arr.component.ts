@@ -1,25 +1,27 @@
-import {ChangeDetectionStrategy, Component, OnInit} from '@angular/core';
-import {Observable} from 'rxjs';
-import {select, Store} from '@ngrx/store';
-import {getPlatformStatistic, getSocketMiniTracker} from '../../store/reducers';
-import {map} from 'rxjs/operators';
-import {GetMiniTrackerArrSocketRequest} from '../../store/actions/socket.actions';
+import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
+import { Observable } from 'rxjs';
+import { select, Store } from '@ngrx/store';
+import { GetTrackerArrSocketRequest } from './tracker-arr.actions';
+import { getTrackerArrSelector } from './tracker-arr.reducer';
+import { WebsocketService } from '../../services/websocket.service';
 
 @Component({
     selector: 'app-tracker-arr',
     templateUrl: './tracker-arr.component.html',
     styleUrls: ['./tracker-arr.component.sass'],
-    changeDetection: ChangeDetectionStrategy.OnPush
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    providers: [WebsocketService]
 })
 export class TrackerArrComponent implements OnInit {
-    MiniTrackerArr$: Observable<any>;
+    TrackerArr$: Observable<any>;
 
-    constructor(private store: Store<{ socket: any }>) {
-        this.MiniTrackerArr$ = store.pipe(select(getSocketMiniTracker));
+    constructor(private store: Store<{}>, private websocketService: WebsocketService) {
+        this.TrackerArr$ = store.pipe(select(getTrackerArrSelector));
     }
 
     ngOnInit() {
-        this.store.dispatch(new GetMiniTrackerArrSocketRequest());
+        this.store.dispatch(
+            new GetTrackerArrSocketRequest(this.websocketService.trackerArrSocket())
+        );
     }
-
 }

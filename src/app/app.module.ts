@@ -35,6 +35,10 @@ import { SymbolTicketModule } from './modules/symbol-ticket/symbol-ticket.module
 import { SymbolModule } from './components/symbol/symbol.module';
 import { SocketModule } from './components/socket/socket.module';
 import { WebsocketService } from './services/websocket.service';
+import { SymbolMiniTickerModule } from './modules/symbol-mini-ticker/symbol-mini-ticker.module';
+import { MarketTicketsModule } from './modules/market-tickets/market-tickets.module';
+import { ListModule } from './components/list/list.module';
+import { TrackerArrModule } from './modules/tracker-arr/tracker-arr.module';
 
 @NgModule({
     declarations: [
@@ -43,10 +47,10 @@ import { WebsocketService } from './services/websocket.service';
         InsideBlockComponent,
         StatisticComponent,
         StatisticViewComponent,
-        TrackerArrComponent,
+        // TrackerArrComponent,
         SocketsComponent,
-        MarketTicketsComponent,
-        ListComponent,
+        // MarketTicketsComponent,
+        // ListComponent,
         // SymbolTicketComponent,
         // SymbolMiniTickerComponent,
         // SymbolComponent,
@@ -63,8 +67,12 @@ import { WebsocketService } from './services/websocket.service';
         SymbolTradeModule,
         SymbolTicketModule,
         SymbolModule,
-        SocketModule
-        // SymbolDepthModule
+        SocketModule,
+        ListModule,
+        SymbolDepthModule,
+        SymbolMiniTickerModule,
+        MarketTicketsModule,
+        TrackerArrModule
     ],
     // providers: [WebsocketService],
     bootstrap: [AppComponent],

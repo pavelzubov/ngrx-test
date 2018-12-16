@@ -1,18 +1,24 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { WebsocketModule } from '../../websocket';
+import { WebsocketService } from '../../services/websocket.service';
 import { SymbolDepthComponent } from './symbol-depth.component';
-import { SymbolComponent } from '../../components/symbol/symbol.component';
-import { SocketComponent } from '../../components/socket/socket.component';
+import { SymbolModule } from '../../components/symbol/symbol.module';
+import { SocketModule } from '../../components/socket/socket.module';
+import { EffectsModule } from '@ngrx/effects';
+import { SymbolDepthEffects } from './symbol-depth.effects';
+import { StoreModule } from '@ngrx/store';
+import { symbolDepthReducer } from './symbol-depth.reducer';
 
 @NgModule({
-    declarations: [SymbolDepthComponent, SymbolComponent, SocketComponent],
+    declarations: [SymbolDepthComponent],
     imports: [
         CommonModule,
-        WebsocketModule.config({
-            url: 'wss://stream.binance.com:9443/ws/bnbbtc@depth'
-        })
+        SymbolModule,
+        SocketModule,
+        StoreModule.forFeature('symbolDepth', symbolDepthReducer),
+        EffectsModule.forFeature([SymbolDepthEffects])
     ],
-    exports: [SymbolDepthComponent]
+    exports: [SymbolDepthComponent],
+    providers: [WebsocketService]
 })
 export class SymbolDepthModule {}

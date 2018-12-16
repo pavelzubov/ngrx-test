@@ -45,7 +45,7 @@ export class WebsocketService {
         }));*/
     }
 
-    public miniTrackerArrSocket() {
+    public trackerArrSocket() {
         const url = 'wss://stream.binance.com:9443/ws/!miniTicker@arr';
         return this.connect(url);
     }
@@ -60,12 +60,17 @@ export class WebsocketService {
         return this.connect(url);
     }
 
+    public symbolDepthSocket(symbol: string = 'bnbbtc') {
+        const url = `wss://stream.binance.com:9443/ws/${symbol}@depth`;
+        return this.connect(url);
+    }
+
     public symbolMiniTickerSocket(symbol: string = 'bnbbtc') {
         const url = `wss://stream.binance.com:9443/ws/${symbol}@miniTicker`;
         return this.connect(url);
     }
 
-    public allMarketTicketsSocket() {
+    public marketTicketsSocket() {
         const url = `wss://stream.binance.com:9443/ws/!ticker@arr`;
         return this.connect(url);
     }

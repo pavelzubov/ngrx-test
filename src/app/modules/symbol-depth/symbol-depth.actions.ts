@@ -1,5 +1,4 @@
 import { Action } from '@ngrx/store';
-import { PlatformStatistic, ProgramsList } from '../../api';
 
 export enum ActionTypes {
     GetSymbolDepthSocketRequest = '[Socket] Get symbol depth Socket Request',
@@ -8,7 +7,7 @@ export enum ActionTypes {
 
 export class GetSymbolDepthSocketRequest implements Action {
     readonly type = ActionTypes.GetSymbolDepthSocketRequest;
-    public payload: any;
+    constructor(public payload: any) {}
 }
 
 export class GetSymbolDepthSocketSuccess implements Action {
@@ -16,6 +15,9 @@ export class GetSymbolDepthSocketSuccess implements Action {
     public payload: any;
 }
 
-export type SocketActions =
-    | GetSymbolDepthSocketRequest
-    | GetSymbolDepthSocketSuccess;
+export interface EffectAction {
+    type: string;
+    payload: any;
+}
+
+export type SymbolDepthActions = GetSymbolDepthSocketRequest | GetSymbolDepthSocketSuccess;

@@ -1,25 +1,27 @@
-import {ChangeDetectionStrategy, Component, OnInit} from '@angular/core';
-import {Observable} from 'rxjs';
-import {select, Store} from '@ngrx/store';
-import {getPlatformStatistic, getSocketMiniTracker, getSocketAllMarketTickets} from '../../store/reducers';
-import {map} from 'rxjs/operators';
-import {GetAllMarketTicketsSocketRequest} from '../../store/actions/socket.actions';
+import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
+import { Observable } from 'rxjs';
+import { select, Store } from '@ngrx/store';
+import { GetMarketTicketsSocketRequest } from './market-tickets.actions';
+import { getMarketTicketsSelector } from './market-tickets.reducer';
+import { WebsocketService } from '../../services/websocket.service';
 
 @Component({
     selector: 'app-market-tickets',
     templateUrl: './market-tickets.component.html',
     styleUrls: ['./market-tickets.component.sass'],
-    changeDetection: ChangeDetectionStrategy.OnPush
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    providers: [WebsocketService]
 })
 export class MarketTicketsComponent implements OnInit {
-    SymbolTicket$: Observable<any>;
+    MarketTickets$: Observable<any>;
 
-    constructor(private store: Store<{ socket: any }>) {
-        this.SymbolTicket$ = store.pipe(select(getSocketAllMarketTickets));
+    constructor(private store: Store<{}>, private websocketService: WebsocketService) {
+        this.MarketTickets$ = store.pipe(select(getMarketTicketsSelector));
     }
 
     ngOnInit() {
-        this.store.dispatch(new GetAllMarketTicketsSocketRequest());
+        this.store.dispatch(
+            new GetMarketTicketsSocketRequest(this.websocketService.marketTicketsSocket())
+        );
     }
-
 }
