@@ -1,0 +1,13 @@
+<div class="switcher">
+    <div class="label">Symbol</div>
+    <div class="select">
+        <select name="symbol" id="symbol" (change)="changeOption($event)">
+            <option
+                [value]="option"
+                [selected]="option === selected"
+                *ngFor="let option of options"
+                >{{ option }}</option
+            >
+        </select>
+    </div>
+</div>

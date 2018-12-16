@@ -1,0 +1,11 @@
+{
+  "parser": "babel-eslint",
+  "extends": "angular-app",
+  "plugins": [
+    "angular",
+    "prettier"
+  ],
+  "rules": {
+    "prettier/prettier": "error"
+  }
+}

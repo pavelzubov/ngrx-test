@@ -1,32 +1,38 @@
-import {Injectable} from '@angular/core';
-import {WebSocketSubject} from 'rxjs/webSocket';
-import {interval, Subject} from 'rxjs';
-import {IWsMessage} from '../websocket';
-import {catchError, map, takeWhile} from 'rxjs/operators';
+import { Injectable } from '@angular/core';
+import { WebSocketSubject } from 'rxjs/webSocket';
+import { interval, Subject } from 'rxjs';
+import { IWsMessage } from '../websocket';
+import { catchError, map, takeWhile } from 'rxjs/operators';
 
-@Injectable({
-    providedIn: 'root'
-})
+@Injectable()
 export class WebsocketService {
     private reconnectInterval = 5000;
     private reconnectAttempts = 10;
-
-    constructor() {
-    }
+    private websocket$: WebSocketSubject<any>;
+    private wsMessages$: Subject<any>;
+    private url: string;
+    constructor() {}
 
     private connect(url) {
-        const websocket$ = new WebSocketSubject(url);
-        const wsMessages$ = new Subject<any>();
-        websocket$.subscribe(message => wsMessages$.next(message), error => {
-            if (!websocket$) {
-                console.log('Disconnect');
-                const reconnection$ = interval(this.reconnectInterval)
-                    .pipe(takeWhile((v, index) => index < this.reconnectAttempts && !websocket$));
-                return reconnection$.pipe(map(
-                    () => this.connect(url)));
+        this.url = url;
+        if (this.websocket$) {
+            this.websocket$.unsubscribe();
+        }
+        this.websocket$ = new WebSocketSubject(this.url);
+        this.wsMessages$ = new Subject<any>();
+        this.websocket$.subscribe(
+            message => this.wsMessages$.next(message),
+            error => {
+                if (!this.websocket$) {
+                    console.log('Disconnect');
+                    const reconnection$ = interval(this.reconnectInterval).pipe(
+                        takeWhile((v, index) => index < this.reconnectAttempts && !this.websocket$)
+                    );
+                    return reconnection$.pipe(map(() => this.connect(this.url)));
+                }
             }
-        });
-        return wsMessages$;
+        );
+        return this.wsMessages$;
         /*return websocket$.pipe(catchError(error => {
             if (!websocket$) {
                 console.log('Disconnect');

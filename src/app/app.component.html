@@ -1,4 +1,3 @@
-
 <!--<app-table [columns]="columns" [data]="programs | async"></app-table>-->
 <!--<div *ngFor="let program of (programs | async)">{{program}}</div>-->
 <!--<ul *ngIf="messages$ | async as messages">
@@ -6,6 +5,8 @@
     <strong>id{{ message.e }}:</strong> {{ message.E }} {{ message.s }} {{ message.c }} {{ message.o }}
   </li>
 </ul>-->
+{{ symbol$ | async }}
 <app-statistic></app-statistic>
+<app-symbol-switch></app-symbol-switch>
 <!--<app-inside-block></app-inside-block>-->
 <app-sockets></app-sockets>

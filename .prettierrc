@@ -1,0 +1,35 @@
+{
+  "arrowParens": "avoid",
+  "bracketSpacing": true,
+  "disableLanguages": [
+    "vue",
+    "react"
+  ],
+//  "eslintIntegration": true,
+  "ignorePath": ".prettierignore",
+//  "jsxBracketSameLine": false,
+//  "parser": "babylon",
+  "printWidth": 100,
+  "proseWrap": "preserve",
+  "requireConfig": false,
+  "semi": true,
+  "singleQuote": true,
+  "stylelintIntegration": false,
+  "tabWidth": 4,
+  "trailingComma": "none",
+  "useTabs": false,
+  "overrides": [
+    {
+      "files": "*.json",
+      "options": {
+        "parser": "json"
+      }
+    },
+    {
+      "files": "*.sass",
+      "options": {
+        "parser": "sass"
+      }
+    }
+  ]
+}

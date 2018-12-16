@@ -1,17 +1,13 @@
-import {Action} from '@ngrx/store';
-import {PlatformStatistic, ProgramsList} from '../../api';
+import { Action } from '@ngrx/store';
+import { PlatformStatistic, ProgramsList } from '../../api';
 
 export enum ActionTypes {
     GetMiniTrackerArrSocketRequest = '[Socket] Get mini Tracker Arr Socket Request',
     GetMiniTrackerArrSocketSuccess = '[Socket] Get mini Tracker Arr Socket Success',
     GetAllMarketTicketsSocketRequest = '[Socket] Get all market tickets Socket Request',
     GetAllMarketTicketsSocketSuccess = '[Socket] Get all market tickets Socket Success',
-    GetSymbolTradeSocketRequest = '[Socket] Get symbol trade Socket Request',
-    GetSymbolTradeSocketSuccess = '[Socket] Get symbol trade Socket Success',
-    GetSymbolTicketSocketRequest = '[Socket] Get symbol ticket Socket Request',
-    GetSymbolTicketSocketSuccess = '[Socket] Get symbol ticket Socket Success',
     GetSymbolMiniTickerSocketRequest = '[Socket] Get symbol mini ticker Socket Request',
-    GetSymbolMiniTickerSocketSuccess = '[Socket] Get symbol mini ticker Socket Success',
+    GetSymbolMiniTickerSocketSuccess = '[Socket] Get symbol mini ticker Socket Success'
 }
 
 export class GetMiniTrackerArrSocketRequest implements Action {
@@ -34,26 +30,6 @@ export class GetAllMarketTicketsSocketSuccess implements Action {
     public payload: any;
 }
 
-export class GetSymbolTradeSocketRequest implements Action {
-    readonly type = ActionTypes.GetSymbolTradeSocketRequest;
-    public payload: any;
-}
-
-export class GetSymbolTradeSocketSuccess implements Action {
-    readonly type = ActionTypes.GetSymbolTradeSocketSuccess;
-    public payload: any;
-}
-
-export class GetSymbolTicketSocketRequest implements Action {
-    readonly type = ActionTypes.GetSymbolTicketSocketRequest;
-    public payload: any;
-}
-
-export class GetSymbolTicketSocketSuccess implements Action {
-    readonly type = ActionTypes.GetSymbolTicketSocketSuccess;
-    public payload: any;
-}
-
 export class GetSymbolMiniTickerSocketRequest implements Action {
     readonly type = ActionTypes.GetSymbolMiniTickerSocketRequest;
     public payload: any;
@@ -64,15 +40,15 @@ export class GetSymbolMiniTickerSocketSuccess implements Action {
     public payload: any;
 }
 
+export interface EffectAction {
+    type: string;
+    payload: any;
+}
 
 export type SocketActions =
-    GetMiniTrackerArrSocketRequest |
-    GetMiniTrackerArrSocketSuccess |
-    GetAllMarketTicketsSocketRequest |
-    GetAllMarketTicketsSocketSuccess |
-    GetSymbolTradeSocketRequest |
-    GetSymbolTradeSocketSuccess |
-    GetSymbolTicketSocketRequest |
-    GetSymbolTicketSocketSuccess |
-    GetSymbolMiniTickerSocketRequest |
-    GetSymbolMiniTickerSocketSuccess;
+    | GetMiniTrackerArrSocketRequest
+    | GetMiniTrackerArrSocketSuccess
+    | GetAllMarketTicketsSocketRequest
+    | GetAllMarketTicketsSocketSuccess
+    | GetSymbolMiniTickerSocketRequest
+    | GetSymbolMiniTickerSocketSuccess;
