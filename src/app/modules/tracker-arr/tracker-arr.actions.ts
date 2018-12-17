@@ -1,17 +1,17 @@
 import { Action } from '@ngrx/store';
 
-export enum ActionTypes {
+export enum TrackerArrActionTypes {
     GetTrackerArrSocketRequest = '[Socket] Get tracker arr Socket Request',
     GetTrackerArrSocketSuccess = '[Socket] Get tracker arr Socket Success'
 }
 
 export class GetTrackerArrSocketRequest implements Action {
-    readonly type = ActionTypes.GetTrackerArrSocketRequest;
+    readonly type = TrackerArrActionTypes.GetTrackerArrSocketRequest;
     constructor(public payload: any) {}
 }
 
 export class GetTrackerArrSocketSuccess implements Action {
-    readonly type = ActionTypes.GetTrackerArrSocketSuccess;
+    readonly type = TrackerArrActionTypes.GetTrackerArrSocketSuccess;
     public payload: any;
 }
 

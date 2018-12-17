@@ -1,23 +1,23 @@
 import { Action } from '@ngrx/store';
 
-export enum ActionTypes {
+export enum TradeActionTypes {
     GetSymbolTradeSocket = '[Socket] Get symbol trade Socket ',
     GetSymbolTradeSocketRequest = '[Socket] Get symbol trade Socket Request',
     GetSymbolTradeSocketSuccess = '[Socket] Get symbol trade Socket Success'
 }
 
 export class GetSymbolTradeSocket implements Action {
-    readonly type = ActionTypes.GetSymbolTradeSocket;
+    readonly type = TradeActionTypes.GetSymbolTradeSocket;
     constructor(public payload: any) {}
 }
 
 export class GetSymbolTradeSocketRequest implements Action {
-    readonly type = ActionTypes.GetSymbolTradeSocketRequest;
+    readonly type = TradeActionTypes.GetSymbolTradeSocketRequest;
     constructor(public payload: any) {}
 }
 
 export class GetSymbolTradeSocketSuccess implements Action {
-    readonly type = ActionTypes.GetSymbolTradeSocketSuccess;
+    readonly type = TradeActionTypes.GetSymbolTradeSocketSuccess;
     public payload: any;
 }
 

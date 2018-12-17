@@ -64,7 +64,7 @@ import { StoreDevtoolsModule } from '@ngrx/store-devtools';
     imports: [
         StoreModule.forRoot(reducers),
         !environment.production ? StoreDevtoolsModule.instrument() : [],
-        EffectsModule.forRoot([]),
+        EffectsModule.forRoot([SocketEffects]),
         BrowserModule,
         AppRoutingModule,
         ApiModule,
@@ -76,7 +76,7 @@ import { StoreDevtoolsModule } from '@ngrx/store-devtools';
         MarketTicketsModule,
         TrackerArrModule
     ],
-    // providers: [WebsocketService],
+    providers: [WebsocketService],
     bootstrap: [AppComponent],
     exports: []
 })

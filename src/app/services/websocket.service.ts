@@ -1,17 +1,21 @@
 import { Injectable } from '@angular/core';
 import { WebSocketSubject } from 'rxjs/webSocket';
 import { interval, Subject } from 'rxjs';
-import { IWsMessage } from '../websocket';
 import { catchError, map, takeWhile } from 'rxjs/operators';
 
 @Injectable()
 export class WebsocketService {
-    private api = 'wss://stream.binance.com:9443/ws/';
+    private api = 'wss://stream.binance.com:9443/';
     private reconnectInterval = 5000;
     private reconnectAttempts = 10;
     private websocket$: WebSocketSubject<any>;
     private wsMessages$: Subject<any>;
     private url: string;
+    private chain = {
+        depth: { symbol: true, method: 'depth', levels: true },
+        miniTicker: { method: '!miniTicker@arr' },
+        trade: { symbol: true, method: 'trade' }
+    };
     constructor() {}
 
     private connect(url) {
@@ -37,32 +41,45 @@ export class WebsocketService {
     }
 
     public trackerArrSocket() {
-        const url = `${this.api}!miniTicker@arr`;
+        const url = `${this.api}ws/!miniTicker@arr`;
         return this.connect(url);
     }
 
     public symbolTicketSocket(symbol: string = 'bnbbtc') {
-        const url = `${this.api}${symbol}@ticker`;
+        const url = `${this.api}ws/${symbol}@ticker`;
         return this.connect(url);
     }
 
     public symbolTradeSocket(symbol: string = 'bnbbtc') {
-        const url = `${this.api}${symbol}@trade`;
+        const url = `${this.api}ws/${symbol}@trade`;
         return this.connect(url);
     }
 
     public symbolDepthSocket(symbol: string = 'bnbbtc') {
-        const url = `${this.api}${symbol}@depth`;
+        const url = `${this.api}ws/${symbol}@depth`;
         return this.connect(url);
     }
 
     public symbolMiniTickerSocket(symbol: string = 'bnbbtc') {
-        const url = `${this.api}${symbol}@miniTicker`;
+        const url = `${this.api}ws/${symbol}@miniTicker`;
         return this.connect(url);
     }
 
     public marketTicketsSocket() {
-        const url = `${this.api}!ticker@arr`;
+        const url = `${this.api}ws/!ticker@arr`;
         return this.connect(url);
+    }
+
+    public chainSocket({ symbol, levels = 5, interval = 300 }) {
+        console.log(1);
+        const request = Object.values(this.chain).reduce(
+            (accumulator, element) =>
+                accumulator +
+                `${element.symbol ? symbol + '@' : ''}${element.method}${
+                    element.interval ? `@${interval}ms` : ''
+                }${element.levels ? `@${levels}` : ''}/`,
+            ''
+        );
+        return this.connect(`${this.api}stream?streams=${request}`);
     }
 }

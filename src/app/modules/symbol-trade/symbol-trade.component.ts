@@ -23,12 +23,10 @@ export class SymbolTradeComponent implements OnInit {
     }
 
     ngOnInit() {
-        // this.service.symbolTicketSocket();
         this.Symbol$.subscribe(symbol => {
-            console.log(symbol);
-            this.store.dispatch(
+            /*this.store.dispatch(
                 new GetSymbolTradeSocketRequest(this.websocketService.symbolTradeSocket(symbol))
-            );
+            );*/
         });
     }
 }

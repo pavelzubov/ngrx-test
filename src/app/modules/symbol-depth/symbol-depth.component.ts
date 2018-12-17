@@ -26,9 +26,9 @@ export class SymbolDepthComponent implements OnInit {
 
     ngOnInit() {
         this.Symbol$.subscribe(symbol => {
-            this.store.dispatch(
+            /*this.store.dispatch(
                 new GetSymbolDepthSocketRequest(this.websocketService.symbolDepthSocket(symbol))
-            );
+            );*/
         });
     }
 }

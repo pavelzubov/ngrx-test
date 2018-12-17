@@ -1,5 +1,9 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
-import { Store } from '@ngrx/store';
+import { select, Store } from '@ngrx/store';
+import { GetChainSocketRequest } from '../../store/actions/socket.actions';
+import { GetSymbolDepthSocketRequest } from '../../modules/symbol-depth/symbol-depth.actions';
+import { Observable } from 'rxjs';
+import { getSymbolSwitchSelector } from '../../modules/symbol-switch/symbol-switch.reducer';
 
 @Component({
     selector: 'app-sockets',
@@ -8,7 +12,13 @@ import { Store } from '@ngrx/store';
     changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class SocketsComponent implements OnInit {
-    constructor(private store: Store<{ socket: any[] }>) {}
+    Symbol$: Observable<any>;
+    constructor(private store: Store<{ socket: any[] }>) {
+        this.Symbol$ = store.pipe(select(getSymbolSwitchSelector));
+    }
 
-    ngOnInit() {}
+    ngOnInit() {
+        this.store.dispatch(new GetChainSocketRequest({ symbol: 'bnbbtc' }));
+        this.Symbol$.subscribe(symbol => {});
+    }
 }

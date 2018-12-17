@@ -3,7 +3,7 @@ import { Action } from '@ngrx/store';
 import { Actions, Effect, ofType } from '@ngrx/effects';
 import { Observable } from 'rxjs';
 import { map, mergeMap } from 'rxjs/operators';
-import { ActionTypes, EffectAction } from './tracker-arr.actions';
+import { TrackerArrActionTypes, EffectAction } from './tracker-arr.actions';
 
 @Injectable()
 export class TrackerArrEffects {
@@ -11,11 +11,11 @@ export class TrackerArrEffects {
 
     @Effect()
     TrackerArr$: Observable<Action> = this.actions$.pipe(
-        ofType(ActionTypes.GetTrackerArrSocketRequest),
+        ofType(TrackerArrActionTypes.GetTrackerArrSocketRequest),
         mergeMap((action: EffectAction) =>
             action.payload.pipe(
                 map(data => ({
-                    type: ActionTypes.GetTrackerArrSocketSuccess,
+                    type: TrackerArrActionTypes.GetTrackerArrSocketSuccess,
                     payload: data
                 }))
             )

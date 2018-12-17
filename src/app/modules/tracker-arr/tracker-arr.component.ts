@@ -20,8 +20,8 @@ export class TrackerArrComponent implements OnInit {
     }
 
     ngOnInit() {
-        this.store.dispatch(
+        /*this.store.dispatch(
             new GetTrackerArrSocketRequest(this.websocketService.trackerArrSocket())
-        );
+        );*/
     }
 }

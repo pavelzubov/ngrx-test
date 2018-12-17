@@ -1,17 +1,17 @@
 import { Action } from '@ngrx/store';
 
-export enum ActionTypes {
+export enum DepthActionTypes {
     GetSymbolDepthSocketRequest = '[Socket] Get symbol depth Socket Request',
     GetSymbolDepthSocketSuccess = '[Socket] Get symbol depth Socket Success'
 }
 
 export class GetSymbolDepthSocketRequest implements Action {
-    readonly type = ActionTypes.GetSymbolDepthSocketRequest;
+    readonly type = DepthActionTypes.GetSymbolDepthSocketRequest;
     constructor(public payload: any) {}
 }
 
 export class GetSymbolDepthSocketSuccess implements Action {
-    readonly type = ActionTypes.GetSymbolDepthSocketSuccess;
+    readonly type = DepthActionTypes.GetSymbolDepthSocketSuccess;
     public payload: any;
 }
 
