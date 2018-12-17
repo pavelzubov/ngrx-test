@@ -4,7 +4,7 @@ import { Actions, Effect, ofType } from '@ngrx/effects';
 import { Observable, of } from 'rxjs';
 import { catchError, map, mergeMap } from 'rxjs/operators';
 import { ActionTypes, EffectAction } from '../actions/socket.actions';
-import { WebsocketService } from '../../services/websocket.service';
+import { ChainElement, WebsocketService } from '../../services/websocket.service';
 import { TradeActionTypes } from '../../modules/symbol-trade/symbol-trade.actions';
 import { DepthActionTypes } from '../../modules/symbol-depth/symbol-depth.actions';
 import { TrackerArrActionTypes } from '../../modules/tracker-arr/tracker-arr.actions';
@@ -18,7 +18,7 @@ export class SocketEffects {
         ofType(ActionTypes.GetChainSocketRequest),
         mergeMap((action: EffectAction) => {
             return this.websocketService
-                .chainSocket({
+                .chainSocket(<ChainElement>{
                     symbol: action.payload.symbol,
                     levels: action.payload.levels,
                     interval: action.payload.interval

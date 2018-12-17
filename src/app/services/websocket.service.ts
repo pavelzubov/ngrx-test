@@ -3,11 +3,11 @@ import { WebSocketSubject } from 'rxjs/webSocket';
 import { interval, Subject } from 'rxjs';
 import { catchError, map, takeWhile } from 'rxjs/operators';
 
-interface ChainElement {
+export interface ChainElement {
     method: string;
-    symbol?: boolean;
-    levels?: boolean;
-    interval?: boolean;
+    symbol?: boolean | string;
+    levels?: boolean | number;
+    interval?: boolean | number;
 }
 
 @Injectable()
