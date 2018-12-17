@@ -6,7 +6,7 @@ import { getSymbolSwitchSelector } from '../symbol-switch/symbol-switch.reducer'
 import { WebsocketService } from '../../services/websocket.service';
 import { getSymbolTradeSelector } from '../../store/reducers';
 import { SimplexService } from '../../services/simplex.service';
-import { filter, mergeMap } from 'rxjs/operators';
+import { filter, map, switchMap } from 'rxjs/operators';
 
 @Component({
     selector: 'app-symbol-trade',
@@ -26,16 +26,16 @@ export class SymbolTradeComponent implements OnInit {
     ) {
         this.SymbolTrade$ = store.pipe(select(getSymbolTradeSelector));
         this.Symbol$ = store.pipe(select(getSymbolSwitchSelector));
-        this.Symbol$.subscribe(symbol => {
-            this.simplexService.getTrades(symbol).subscribe(trades => {
+        this.Symbol$.pipe(
+            switchMap(symbol => this.simplexService.getTrades(symbol)),
+            switchMap(trades => {
                 this.trades = trades;
-                this.SymbolTrade$.pipe(filter(trade => trade !== null)).subscribe(trade => {
-                    this.trades = [trade, ...this.trades].slice(0, 20);
-                });
-            });
-            /*this.store.dispatch(
-            new GetSymbolTradeSocketRequest(this.websocketService.symbolTradeSocket(symbol))
-        );*/
+                return this.SymbolTrade$;
+            }),
+            filter(trade => trade !== null),
+            map(trade => [trade, ...this.trades])
+        ).subscribe(trades => {
+            this.trades = trades.slice(0, 20);
         });
     }
 
