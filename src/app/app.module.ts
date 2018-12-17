@@ -40,6 +40,8 @@ import { MarketTicketsModule } from './modules/market-tickets/market-tickets.mod
 import { ListModule } from './components/list/list.module';
 import { TrackerArrModule } from './modules/tracker-arr/tracker-arr.module';
 import { ComponentsModule } from './components/components.module';
+import { environment } from '../environments/environment';
+import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 
 @NgModule({
     declarations: [
@@ -61,6 +63,7 @@ import { ComponentsModule } from './components/components.module';
     ],
     imports: [
         StoreModule.forRoot(reducers),
+        !environment.production ? StoreDevtoolsModule.instrument() : [],
         EffectsModule.forRoot([]),
         BrowserModule,
         AppRoutingModule,
