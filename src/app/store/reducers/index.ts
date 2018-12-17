@@ -25,25 +25,36 @@ export interface SocketsState {
     symbolDepth: any;
     symbolTicket: any;
 }
+export const initialSocketsState: SocketsState = {
+    symbolTrade: null,
+    symbolMiniTicker: null,
+    marketTickets: null,
+    trackerArr: null,
+    symbolDepth: null,
+    symbolTicket: null
+};
 
 export interface State {
     platform: platform.PlatformState;
     programs: programs.ProgramsState;
     symbolSwitcher?: string;
-    sockets?: SocketsState;
+    sockets?: any;
 }
 export const reducers: ActionReducerMap<State> = {
     platform: platform.platformReducer,
     programs: programs.programsReducer,
     symbolSwitcher: symbolSwitchReducer,
-    sockets: combineReducers<SocketsState>({
-        symbolTrade: symbolTradeReducer,
-        symbolMiniTicker: symbolMiniTickerReducer,
-        marketTickets: marketTicketsReducer,
-        trackerArr: trackerArrReducer,
-        symbolDepth: symbolDepthReducer,
-        symbolTicket: symbolTicketReducer
-    })
+    sockets: combineReducers(
+        {
+            symbolTrade: symbolTradeReducer,
+            symbolMiniTicker: symbolMiniTickerReducer,
+            marketTickets: marketTicketsReducer,
+            trackerArr: trackerArrReducer,
+            symbolDepth: symbolDepthReducer,
+            symbolTicket: symbolTicketReducer
+        },
+        initialSocketsState
+    )
 };
 
 export function logger(reducer: ActionReducer<State>): ActionReducer<State> {
