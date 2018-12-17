@@ -39,6 +39,7 @@ import { SymbolMiniTickerModule } from './modules/symbol-mini-ticker/symbol-mini
 import { MarketTicketsModule } from './modules/market-tickets/market-tickets.module';
 import { ListModule } from './components/list/list.module';
 import { TrackerArrModule } from './modules/tracker-arr/tracker-arr.module';
+import { ComponentsModule } from './components/components.module';
 
 @NgModule({
     declarations: [
@@ -66,9 +67,7 @@ import { TrackerArrModule } from './modules/tracker-arr/tracker-arr.module';
         ApiModule,
         SymbolTradeModule,
         SymbolTicketModule,
-        SymbolModule,
-        SocketModule,
-        ListModule,
+        ComponentsModule,
         SymbolDepthModule,
         SymbolMiniTickerModule,
         MarketTicketsModule,

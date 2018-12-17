@@ -11,19 +11,16 @@ import { SymbolTradeEffects } from '../symbol-trade/symbol-trade.effects';
 import { SymbolTicketEffects } from './symbol-ticket.effects';
 import { StoreModule } from '@ngrx/store';
 import { symbolTicketReducer } from './symbol-ticket.reducer';
-import { WebSocketModule } from '../../services/websocket.module';
+import { ComponentsModule } from '../../components/components.module';
 
 @NgModule({
     declarations: [SymbolTicketComponent],
     imports: [
         CommonModule,
-        SymbolModule,
-        SocketModule,
+        ComponentsModule,
         StoreModule.forFeature('symbolTicket', symbolTicketReducer),
         EffectsModule.forFeature([SymbolTicketEffects])
-        // WebSocketModule
     ],
-    exports: [SymbolTicketComponent],
-    providers: [WebsocketService]
+    exports: [SymbolTicketComponent]
 })
 export class SymbolTicketModule {}

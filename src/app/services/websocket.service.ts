@@ -16,6 +16,7 @@ export class WebsocketService {
     private connect(url) {
         this.url = url;
         if (this.websocket$) {
+            this.websocket$.complete();
             this.websocket$.unsubscribe();
         }
         this.websocket$ = new WebSocketSubject(this.url);

@@ -4,11 +4,10 @@ import { Actions, Effect, ofType } from '@ngrx/effects';
 import { Observable, of } from 'rxjs';
 import { catchError, map, mergeMap } from 'rxjs/operators';
 import { ActionTypes, EffectAction } from './symbol-mini-ticker.actions';
-import { WebsocketService } from '../../services/websocket.service';
 
 @Injectable()
 export class SymbolMiniTickerEffects {
-    constructor(private websocketService: WebsocketService, private actions$: Actions) {}
+    constructor(private actions$: Actions) {}
 
     @Effect()
     SymbolMiniTicker$: Observable<Action> = this.actions$.pipe(
