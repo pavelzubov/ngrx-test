@@ -3,8 +3,8 @@ import { Observable } from 'rxjs';
 import { select, Store } from '@ngrx/store';
 import { GetSymbolDepthSocketRequest } from './symbol-depth.actions';
 import { getSymbolSwitchSelector } from '../symbol-switch/symbol-switch.reducer';
-import { getSymbolDepthSelector } from './symbol-depth.reducer';
 import { WebsocketService } from '../../services/websocket.service';
+import { getSymbolDepthSelector } from '../../store/reducers';
 
 @Component({
     selector: 'app-symbol-depth',

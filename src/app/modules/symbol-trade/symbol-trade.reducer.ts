@@ -11,6 +11,3 @@ export function symbolTradeReducer(state = initialState, action: SymbolTradeActi
             return state;
     }
 }
-
-export const getSymbolTrade = createFeatureSelector('symbolTrade');
-export const getSymbolTradeSelector = createSelector(getSymbolTrade);

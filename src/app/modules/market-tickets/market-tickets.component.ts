@@ -2,8 +2,8 @@ import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
 import { select, Store } from '@ngrx/store';
 import { GetMarketTicketsSocketRequest } from './market-tickets.actions';
-import { getMarketTicketsSelector } from './market-tickets.reducer';
 import { WebsocketService } from '../../services/websocket.service';
+import { getMarketTicketsSelector } from '../../store/reducers';
 
 @Component({
     selector: 'app-market-tickets',

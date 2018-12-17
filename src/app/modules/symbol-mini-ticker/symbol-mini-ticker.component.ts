@@ -7,8 +7,8 @@ import {
     GetSymbolMiniTickerSocketRequest
 } from './symbol-mini-ticker.actions';
 import { getSymbolSwitchSelector } from '../symbol-switch/symbol-switch.reducer';
-import { getSymbolMiniTickerSelector } from './symbol-mini-ticker.reducer';
 import { WebsocketService } from '../../services/websocket.service';
+import { getSymbolMiniTickerSelector } from '../../store/reducers';
 
 @Component({
     selector: 'app-symbol-mini-ticker',

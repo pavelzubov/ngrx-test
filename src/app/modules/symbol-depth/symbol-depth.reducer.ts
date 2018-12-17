@@ -11,6 +11,3 @@ export function symbolDepthReducer(state = initialState, action: SymbolDepthActi
             return state;
     }
 }
-
-export const getSymbolDepth = createFeatureSelector('symbolDepth');
-export const getSymbolDepthSelector = createSelector(getSymbolDepth);

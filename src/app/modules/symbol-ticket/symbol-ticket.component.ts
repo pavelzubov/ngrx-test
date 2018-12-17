@@ -1,11 +1,10 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
 import { select, Store } from '@ngrx/store';
-import { map } from 'rxjs/operators';
-import { GetSymbolTicketSocket, GetSymbolTicketSocketRequest } from './symbol-ticket.actions';
+import { GetSymbolTicketSocketRequest } from './symbol-ticket.actions';
 import { getSymbolSwitchSelector } from '../symbol-switch/symbol-switch.reducer';
-import { getSymbolTicketSelector } from './symbol-ticket.reducer';
 import { WebsocketService } from '../../services/websocket.service';
+import { getSymbolTicketSelector } from '../../store/reducers';
 
 @Component({
     selector: 'app-symbol-ticket',

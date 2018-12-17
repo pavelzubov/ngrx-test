@@ -16,6 +16,3 @@ export function symbolMiniTickerReducer(
             return state;
     }
 }
-
-export const getSymbolMiniTicker = createFeatureSelector('symbolMiniTicker');
-export const getSymbolMiniTickerSelector = createSelector(getSymbolMiniTicker);

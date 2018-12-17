@@ -3,18 +3,11 @@ import { CommonModule } from '@angular/common';
 import { SymbolTradeComponent } from './symbol-trade.component';
 import { EffectsModule } from '@ngrx/effects';
 import { SymbolTradeEffects } from './symbol-trade.effects';
-import { StoreModule } from '@ngrx/store';
-import { symbolTradeReducer } from './symbol-trade.reducer';
 import { ComponentsModule } from '../../components/components.module';
 
 @NgModule({
     declarations: [SymbolTradeComponent],
-    imports: [
-        CommonModule,
-        ComponentsModule,
-        StoreModule.forFeature('symbolTrade', symbolTradeReducer),
-        EffectsModule.forFeature([SymbolTradeEffects])
-    ],
+    imports: [CommonModule, ComponentsModule, EffectsModule.forFeature([SymbolTradeEffects])],
     exports: [SymbolTradeComponent]
 })
 export class SymbolTradeModule {}

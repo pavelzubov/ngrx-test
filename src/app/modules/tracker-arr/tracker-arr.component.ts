@@ -2,8 +2,8 @@ import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
 import { select, Store } from '@ngrx/store';
 import { GetTrackerArrSocketRequest } from './tracker-arr.actions';
-import { getTrackerArrSelector } from './tracker-arr.reducer';
 import { WebsocketService } from '../../services/websocket.service';
+import { getTrackerArrSelector } from '../../store/reducers';
 
 @Component({
     selector: 'app-tracker-arr',

@@ -3,8 +3,8 @@ import { Observable } from 'rxjs';
 import { select, Store } from '@ngrx/store';
 import { GetSymbolTradeSocket, GetSymbolTradeSocketRequest } from './symbol-trade.actions';
 import { getSymbolSwitchSelector } from '../symbol-switch/symbol-switch.reducer';
-import { getSymbolTradeSelector } from './symbol-trade.reducer';
 import { WebsocketService } from '../../services/websocket.service';
+import { getSymbolTradeSelector } from '../../store/reducers';
 
 @Component({
     selector: 'app-symbol-trade',

@@ -13,6 +13,3 @@ export function symbolTicketReducer(state = initialState, action: SymbolTicketAc
             return state;
     }
 }
-
-export const getSymbolTicket = createFeatureSelector('symbolTicket');
-export const getSymbolTicketSelector = createSelector(getSymbolTicket);

@@ -1,5 +1,6 @@
 import { MarketTicketsActions, ActionTypes } from './market-tickets.actions';
 import { createFeatureSelector, createSelector } from '@ngrx/store';
+import { getSocketsState, SocketsState } from '../../store/reducers';
 
 export const initialState: any = null;
 
@@ -11,6 +12,4 @@ export function marketTicketsReducer(state = initialState, action: MarketTickets
             return state;
     }
 }
-
-export const getMarketTickets = createFeatureSelector('marketTickets');
-export const getMarketTicketsSelector = createSelector(getMarketTickets);
+// export const getMarketTicketsSelector = createSelector(getMarketTickets);

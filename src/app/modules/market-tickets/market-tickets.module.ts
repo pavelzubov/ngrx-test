@@ -12,7 +12,7 @@ import { ComponentsModule } from '../../components/components.module';
     imports: [
         CommonModule,
         ComponentsModule,
-        StoreModule.forFeature('marketTickets', marketTicketsReducer),
+        // StoreModule.forFeature('marketTickets', marketTicketsReducer),
         EffectsModule.forFeature([MarketTicketsEffects])
     ],
     exports: [MarketTicketsComponent]

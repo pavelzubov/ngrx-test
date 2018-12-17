@@ -1,5 +1,4 @@
 import { TrackerArrActions, ActionTypes } from './tracker-arr.actions';
-import { createFeatureSelector, createSelector } from '@ngrx/store';
 
 export const initialState: any = null;
 
@@ -11,6 +10,3 @@ export function trackerArrReducer(state = initialState, action: TrackerArrAction
             return state;
     }
 }
-
-export const getTrackerArr = createFeatureSelector('trackerArr');
-export const getTrackerArrSelector = createSelector(getTrackerArr);
