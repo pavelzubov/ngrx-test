@@ -42,6 +42,8 @@ import { TrackerArrModule } from './modules/tracker-arr/tracker-arr.module';
 import { ComponentsModule } from './components/components.module';
 import { environment } from '../environments/environment';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
+import { HttpClientModule } from '@angular/common/http';
+import { SimplexService } from './services/simplex.service';
 
 @NgModule({
     declarations: [
@@ -62,6 +64,7 @@ import { StoreDevtoolsModule } from '@ngrx/store-devtools';
         SwitcherComponent
     ],
     imports: [
+        HttpClientModule,
         StoreModule.forRoot(reducers),
         !environment.production ? StoreDevtoolsModule.instrument() : [],
         EffectsModule.forRoot([SocketEffects]),
@@ -76,7 +79,7 @@ import { StoreDevtoolsModule } from '@ngrx/store-devtools';
         MarketTicketsModule,
         TrackerArrModule
     ],
-    providers: [WebsocketService],
+    providers: [WebsocketService, SimplexService],
     bootstrap: [AppComponent],
     exports: []
 })

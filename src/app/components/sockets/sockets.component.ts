@@ -18,9 +18,10 @@ export class SocketsComponent implements OnInit {
     }
 
     ngOnInit() {
-        this.store.dispatch(
-            new GetChainSocketRequest({ symbol: 'bnbbtc', levels: 5, interval: 300 })
-        );
-        this.Symbol$.subscribe(symbol => {});
+        this.Symbol$.subscribe(symbol => {
+            this.store.dispatch(
+                new GetChainSocketRequest({ symbol: symbol, levels: 5, interval: 300 })
+            );
+        });
     }
 }
