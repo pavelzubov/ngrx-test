@@ -3,6 +3,13 @@ import { WebSocketSubject } from 'rxjs/webSocket';
 import { interval, Subject } from 'rxjs';
 import { catchError, map, takeWhile } from 'rxjs/operators';
 
+interface ChainElement {
+    method: string;
+    symbol?: boolean;
+    levels?: boolean;
+    interval?: boolean;
+}
+
 @Injectable()
 export class WebsocketService {
     private api = 'wss://stream.binance.com:9443/';
@@ -12,9 +19,9 @@ export class WebsocketService {
     private wsMessages$: Subject<any>;
     private url: string;
     private chain = {
-        depth: { symbol: true, method: 'depth', levels: true },
-        miniTicker: { method: '!miniTicker@arr' },
-        trade: { symbol: true, method: 'trade' }
+        depth: <ChainElement>{ symbol: true, method: 'depth', levels: true },
+        miniTicker: <ChainElement>{ method: '!miniTicker@arr', interval: true },
+        trade: <ChainElement>{ symbol: true, method: 'trade' }
     };
     constructor() {}
 
@@ -70,14 +77,13 @@ export class WebsocketService {
         return this.connect(url);
     }
 
-    public chainSocket({ symbol, levels = 5, interval = 300 }) {
-        console.log(1);
+    public chainSocket({ symbol, levels = 5, interval = 300 }: ChainElement) {
         const request = Object.values(this.chain).reduce(
-            (accumulator, element) =>
+            (accumulator, element: ChainElement) =>
                 accumulator +
                 `${element.symbol ? symbol + '@' : ''}${element.method}${
                     element.interval ? `@${interval}ms` : ''
-                }${element.levels ? `@${levels}` : ''}/`,
+                }${element.levels ? `${levels}` : ''}/`,
             ''
         );
         return this.connect(`${this.api}stream?streams=${request}`);

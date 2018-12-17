@@ -17,7 +17,6 @@ export class SocketEffects {
     Chain$: Observable<Action> = this.actions$.pipe(
         ofType(ActionTypes.GetChainSocketRequest),
         mergeMap((action: EffectAction) => {
-            console.log(2);
             return this.websocketService
                 .chainSocket({
                     symbol: action.payload.symbol,
