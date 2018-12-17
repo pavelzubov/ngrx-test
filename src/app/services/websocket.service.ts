@@ -6,6 +6,7 @@ import { catchError, map, takeWhile } from 'rxjs/operators';
 
 @Injectable()
 export class WebsocketService {
+    private api = 'wss://stream.binance.com:9443/ws/';
     private reconnectInterval = 5000;
     private reconnectAttempts = 10;
     private websocket$: WebSocketSubject<any>;
@@ -36,32 +37,32 @@ export class WebsocketService {
     }
 
     public trackerArrSocket() {
-        const url = 'wss://stream.binance.com:9443/ws/!miniTicker@arr';
+        const url = `${this.api}!miniTicker@arr`;
         return this.connect(url);
     }
 
     public symbolTicketSocket(symbol: string = 'bnbbtc') {
-        const url = `wss://stream.binance.com:9443/ws/${symbol}@ticker`;
+        const url = `${this.api}${symbol}@ticker`;
         return this.connect(url);
     }
 
     public symbolTradeSocket(symbol: string = 'bnbbtc') {
-        const url = `wss://stream.binance.com:9443/ws/${symbol}@trade`;
+        const url = `${this.api}${symbol}@trade`;
         return this.connect(url);
     }
 
     public symbolDepthSocket(symbol: string = 'bnbbtc') {
-        const url = `wss://stream.binance.com:9443/ws/${symbol}@depth`;
+        const url = `${this.api}${symbol}@depth`;
         return this.connect(url);
     }
 
     public symbolMiniTickerSocket(symbol: string = 'bnbbtc') {
-        const url = `wss://stream.binance.com:9443/ws/${symbol}@miniTicker`;
+        const url = `${this.api}${symbol}@miniTicker`;
         return this.connect(url);
     }
 
     public marketTicketsSocket() {
-        const url = `wss://stream.binance.com:9443/ws/!ticker@arr`;
+        const url = `${this.api}!ticker@arr`;
         return this.connect(url);
     }
 }
