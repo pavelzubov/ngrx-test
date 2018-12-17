@@ -17,7 +17,6 @@ export class WebsocketService {
         this.url = url;
         if (this.websocket$) {
             this.websocket$.complete();
-            this.websocket$.unsubscribe();
         }
         this.websocket$ = new WebSocketSubject(this.url);
         this.wsMessages$ = new Subject<any>();
@@ -25,7 +24,7 @@ export class WebsocketService {
             message => this.wsMessages$.next(message),
             error => {
                 if (!this.websocket$) {
-                    console.log('Disconnect');
+                    console.log('Disconnect', error);
                     const reconnection$ = interval(this.reconnectInterval).pipe(
                         takeWhile((v, index) => index < this.reconnectAttempts && !this.websocket$)
                     );
@@ -34,16 +33,6 @@ export class WebsocketService {
             }
         );
         return this.wsMessages$;
-        /*return websocket$.pipe(catchError(error => {
-            if (!websocket$) {
-                console.log('Disconnect');
-                const reconnection$ = interval(this.reconnectInterval)
-                    .pipe(takeWhile((v, index) => index < this.reconnectAttempts && !websocket$));
-                return reconnection$.pipe(map(
-                    () => this.connect(url),
-                    null));
-            }
-        }));*/
     }
 
     public trackerArrSocket() {

@@ -19,6 +19,7 @@ export interface State {
     platform: platform.PlatformState;
     programs: programs.ProgramsState;
     socket: socket.SocketState;
+    sockets?: any;
     symbolDepth?: any;
     symbolTrade?: any;
     symbolMiniTicker?: any;
