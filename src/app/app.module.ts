@@ -44,6 +44,7 @@ import { environment } from '../environments/environment';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { HttpClientModule } from '@angular/common/http';
 import { SimplexService } from './services/simplex.service';
+import { TickersComponent } from './modules/tickers/tickers.component';
 
 @NgModule({
     declarations: [
@@ -61,7 +62,8 @@ import { SimplexService } from './services/simplex.service';
         // SymbolComponent,
         // SocketComponent,
         SymbolSwitchComponent,
-        SwitcherComponent
+        SwitcherComponent,
+        TickersComponent
     ],
     imports: [
         HttpClientModule,

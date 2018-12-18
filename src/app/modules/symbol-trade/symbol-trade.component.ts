@@ -27,10 +27,14 @@ export class SymbolTradeComponent implements OnInit {
         this.SymbolTrade$ = store.pipe(select(getSymbolTradeSelector));
         this.Symbol$ = store.pipe(select(getSymbolSwitchSelector));
         this.Symbol$.pipe(
-            switchMap(symbol => this.simplexService.getTrades(symbol)),
+            switchMap(symbol => {
+                store.dispatch(new GetSymbolTradeSocket(symbol));
+                return this.simplexService.getTrades(symbol);
+            }),
             switchMap(trades => {
                 this.trades = trades;
-                return this.SymbolTrade$;
+                console.log(trades);
+                return store.pipe(select(getSymbolTradeSelector));
             }),
             filter(trade => trade !== null),
             map(trade => [trade, ...this.trades])

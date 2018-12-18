@@ -1,0 +1,9 @@
+<app-socket>
+    <div class="tickers">
+        <div class="ticker" *ngFor="let ticker of tickers">
+            <div class="symbol" (click)="changeSymbol(ticker.symbol)">{{ ticker.symbol }}</div>
+            <div class="openPrice">{{ ticker.openPrice }}</div>
+            <div class="priceChangePercent">{{ ticker.priceChangePercent }}</div>
+        </div>
+    </div>
+</app-socket>
