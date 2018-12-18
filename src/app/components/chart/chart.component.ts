@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, Input, OnInit } from '@angular/core';
+import { AfterViewInit, Component, Input, OnChanges, OnInit } from '@angular/core';
 
 declare const TradingView: any;
 
@@ -7,25 +7,23 @@ declare const TradingView: any;
     templateUrl: './chart.component.html',
     styleUrls: ['./chart.component.sass']
 })
-export class ChartComponent implements OnInit, AfterViewInit {
+export class ChartComponent implements OnInit, OnChanges {
     @Input() symbolPair;
-    pairs = [{ symbol: 'BTCUSD', text: 'BTC/USD' }, { symbol: 'ETHUSD', text: 'ETH/USD' }];
+    tradingView: any;
 
-    selectPair() {
-        console.log(this.symbolPair);
-        for (const pair of this.pairs)
-            if (pair.symbol === this.symbolPair.toUpperCase()) return pair.text;
-    }
     constructor() {}
 
     ngOnInit() {}
-    ngAfterViewInit() {
-        console.log(1);
-        const tradingView = new TradingView.widget({
+    /*ngOnChanges(): void {
+        console.log(this.symbolPair);
+    }*/
+
+    ngOnChanges() {
+        this.tradingView = new TradingView.widget({
             container_id: 'technical-analysis',
             // autosize: true,
             width: 500,
-            height: 300,
+            height: 280,
             symbol: this.symbolPair,
             interval: '120',
             timezone: 'exchange',

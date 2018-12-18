@@ -9,7 +9,7 @@
   "ignorePath": ".prettierignore",
 //  "jsxBracketSameLine": false,
 //  "parser": "babylon",
-  "printWidth": 100,
+  "printWidth": 90,
   "proseWrap": "preserve",
   "requireConfig": false,
   "semi": true,
