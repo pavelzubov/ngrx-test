@@ -26,7 +26,7 @@ export class ChartComponent implements OnInit, AfterViewInit {
             // autosize: true,
             width: 500,
             height: 300,
-            symbol: this.selectPair(),
+            symbol: this.symbolPair,
             interval: '120',
             timezone: 'exchange',
             theme: 'White',
