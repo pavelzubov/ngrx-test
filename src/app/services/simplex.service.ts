@@ -15,7 +15,9 @@ export class SimplexService {
         return this.http.get('/api/v1/trades', httpOptions).pipe(map(res => <any[]>res));
     }
 
-    public getTickers(): Observable<any[]> {
-        return this.http.get('/api/v1/ticker/24hr').pipe(map(res => <any[]>res));
+    public getTickers(symbol?: string): Observable<any[]> {
+        return this.http
+            .get('/api/v1/ticker/24hr' + (symbol ? `/${symbol}` : ''))
+            .pipe(map(res => <any[]>res));
     }
 }
