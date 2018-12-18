@@ -26,21 +26,19 @@ export class SymbolTradeComponent implements OnInit {
     ) {
         this.SymbolTrade$ = store.pipe(select(getSymbolTradeSelector));
         this.Symbol$ = store.pipe(select(getSymbolSwitchSelector));
-        this.Symbol$.pipe(
-            switchMap(symbol => {
-                store.dispatch(new GetSymbolTradeSocket(symbol));
-                return this.simplexService.getTrades(symbol);
-            }),
-            switchMap(trades => {
-                this.trades = trades;
-                console.log(trades);
-                return store.pipe(select(getSymbolTradeSelector));
-            }),
-            filter(trade => trade !== null),
-            map(trade => [trade, ...this.trades])
-        ).subscribe(trades => {
-            this.trades = trades.slice(0, 20);
-        });
+        this.Symbol$.subscribe(symbol =>
+            this.simplexService
+                .getTrades(symbol)
+                .pipe(
+                    switchMap(trades => {
+                        this.trades = trades.reverse();
+                        return store.pipe(select(getSymbolTradeSelector));
+                    }),
+                    filter(trade => trade !== null && trade.s.toLowerCase() === symbol),
+                    map(trade => [trade, ...this.trades])
+                )
+                .subscribe(trades => (this.trades = trades.slice(0, 20)))
+        );
     }
 
     ngOnInit() {

@@ -29,6 +29,7 @@ export class WebsocketService {
         this.url = url;
         if (this.websocket$) {
             this.websocket$.complete();
+            this.wsMessages$.complete();
         }
         this.websocket$ = new WebSocketSubject(this.url);
         this.wsMessages$ = new Subject<any>();
