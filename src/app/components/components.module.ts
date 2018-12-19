@@ -4,10 +4,23 @@ import { SocketComponent } from './socket/socket.component';
 import { ListComponent } from './list/list.component';
 import { SymbolComponent } from './symbol/symbol.component';
 import { ChartComponent } from './chart/chart.component';
+import { StatisticItemComponent } from './statistic-item/statistic-item.component';
 
 @NgModule({
-    declarations: [SocketComponent, ListComponent, SymbolComponent, ChartComponent],
-    exports: [SocketComponent, ListComponent, SymbolComponent, ChartComponent],
+    declarations: [
+        SocketComponent,
+        ListComponent,
+        SymbolComponent,
+        ChartComponent,
+        StatisticItemComponent
+    ],
+    exports: [
+        SocketComponent,
+        ListComponent,
+        SymbolComponent,
+        ChartComponent,
+        StatisticItemComponent
+    ],
     imports: [CommonModule]
 })
 export class ComponentsModule {}

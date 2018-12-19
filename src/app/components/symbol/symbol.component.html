@@ -1,4 +1,4 @@
-<div *ngIf="item" class="symbol" [ngClass]="{ update: update.on }">
+<div *ngIf="item" class="symbol">
     <strong>{{ item.s }}:</strong>
     <div>{{ item.e }}</div>
     <div>{{ item.E }}</div>
@@ -10,5 +10,4 @@
     <div>{{ item.h }}</div>
     <div>{{ item.l }}</div>
     <div>{{ item.o }}</div>
-  <div *ngIf="item.lastUpdateId">{{item.lastUpdateId}}</div>
 </div>

@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
 import { select, Store } from '@ngrx/store';
-import { map } from 'rxjs/operators';
+import { map, switchMap } from 'rxjs/operators';
 import {
     GetSymbolMiniTickerSocket,
     GetSymbolMiniTickerSocketRequest
@@ -9,6 +9,7 @@ import {
 import { getSymbolSwitchSelector } from '../symbol-switch/symbol-switch.reducer';
 import { WebsocketService } from '../../services/websocket.service';
 import { getSymbolMiniTickerSelector } from '../../store/reducers';
+import { SimplexService } from '../../services/simplex.service';
 
 @Component({
     selector: 'app-symbol-mini-ticker',
@@ -23,20 +24,29 @@ export class SymbolMiniTickerComponent implements OnInit {
 
     update = '';
 
-    constructor(private store: Store<{ socket: any }>, private websocketService: WebsocketService) {
+    constructor(
+        private store: Store<{ socket: any }>,
+        private websocketService: WebsocketService,
+        private simplexService: SimplexService
+    ) {
         this.SymbolMiniTicker$ = store.pipe(select(getSymbolMiniTickerSelector));
         this.Symbol$ = store.pipe(select(getSymbolSwitchSelector));
     }
 
     ngOnInit() {
         // this.service.symbolTradeSocket();
-        this.Symbol$.subscribe(symbol => {
+        /*this.Symbol$.subscribe(symbol => {
+            this.store.dispatch(
+                new GetSymbolMiniTickerSocketRequest(
+                    this.simplexService.getTickers(symbol.toUpperCase())
+                )
+            );
             this.store.dispatch(
                 new GetSymbolMiniTickerSocketRequest(
                     this.websocketService.symbolMiniTickerSocket(symbol)
                 )
             );
-        });
+        });*/
         // this.store.dispatch(new GetSymbolMiniTickerSocketRequest());
     }
 }

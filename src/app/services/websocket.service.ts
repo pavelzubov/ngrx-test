@@ -7,7 +7,7 @@ export interface ChainElement {
     method: string;
     symbol?: boolean | string;
     levels?: boolean | number;
-    interval?: boolean | number;
+    intervalMs?: boolean | number;
 }
 
 @Injectable()
@@ -20,7 +20,10 @@ export class WebsocketService {
     private url: string;
     private chain = {
         depth: <ChainElement>{ symbol: true, method: 'depth', levels: true },
-        miniTicker: <ChainElement>{ method: '!miniTicker@arr', interval: true },
+        ticker: <ChainElement>{
+            symbol: true,
+            method: 'ticker'
+        },
         trade: <ChainElement>{ symbol: true, method: 'trade' }
     };
     constructor() {}
@@ -39,7 +42,10 @@ export class WebsocketService {
                 if (!this.websocket$) {
                     console.log('Disconnect', error);
                     const reconnection$ = interval(this.reconnectInterval).pipe(
-                        takeWhile((v, index) => index < this.reconnectAttempts && !this.websocket$)
+                        takeWhile(
+                            (v, index) =>
+                                index < this.reconnectAttempts && !this.websocket$
+                        )
                     );
                     return reconnection$.pipe(map(() => this.connect(this.url)));
                 }
@@ -83,7 +89,7 @@ export class WebsocketService {
             (accumulator, element: ChainElement) =>
                 accumulator +
                 `${element.symbol ? symbol + '@' : ''}${element.method}${
-                    element.interval ? `@${intervalMs}ms` : ''
+                    element.intervalMs ? `@${intervalMs}ms` : ''
                 }${element.levels ? `${levels}` : ''}/`,
             ''
         );

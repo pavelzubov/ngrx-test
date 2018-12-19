@@ -1,3 +1,22 @@
 <app-socket>
-    <app-symbol [item]="SymbolTicket$ | async"></app-symbol>
+  <div *ngIf="SymbolTicket$ | async as ticker" class="ticker">
+    <app-statistic-item [label]="'Symbol'">
+      {{ticker.symbol || ticker.s}}
+    </app-statistic-item>
+    <app-statistic-item [label]="'Last price'">
+      {{ticker.lastPrice}}
+    </app-statistic-item>
+    <app-statistic-item [label]="'Change'">
+      {{ticker.priceChange || ticker.p}}
+    </app-statistic-item>
+    <app-statistic-item [label]="'High'">
+      {{ticker.highPrice || ticker.h}}
+    </app-statistic-item>
+    <app-statistic-item [label]="'Low'">
+      {{ticker.lowPrice || ticker.l}}
+    </app-statistic-item>
+    <app-statistic-item [label]="'Volume'">
+      {{ticker.volume || ticker.v}}
+    </app-statistic-item>
+  </div>
 </app-socket>

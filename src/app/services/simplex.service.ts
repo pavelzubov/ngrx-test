@@ -10,14 +10,21 @@ export class SimplexService {
     constructor(private http: HttpClient) {}
     public getTrades(symbol): Observable<any[]> {
         const httpOptions = {
-            params: new HttpParams({ fromObject: { symbol: symbol.toUpperCase(), limit: '20' } })
+            params: new HttpParams({
+                fromObject: { symbol: symbol.toUpperCase(), limit: '20' }
+            })
         };
         return this.http.get('/api/v1/trades', httpOptions).pipe(map(res => <any[]>res));
     }
 
     public getTickers(symbol?: string): Observable<any[]> {
+        const httpOptions = {
+            params: new HttpParams({
+                fromObject: symbol ? { symbol: symbol.toUpperCase() } : {}
+            })
+        };
         return this.http
-            .get('/api/v1/ticker/24hr' + (symbol ? `/${symbol}` : ''))
+            .get('/api/v1/ticker/24hr', httpOptions)
             .pipe(map(res => <any[]>res));
     }
 }

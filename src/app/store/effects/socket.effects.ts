@@ -8,6 +8,7 @@ import { ChainElement, WebsocketService } from '../../services/websocket.service
 import { TradeActionTypes } from '../../modules/symbol-trade/symbol-trade.actions';
 import { DepthActionTypes } from '../../modules/symbol-depth/symbol-depth.actions';
 import { TrackerArrActionTypes } from '../../modules/tracker-arr/tracker-arr.actions';
+import { TickerActionTypes } from '../../modules/symbol-ticket/symbol-ticket.actions';
 
 @Injectable()
 export class SocketEffects {
@@ -20,7 +21,7 @@ export class SocketEffects {
             this.websocketService.chainSocket(<ChainElement>{
                 symbol: action.payload.symbol,
                 levels: action.payload.levels,
-                interval: action.payload.interval
+                intervalMs: action.payload.interval
             })
         ),
         map(data => {
@@ -31,9 +32,9 @@ export class SocketEffects {
                         type: TradeActionTypes.GetSymbolTradeSocketSuccess,
                         payload: data.data
                     };
-                case 'arr':
+                case 'ticker':
                     return {
-                        type: TrackerArrActionTypes.GetTrackerArrSocketSuccess,
+                        type: TickerActionTypes.GetSymbolTicketSocketSuccess,
                         payload: data.data
                     };
                 case `depth`:

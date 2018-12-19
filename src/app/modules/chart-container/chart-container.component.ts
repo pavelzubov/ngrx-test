@@ -17,7 +17,6 @@ export class ChartContainerComponent implements OnInit {
             map(item => item + ''),
             map(item => {
                 const split = item.toUpperCase().split('');
-                console.log([...split.slice(0, 3), '/', ...split.slice(3)].join(''));
                 return [...split.slice(0, 3), '/', ...split.slice(3)].join('');
             })
         );

@@ -8,11 +8,11 @@ export const initialState: SocketState = {
 
 export function socketReducer(state = initialState, action: any): SocketState {
     switch (action.type) {
-        /*case ActionTypes.GetMiniTrackerArrSocketSuccess:
+        /*case TickerActionTypes.GetMiniTrackerArrSocketSuccess:
             return { ...state, miniTrackerArrSocket: action.payload };*/
-        /*case ActionTypes.GetAllMarketTicketsSocketSuccess:
+        /*case TickerActionTypes.GetAllMarketTicketsSocketSuccess:
             return { ...state, allMarketTickets: action.payload };
-        case ActionTypes.GetSymbolMiniTickerSocketSuccess:
+        case TickerActionTypes.GetSymbolMiniTickerSocketSuccess:
             return { ...state, symbolMiniTicker: action.payload };*/
         default:
             return state;
