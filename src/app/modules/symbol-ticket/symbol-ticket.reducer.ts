@@ -11,8 +11,8 @@ export function symbolTicketReducer(
     switch (action.type) {
         case TickerActionTypes.GetSymbolTicketSocket:
             return action.payload;
-        case TickerActionTypes.GetSymbolTicketSocketRequest:
-            return action.payload;
+        /*case TickerActionTypes.GetSymbolTicketSocketRequest:
+            return action.payload;*/
         case TickerActionTypes.GetSymbolTicketSocketSuccess:
             return action.payload;
         default:

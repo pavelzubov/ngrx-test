@@ -1,4 +1,8 @@
 export interface Column {
-  name: string;
-  label: string;
+    name: string;
+    label: string;
+    type?: COLUMN_TYPE;
+}
+export const enum COLUMN_TYPE {
+    'Data'
 }

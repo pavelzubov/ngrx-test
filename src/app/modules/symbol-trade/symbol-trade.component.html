@@ -1,4 +1,4 @@
-<app-socket>
+<app-socket [data]="trades">
     <div *ngFor="let trade of trades" class="trade">
         <div class="trade__time">{{ trade.T || trade.time | date: 'hh:mm:ss' }}</div>
         <div class="trade__price">{{ trade.p || trade.price }}</div>

@@ -1,5 +1,5 @@
-<app-socket>
-  <div *ngIf="SymbolTicket$ | async as ticker" class="ticker">
+<app-socket  *ngIf="SymbolTicket$ | async as ticker" [data]="ticker">
+  <div class="ticker">
     <app-statistic-item [label]="'Symbol'">
       {{ticker.symbol || ticker.s}}
     </app-statistic-item>

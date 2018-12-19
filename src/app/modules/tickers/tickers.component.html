@@ -1,4 +1,4 @@
-<app-socket>
+<app-socket [data]="tickers">
     <div class="tickers">
         <div class="ticker" *ngFor="let ticker of tickers">
             <div class="symbol" (click)="changeSymbol(ticker.symbol)">{{ ticker.symbol }}</div>
