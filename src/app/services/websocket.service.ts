@@ -10,6 +10,10 @@ export interface ChainElement {
     intervalMs?: boolean | number;
 }
 
+export const DEPTH = 'depth';
+export const TICKER = 'ticker';
+export const TRADE = 'trade';
+
 @Injectable()
 export class WebsocketService {
     private api = 'wss://stream.binance.com:9443/';
@@ -19,12 +23,12 @@ export class WebsocketService {
     private wsMessages$: Subject<any>;
     private url: string;
     private chain = {
-        depth: <ChainElement>{ symbol: true, method: 'depth', levels: true },
+        depth: <ChainElement>{ symbol: true, method: DEPTH, levels: true },
         ticker: <ChainElement>{
             symbol: true,
-            method: 'ticker'
+            method: TICKER
         },
-        trade: <ChainElement>{ symbol: true, method: 'trade' }
+        trade: <ChainElement>{ symbol: true, method: TRADE }
     };
     constructor() {}
 

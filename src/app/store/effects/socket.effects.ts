@@ -4,7 +4,13 @@ import { Actions, Effect, ofType } from '@ngrx/effects';
 import { Observable, of } from 'rxjs';
 import { catchError, map, mergeMap, switchMap } from 'rxjs/operators';
 import { ActionTypes, EffectAction } from '../actions/socket.actions';
-import { ChainElement, WebsocketService } from '../../services/websocket.service';
+import {
+    ChainElement,
+    DEPTH,
+    TICKER,
+    TRADE,
+    WebsocketService
+} from '../../services/websocket.service';
 import { TradeActionTypes } from '../../modules/symbol-trade/symbol-trade.actions';
 import { DepthActionTypes } from '../../modules/symbol-depth/symbol-depth.actions';
 import { TrackerArrActionTypes } from '../../modules/tracker-arr/tracker-arr.actions';
@@ -27,17 +33,17 @@ export class SocketEffects {
         map(data => {
             const method = data.stream.split('@')[1];
             switch (method) {
-                case 'trade':
+                case TRADE:
                     return {
                         type: TradeActionTypes.GetSymbolTradeSocketSuccess,
                         payload: data.data
                     };
-                case 'ticker':
+                case TICKER:
                     return {
                         type: TickerActionTypes.GetSymbolTicketSocketSuccess,
                         payload: data.data
                     };
-                case `depth`:
+                case DEPTH:
                 default:
                     return {
                         type: DepthActionTypes.GetSymbolDepthSocketSuccess,
