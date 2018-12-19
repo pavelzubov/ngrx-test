@@ -78,12 +78,12 @@ export class WebsocketService {
         return this.connect(url);
     }
 
-    public chainSocket({ symbol, levels = 5, interval = 300 }: ChainElement) {
+    public chainSocket({ symbol, levels = 5, intervalMs = 300 }: ChainElement) {
         const request = Object.values(this.chain).reduce(
             (accumulator, element: ChainElement) =>
                 accumulator +
                 `${element.symbol ? symbol + '@' : ''}${element.method}${
-                    element.interval ? `@${interval}ms` : ''
+                    element.interval ? `@${intervalMs}ms` : ''
                 }${element.levels ? `${levels}` : ''}/`,
             ''
         );
