@@ -27,4 +27,13 @@ export class SimplexService {
             .get('/api/v1/ticker/24hr', httpOptions)
             .pipe(map(res => <any[]>res));
     }
+
+    public getDepth(symbol?: string): Observable<any[]> {
+        const httpOptions = {
+            params: new HttpParams({
+                fromObject: { symbol: symbol.toUpperCase(), limit: '5' }
+            })
+        };
+        return this.http.get('/api/v1/depth', httpOptions).pipe(map(res => <any[]>res));
+    }
 }

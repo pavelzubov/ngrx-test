@@ -36,6 +36,9 @@ export class SocketsComponent implements OnInit {
                 new GetSymbolTicketSocketRequest(this.simplexService.getTickers(symbol))
             );
             this.store.dispatch(
+                new GetSymbolDepthSocketRequest(this.simplexService.getDepth(symbol))
+            );
+            this.store.dispatch(
                 new GetChainSocketRequest({ symbol: symbol, levels: 5, interval: 300 })
             );
         });
