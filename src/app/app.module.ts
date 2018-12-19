@@ -51,7 +51,7 @@ import { ChartContainerComponent } from './modules/chart-container/chart-contain
 @NgModule({
     declarations: [
         AppComponent,
-        TableComponent,
+        // TableComponent,
         InsideBlockComponent,
         StatisticComponent,
         StatisticViewComponent,

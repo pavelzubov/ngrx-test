@@ -1,8 +1,6 @@
 <div class="socket" [ngSwitch]="data">
-  <div class="socket__loader" *ngSwitchCase="null">
-    <app-socket-loader></app-socket-loader>
-  </div>
-  <div class="socket__data" *ngSwitchDefault>
-    <ng-content></ng-content>
-  </div>
+    <div class="socket__loader" *ngSwitchCase="null">
+        <app-socket-loader></app-socket-loader>
+    </div>
+    <div class="socket__data" *ngSwitchDefault><ng-content></ng-content></div>
 </div>

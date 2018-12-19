@@ -6,6 +6,7 @@ import { SymbolComponent } from './symbol/symbol.component';
 import { ChartComponent } from './chart/chart.component';
 import { StatisticItemComponent } from './statistic-item/statistic-item.component';
 import { SocketLoaderComponent } from './socket/socket-loader/socket-loader.component';
+import { TableComponent } from './table/table/table.component';
 
 @NgModule({
     declarations: [
@@ -14,14 +15,16 @@ import { SocketLoaderComponent } from './socket/socket-loader/socket-loader.comp
         SymbolComponent,
         ChartComponent,
         StatisticItemComponent,
-        SocketLoaderComponent
+        SocketLoaderComponent,
+        TableComponent
     ],
     exports: [
         SocketComponent,
         ListComponent,
         SymbolComponent,
         ChartComponent,
-        StatisticItemComponent
+        StatisticItemComponent,
+        TableComponent
     ],
     imports: [CommonModule]
 })

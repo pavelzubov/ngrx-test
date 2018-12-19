@@ -1,5 +1,5 @@
 export interface Column {
-    name: string;
+    name: string | string[];
     label: string;
     type?: COLUMN_TYPE;
 }
