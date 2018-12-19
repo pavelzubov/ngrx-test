@@ -1,6 +1,6 @@
-<app-socket *ngIf="SymbolDepth$ | async as depth" [data]="depth">
+<app-socket [data]="SymbolDepth$ | async">
     <!--<app-symbol [item]="SymbolDepth$ | async"></app-symbol>-->
-    <div class="depths">
+    <div class="depths" *ngIf="(SymbolDepth$ | async) as depth">
         <div class="bids">
             <div class="bid" *ngFor="let bid of depth.bids">
                 <div class="bid__value" *ngFor="let value of bid">{{ value }}</div>

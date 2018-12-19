@@ -14,6 +14,13 @@
             <td
                 *ngFor="let column of columns"
                 class="table__td table__td-{{ column.name[0] }}"
+                [ngClass]="{ 'table__td--click-cell': column.clickCell }"
+                (click)="
+                    onClick(
+                        column.clickCell,
+                        item[column.name[0]] || item[column.name[1]]
+                    )
+                "
             >
                 {{
                     (item.type === 'Data' &&

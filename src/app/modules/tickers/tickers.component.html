@@ -1,9 +1,14 @@
 <app-socket [data]="tickers">
-    <div class="tickers">
+    <app-table
+        [columns]="columns"
+        [data]="tickers"
+        (clickHandle)="changeSymbol($event)"
+    ></app-table>
+    <!--<div class="tickers">
         <div class="ticker" *ngFor="let ticker of tickers">
             <div class="symbol" (click)="changeSymbol(ticker.symbol)">{{ ticker.symbol }}</div>
             <div class="openPrice">{{ ticker.openPrice }}</div>
             <div class="priceChangePercent">{{ ticker.priceChangePercent }}</div>
         </div>
-    </div>
+    </div>-->
 </app-socket>
