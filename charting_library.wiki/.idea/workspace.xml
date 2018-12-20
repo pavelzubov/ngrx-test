@@ -1,0 +1,210 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="31a52182-e5f3-4a1c-b9b5-44ddcacd409e" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/Account-Manager.md" beforeDir="false" afterPath="$PROJECT_DIR$/Account-Manager.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Best-Practices.md" beforeDir="false" afterPath="$PROJECT_DIR$/Best-Practices.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Breaking-Changes.md" beforeDir="false" afterPath="$PROJECT_DIR$/Breaking-Changes.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Broker-API.md" beforeDir="false" afterPath="$PROJECT_DIR$/Broker-API.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Chart-Methods.md" beforeDir="false" afterPath="$PROJECT_DIR$/Chart-Methods.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Creating-Custom-Studies.md" beforeDir="false" afterPath="$PROJECT_DIR$/Creating-Custom-Studies.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Customization-Overview.md" beforeDir="false" afterPath="$PROJECT_DIR$/Customization-Overview.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Customization-Use-Cases.md" beforeDir="false" afterPath="$PROJECT_DIR$/Customization-Use-Cases.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Delegate.md" beforeDir="false" afterPath="$PROJECT_DIR$/Delegate.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Drawings-Overrides.md" beforeDir="false" afterPath="$PROJECT_DIR$/Drawings-Overrides.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Featuresets.md" beforeDir="false" afterPath="$PROJECT_DIR$/Featuresets.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Frequently-Asked-Questions.md" beforeDir="false" afterPath="$PROJECT_DIR$/Frequently-Asked-Questions.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Home.md" beforeDir="false" afterPath="$PROJECT_DIR$/Home.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/How-To-Connect-My-Data.md" beforeDir="false" afterPath="$PROJECT_DIR$/How-To-Connect-My-Data.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/JS-Api.md" beforeDir="false" afterPath="$PROJECT_DIR$/JS-Api.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Localization.md" beforeDir="false" afterPath="$PROJECT_DIR$/Localization.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Marks-On-Bars.md" beforeDir="false" afterPath="$PROJECT_DIR$/Marks-On-Bars.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Overrides.md" beforeDir="false" afterPath="$PROJECT_DIR$/Overrides.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Package-Content.md" beforeDir="false" afterPath="$PROJECT_DIR$/Package-Content.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Pane-Api.md" beforeDir="false" afterPath="$PROJECT_DIR$/Pane-Api.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Price-Scale-Api.md" beforeDir="false" afterPath="$PROJECT_DIR$/Price-Scale-Api.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Quotes.md" beforeDir="false" afterPath="$PROJECT_DIR$/Quotes.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Resolution.md" beforeDir="false" afterPath="$PROJECT_DIR$/Resolution.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Running-Your-Charting-Library.md" beforeDir="false" afterPath="$PROJECT_DIR$/Running-Your-Charting-Library.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Saving-and-Loading-Charts.md" beforeDir="false" afterPath="$PROJECT_DIR$/Saving-and-Loading-Charts.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Shape-Api.md" beforeDir="false" afterPath="$PROJECT_DIR$/Shape-Api.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Shapes-and-Overrides.md" beforeDir="false" afterPath="$PROJECT_DIR$/Shapes-and-Overrides.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Studies-Overrides.md" beforeDir="false" afterPath="$PROJECT_DIR$/Studies-Overrides.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Study-Api.md" beforeDir="false" afterPath="$PROJECT_DIR$/Study-Api.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Subscription.md" beforeDir="false" afterPath="$PROJECT_DIR$/Subscription.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Symbology.md" beforeDir="false" afterPath="$PROJECT_DIR$/Symbology.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Time-Frames.md" beforeDir="false" afterPath="$PROJECT_DIR$/Time-Frames.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Trading-Host.md" beforeDir="false" afterPath="$PROJECT_DIR$/Trading-Host.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Trading-Objects-and-Constants.md" beforeDir="false" afterPath="$PROJECT_DIR$/Trading-Objects-and-Constants.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Trading-Primitives.md" beforeDir="false" afterPath="$PROJECT_DIR$/Trading-Primitives.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Trading-Sessions.md" beforeDir="false" afterPath="$PROJECT_DIR$/Trading-Sessions.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Trading-Terminal.md" beforeDir="false" afterPath="$PROJECT_DIR$/Trading-Terminal.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/UDF.md" beforeDir="false" afterPath="$PROJECT_DIR$/UDF.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/WatchedValue.md" beforeDir="false" afterPath="$PROJECT_DIR$/WatchedValue.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Widget-Constructor.md" beforeDir="false" afterPath="$PROJECT_DIR$/Widget-Constructor.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Widget-Methods.md" beforeDir="false" afterPath="$PROJECT_DIR$/Widget-Methods.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/_Sidebar.md" beforeDir="false" afterPath="$PROJECT_DIR$/_Sidebar.md" afterDir="false" />
+    </list>
+    <ignored path="$PROJECT_DIR$/.tmp/" />
+    <ignored path="$PROJECT_DIR$/temp/" />
+    <ignored path="$PROJECT_DIR$/tmp/" />
+    <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileEditorManager">
+    <leaf>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/_Sidebar.md">
+          <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
+            <state split_layout="SPLIT">
+              <first_editor relative-caret-position="219">
+                <caret line="10" column="11" lean-forward="true" selection-start-line="10" selection-start-column="11" selection-end-line="10" selection-end-column="11" />
+              </first_editor>
+              <second_editor />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/JS-Api.md">
+          <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
+            <state split_layout="SPLIT">
+              <first_editor />
+              <second_editor />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/Widget-Methods.md">
+          <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
+            <state split_layout="SPLIT">
+              <first_editor />
+              <second_editor />
+            </state>
+          </provider>
+        </entry>
+      </file>
+    </leaf>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="ProjectFrameBounds">
+    <option name="y" value="23" />
+    <option name="width" value="1440" />
+    <option name="height" value="877" />
+  </component>
+  <component name="ProjectView">
+    <navigator proportions="" version="1">
+      <foldersAlwaysOnTop value="true" />
+    </navigator>
+    <panes>
+      <pane id="Scope" />
+      <pane id="ProjectPane">
+        <subPane>
+          <expand>
+            <path>
+              <item name="charting_library.wiki" type="b2602c69:ProjectViewProjectNode" />
+              <item name="charting_library.wiki" type="462c0819:PsiDirectoryNode" />
+            </path>
+          </expand>
+          <select />
+        </subPane>
+      </pane>
+    </panes>
+  </component>
+  <component name="PropertiesComponent">
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
+    <property name="nodejs_npm_path_reset_for_default_project" value="true" />
+    <property name="prettierjs.PrettierConfiguration.Package" value="/usr/local/lib/node_modules/prettier" />
+  </component>
+  <component name="RunDashboard">
+    <option name="ruleStates">
+      <list>
+        <RuleState>
+          <option name="name" value="ConfigurationTypeDashboardGroupingRule" />
+        </RuleState>
+        <RuleState>
+          <option name="name" value="StatusDashboardGroupingRule" />
+        </RuleState>
+      </list>
+    </option>
+  </component>
+  <component name="SvnConfiguration">
+    <configuration />
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="31a52182-e5f3-4a1c-b9b5-44ddcacd409e" name="Default Changelist" comment="" />
+      <created>1545318144803</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1545318144803</updated>
+      <workItem from="1545318146167" duration="293000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TimeTrackingManager">
+    <option name="totallyTimeSpent" value="293000" />
+  </component>
+  <component name="ToolWindowManager">
+    <frame x="0" y="23" width="1440" height="877" extended-state="0" />
+    <editor active="true" />
+    <layout>
+      <window_info id="Favorites" side_tool="true" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.24947146" />
+      <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
+      <window_info anchor="bottom" id="Docker" show_stripe_button="false" />
+      <window_info anchor="bottom" id="Version Control" />
+      <window_info anchor="bottom" id="Terminal" />
+      <window_info anchor="bottom" id="Event Log" side_tool="true" />
+      <window_info anchor="bottom" id="Message" order="0" />
+      <window_info anchor="bottom" id="Find" order="1" />
+      <window_info anchor="bottom" id="Run" order="2" />
+      <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
+      <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
+      <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
+      <window_info anchor="bottom" id="TODO" order="6" />
+      <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
+      <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
+      <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
+    </layout>
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="1" />
+  </component>
+  <component name="editorHistoryManager">
+    <entry file="file://$PROJECT_DIR$/_Sidebar.md">
+      <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
+        <state split_layout="SPLIT">
+          <first_editor relative-caret-position="219">
+            <caret line="10" column="11" lean-forward="true" selection-start-line="10" selection-start-column="11" selection-end-line="10" selection-end-column="11" />
+          </first_editor>
+          <second_editor />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/JS-Api.md">
+      <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
+        <state split_layout="SPLIT">
+          <first_editor />
+          <second_editor />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Widget-Methods.md">
+      <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
+        <state split_layout="SPLIT">
+          <first_editor />
+          <second_editor />
+        </state>
+      </provider>
+    </entry>
+  </component>
+</project>
