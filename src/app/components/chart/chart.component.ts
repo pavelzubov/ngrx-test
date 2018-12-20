@@ -40,5 +40,6 @@ export class ChartComponent implements OnInit, OnChanges {
             popup_width: '1000',
             popup_height: '650'
         });
+        console.log(this.tradingView);
     }
 }
