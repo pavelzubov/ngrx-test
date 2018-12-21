@@ -1,4 +1,4 @@
-<app-socket [data]="SymbolDepth$ | async">
+<app-block [data]="SymbolDepth$ | async">
     <!--<app-symbol [item]="SymbolDepth$ | async"></app-symbol>-->
     <div class="depths" *ngIf="(SymbolDepth$ | async) as depth">
         <div class="bids">
@@ -12,4 +12,4 @@
             </div>
         </div>
     </div>
-</app-socket>
+</app-block>

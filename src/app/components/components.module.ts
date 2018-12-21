@@ -1,25 +1,25 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { SocketComponent } from './socket/socket.component';
+import { BlockComponent } from './block/block.component';
 import { ListComponent } from './list/list.component';
 import { SymbolComponent } from './symbol/symbol.component';
 import { ChartComponent } from './chart/chart.component';
 import { StatisticItemComponent } from './statistic-item/statistic-item.component';
-import { SocketLoaderComponent } from './socket/socket-loader/socket-loader.component';
+import { BlockLoaderComponent } from './block/socket-loader/block-loader.component';
 import { TableComponent } from './table/table/table.component';
 
 @NgModule({
     declarations: [
-        SocketComponent,
+        BlockComponent,
         ListComponent,
         SymbolComponent,
         ChartComponent,
         StatisticItemComponent,
-        SocketLoaderComponent,
+        BlockLoaderComponent,
         TableComponent
     ],
     exports: [
-        SocketComponent,
+        BlockComponent,
         ListComponent,
         SymbolComponent,
         ChartComponent,

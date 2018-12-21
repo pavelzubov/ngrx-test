@@ -24,7 +24,7 @@ import { SymbolTradeComponent } from './modules/symbol-trade/symbol-trade.compon
 import { SymbolTicketComponent } from './modules/symbol-ticket/symbol-ticket.component';
 import { SymbolMiniTickerComponent } from './modules/symbol-mini-ticker/symbol-mini-ticker.component';
 import { SymbolComponent } from './components/symbol/symbol.component';
-import { SocketComponent } from './components/socket/socket.component';
+import { BlockComponent } from './components/block/block.component';
 import { SymbolDepthModule } from './modules/symbol-depth/symbol-depth.module';
 import { SymbolDepthEffects } from './modules/symbol-depth/symbol-depth.effects';
 import { SymbolDepthComponent } from './modules/symbol-depth/symbol-depth.component';
@@ -33,7 +33,7 @@ import { SwitcherComponent } from './components/switcher/switcher.component';
 import { SymbolTradeModule } from './modules/symbol-trade/symbol-trade.module';
 import { SymbolTicketModule } from './modules/symbol-ticket/symbol-ticket.module';
 import { SymbolModule } from './components/symbol/symbol.module';
-import { SocketModule } from './components/socket/socket.module';
+import { BlockModule } from './components/block/block.module';
 import { WebsocketService } from './services/websocket.service';
 import { SymbolMiniTickerModule } from './modules/symbol-mini-ticker/symbol-mini-ticker.module';
 import { MarketTicketsModule } from './modules/market-tickets/market-tickets.module';
@@ -47,6 +47,7 @@ import { SimplexService } from './services/simplex.service';
 import { TickersComponent } from './modules/tickers/tickers.component';
 import { ChartComponent } from './components/chart/chart.component';
 import { ChartContainerComponent } from './modules/chart-container/chart-container.component';
+import { LoginComponent } from './modules/login/login.component';
 
 @NgModule({
     declarations: [
@@ -62,11 +63,12 @@ import { ChartContainerComponent } from './modules/chart-container/chart-contain
         // SymbolTicketComponent,
         // SymbolMiniTickerComponent,
         // SymbolComponent,
-        // SocketComponent,
+        // BlockComponent,
         SymbolSwitchComponent,
         SwitcherComponent,
         TickersComponent,
-        ChartContainerComponent
+        ChartContainerComponent,
+        LoginComponent
     ],
     imports: [
         HttpClientModule,

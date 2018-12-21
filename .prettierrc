@@ -24,12 +24,6 @@
       "options": {
         "parser": "json"
       }
-    },
-    {
-      "files": "*.sass",
-      "options": {
-        "parser": "sass"
-      }
     }
   ]
 }

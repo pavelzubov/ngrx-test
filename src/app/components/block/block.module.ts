@@ -1,10 +1,10 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { SocketComponent } from './socket.component';
+import { BlockComponent } from './block.component';
 
 @NgModule({
-    declarations: [SocketComponent],
-    exports: [SocketComponent],
+    declarations: [BlockComponent],
+    exports: [BlockComponent],
     imports: [CommonModule]
 })
 export class SocketModule {}

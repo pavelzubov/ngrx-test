@@ -1,4 +1,4 @@
-<app-socket [data]="SymbolTicket$ | async">
+<app-block [data]="SymbolTicket$ | async">
     <div class="ticker" *ngIf="(SymbolTicket$ | async) as ticker">
         <app-statistic-item [label]="'Symbol'">
             {{ ticker.symbol || ticker.s }}
@@ -19,4 +19,4 @@
             {{ ticker.volume || ticker.v }}
         </app-statistic-item>
     </div>
-</app-socket>
+</app-block>

@@ -1,4 +1,4 @@
-<app-socket [data]="trades">
+<app-block [data]="trades">
     <app-table [data]="trades" [columns]="columns"></app-table>
     <!--<div *ngFor="let trade of trades" class="trade">
         <div class="trade__time">{{ trade.T || trade.time | date: 'hh:mm:ss' }}</div>
@@ -6,4 +6,4 @@
         <div class="trade__quantity">{{ trade.q || trade.qty }}</div>
     </div>-->
     <!--<app-symbol [item]="SymbolTrade$ | async"></app-symbol>-->
-</app-socket>
+</app-block>
