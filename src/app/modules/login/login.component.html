@@ -1,0 +1,15 @@
+<app-block [data]="true">
+    <div class="login">
+        <label
+            ><div class="login-label">login:</div>
+            <div><input type="text"  [(ngModel)]="login"/></div
+        ></label>
+    </div>
+    <div class="password">
+        <label>
+            <div class="login-label">password:</div>
+            <div><input type="text" [(ngModel)]="password" /></div>
+        </label>
+    </div>
+    <div class="buttons"><app-button (click)="loginHandle()">Login</app-button></div>
+</app-block>

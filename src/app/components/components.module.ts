@@ -7,6 +7,7 @@ import { ChartComponent } from './chart/chart.component';
 import { StatisticItemComponent } from './statistic-item/statistic-item.component';
 import { BlockLoaderComponent } from './block/socket-loader/block-loader.component';
 import { TableComponent } from './table/table/table.component';
+import { ButtonComponent } from './button/button.component';
 
 @NgModule({
     declarations: [
@@ -16,7 +17,8 @@ import { TableComponent } from './table/table/table.component';
         ChartComponent,
         StatisticItemComponent,
         BlockLoaderComponent,
-        TableComponent
+        TableComponent,
+        ButtonComponent
     ],
     exports: [
         BlockComponent,
@@ -24,7 +26,8 @@ import { TableComponent } from './table/table/table.component';
         SymbolComponent,
         ChartComponent,
         StatisticItemComponent,
-        TableComponent
+        TableComponent,
+        ButtonComponent
     ],
     imports: [CommonModule]
 })

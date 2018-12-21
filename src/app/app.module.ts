@@ -48,6 +48,8 @@ import { TickersComponent } from './modules/tickers/tickers.component';
 import { ChartComponent } from './components/chart/chart.component';
 import { ChartContainerComponent } from './modules/chart-container/chart-container.component';
 import { LoginComponent } from './modules/login/login.component';
+import { LoginService } from './services/login.service';
+import { FormsModule } from '@angular/forms';
 
 @NgModule({
     declarations: [
@@ -84,9 +86,10 @@ import { LoginComponent } from './modules/login/login.component';
         SymbolDepthModule,
         SymbolMiniTickerModule,
         MarketTicketsModule,
-        TrackerArrModule
+        TrackerArrModule,
+        FormsModule
     ],
-    providers: [WebsocketService, SimplexService],
+    providers: [WebsocketService, SimplexService, LoginService],
     bootstrap: [AppComponent],
     exports: []
 })
