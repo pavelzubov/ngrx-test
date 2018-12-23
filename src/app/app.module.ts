@@ -50,6 +50,9 @@ import { ChartContainerComponent } from './modules/chart-container/chart-contain
 import { LoginComponent } from './modules/login/login.component';
 import { LoginService } from './services/login.service';
 import { FormsModule } from '@angular/forms';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { MatButtonModule, MatInputModule } from '@angular/material';
+import { LoginModule } from './modules/login/login.module';
 
 @NgModule({
     declarations: [
@@ -69,8 +72,7 @@ import { FormsModule } from '@angular/forms';
         SymbolSwitchComponent,
         SwitcherComponent,
         TickersComponent,
-        ChartContainerComponent,
-        LoginComponent
+        ChartContainerComponent
     ],
     imports: [
         HttpClientModule,
@@ -87,7 +89,8 @@ import { FormsModule } from '@angular/forms';
         SymbolMiniTickerModule,
         MarketTicketsModule,
         TrackerArrModule,
-        FormsModule
+        BrowserAnimationsModule,
+        LoginModule
     ],
     providers: [WebsocketService, SimplexService, LoginService],
     bootstrap: [AppComponent],

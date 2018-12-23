@@ -1,15 +1,17 @@
 <app-block [data]="true">
-    <div class="login">
-        <label
-            ><div class="login-label">login:</div>
-            <div><input type="text"  [(ngModel)]="login"/></div
-        ></label>
-    </div>
-    <div class="password">
-        <label>
-            <div class="login-label">password:</div>
-            <div><input type="text" [(ngModel)]="password" /></div>
-        </label>
-    </div>
-    <div class="buttons"><app-button (click)="loginHandle()">Login</app-button></div>
+    <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+        <div class="login">
+            <mat-form-field>
+                <input matInput placeholder="Login" formControlName="login" />
+            </mat-form-field>
+        </div>
+        <div class="password">
+            <mat-form-field>
+                <input matInput placeholder="Password" formControlName="password" />
+            </mat-form-field>
+        </div>
+        <div class="buttons">
+            <app-button [type]="'submit'" [disabled]="!loginForm.valid">Login</app-button>
+        </div>
+    </form>
 </app-block>

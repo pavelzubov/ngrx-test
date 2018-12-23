@@ -8,6 +8,7 @@ import { StatisticItemComponent } from './statistic-item/statistic-item.componen
 import { BlockLoaderComponent } from './block/socket-loader/block-loader.component';
 import { TableComponent } from './table/table/table.component';
 import { ButtonComponent } from './button/button.component';
+import { MatButtonModule } from '@angular/material';
 
 @NgModule({
     declarations: [
@@ -29,6 +30,6 @@ import { ButtonComponent } from './button/button.component';
         TableComponent,
         ButtonComponent
     ],
-    imports: [CommonModule]
+    imports: [CommonModule, MatButtonModule]
 })
 export class ComponentsModule {}
