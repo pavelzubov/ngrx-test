@@ -7,4 +7,4 @@ import { BlockComponent } from './block.component';
     exports: [BlockComponent],
     imports: [CommonModule]
 })
-export class SocketModule {}
+export class BlockModule {}

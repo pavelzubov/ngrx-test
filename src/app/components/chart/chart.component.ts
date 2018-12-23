@@ -25,7 +25,7 @@ export class ChartComponent implements OnInit, OnChanges {
             datafeed: new Datafeeds.UDFCompatibleDatafeed(
                 'https://demo_feed.tradingview.com'
             ),
-            // library_path: "charting_library/",
+            library_path: 'assets/charting_library/',
             locale: 'en',
             allow_symbol_change: true,
             disabled_features: ['use_localstorage_for_settings'],
