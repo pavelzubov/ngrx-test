@@ -3,6 +3,7 @@
         <div class="login">
             <mat-form-field>
                 <input matInput placeholder="Login" formControlName="login" />
+                <mat-error>{{ loginForm.get('login').getError('nameError') }}</mat-error>
             </mat-form-field>
         </div>
         <div class="password">
