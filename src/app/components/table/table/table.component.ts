@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Input, OnChanges, OnInit, Output } from '@angular/core';
-import { Column } from '../column';
+import { Column, COLUMN_TYPE } from '../column';
 
 @Component({
     selector: 'app-table',
@@ -10,6 +10,7 @@ export class TableComponent implements OnInit, OnChanges {
     @Input() public columns: Column[];
     @Input() public data: any[];
     @Output() public clickHandle = new EventEmitter<string>();
+    readonly COLUMN_TYPE_DATA = COLUMN_TYPE.Data;
 
     constructor() {}
 

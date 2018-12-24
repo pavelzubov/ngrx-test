@@ -15,6 +15,7 @@ import { TradeActionTypes } from '../../modules/symbol-trade/symbol-trade.action
 import { DepthActionTypes } from '../../modules/symbol-depth/symbol-depth.actions';
 import { TrackerArrActionTypes } from '../../modules/tracker-arr/tracker-arr.actions';
 import { TickerActionTypes } from '../../modules/symbol-ticket/symbol-ticket.actions';
+import { MarketTicketsActionTypes } from '../../modules/market-tickets/market-tickets.actions';
 
 @Injectable()
 export class SocketEffects {
@@ -53,6 +54,18 @@ export class SocketEffects {
         })
     );
 
+    @Effect()
+    MarketTickets$: Observable<Action> = this.actions$.pipe(
+        ofType(MarketTicketsActionTypes.GetMarketTicketsSocketRequest),
+        mergeMap((action: EffectAction) =>
+            this.websocketService.marketTicketsSocket().pipe(
+                map(data => ({
+                    type: MarketTicketsActionTypes.GetMarketTicketsSocketSuccess,
+                    payload: data
+                }))
+            )
+        )
+    );
     /*@Effect()
     MiniTrackerArr$: Observable<Action> = this.actions$.pipe(
         ofType(ActionTypes.GetMiniTrackerArrSocketRequest),

@@ -4,6 +4,7 @@ import { select, Store } from '@ngrx/store';
 import { GetMarketTicketsSocketRequest } from './market-tickets.actions';
 import { WebsocketService } from '../../services/websocket.service';
 import { getMarketTicketsSelector } from '../../store/reducers';
+import { getSymbolSwitchSelector } from '../symbol-switch/symbol-switch.reducer';
 
 @Component({
     selector: 'app-market-tickets',
@@ -13,15 +14,17 @@ import { getMarketTicketsSelector } from '../../store/reducers';
     providers: [WebsocketService]
 })
 export class MarketTicketsComponent implements OnInit {
+    Symbol$: Observable<any>;
     MarketTickets$: Observable<any>;
 
-    constructor(private store: Store<{}>, private websocketService: WebsocketService) {
+    constructor(private store: Store<{}>) {
+        this.Symbol$ = store.pipe(select(getSymbolSwitchSelector));
         this.MarketTickets$ = store.pipe(select(getMarketTicketsSelector));
     }
 
     ngOnInit() {
-        this.store.dispatch(
-            new GetMarketTicketsSocketRequest(this.websocketService.marketTicketsSocket())
-        );
+        this.Symbol$.subscribe(symbol => {
+            this.store.dispatch(new GetMarketTicketsSocketRequest());
+        });
     }
 }

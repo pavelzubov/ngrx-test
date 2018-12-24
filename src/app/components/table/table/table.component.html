@@ -23,7 +23,7 @@
                 "
             >
                 {{
-                    (item.type === 'Data' &&
+                    (column.type === COLUMN_TYPE_DATA &&
                         (item[column.name[0]] || item[column.name[1]]
                             | date: 'hh:mm:ss')) ||
                         item[column.name[0]] ||

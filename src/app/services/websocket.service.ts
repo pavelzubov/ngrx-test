@@ -1,6 +1,6 @@
-import { Injectable } from '@angular/core';
+import { Injectable, OnDestroy } from '@angular/core';
 import { WebSocketSubject } from 'rxjs/webSocket';
-import { interval, Subject } from 'rxjs';
+import { interval, Observable, Subject } from 'rxjs';
 import { catchError, map, takeWhile } from 'rxjs/operators';
 
 export interface ChainElement {
@@ -14,14 +14,65 @@ export const DEPTH = 'depth';
 export const TICKER = 'ticker';
 export const TRADE = 'trade';
 
+interface SocketInterface {
+    reconnectInterval: number;
+    reconnectAttempts: number;
+    reconnect(url: string): void;
+    disconnect(): void;
+    subscribe(): Subject<any>;
+}
+
+class Socket implements SocketInterface {
+    private websocket$: WebSocketSubject<any>;
+    private wsMessages$: Subject<any>;
+    readonly reconnectInterval = 5000;
+    readonly reconnectAttempts = 10;
+
+    constructor(url: string) {
+        this.connect(url);
+    }
+
+    private connect = (url: string) => {
+        this.websocket$ = new WebSocketSubject(url);
+        this.wsMessages$ = new Subject<any>();
+        this.websocket$.subscribe(
+            message => this.wsMessages$.next(message),
+            error => {
+                if (!this.websocket$) {
+                    console.log('Disconnect', error);
+                    return interval(this.reconnectInterval).pipe(
+                        takeWhile(
+                            (v, index) =>
+                                index < this.reconnectAttempts && !this.websocket$
+                        ),
+                        map(() => this.connect(url))
+                    );
+                }
+            }
+        );
+    };
+
+    public disconnect = () => {
+        this.websocket$.complete();
+        this.wsMessages$.complete();
+    };
+
+    public reconnect = (url: string) => {
+        this.disconnect();
+        this.connect(url);
+    };
+
+    public subscribe = () => this.wsMessages$;
+}
+
 @Injectable()
-export class WebsocketService {
+export class WebsocketService implements OnDestroy {
     private api = 'wss://stream.binance.com:9443/';
-    private reconnectInterval = 5000;
+    /*private reconnectInterval = 5000;
     private reconnectAttempts = 10;
     private websocket$: WebSocketSubject<any>;
     private wsMessages$: Subject<any>;
-    private url: string;
+    private url: string;*/
     private chain = {
         depth: <ChainElement>{ symbol: true, method: DEPTH, levels: true },
         ticker: <ChainElement>{
@@ -30,9 +81,16 @@ export class WebsocketService {
         },
         trade: <ChainElement>{ symbol: true, method: TRADE }
     };
+    private sockets: { [key: string]: SocketInterface } = {};
+
     constructor() {}
 
-    private connect(url) {
+    ngOnDestroy() {
+        Object.values(this.sockets).forEach((socket: SocketInterface) =>
+            socket.disconnect()
+        );
+    }
+    /*private connect(url) {
         this.url = url;
         if (this.websocket$) {
             this.websocket$.complete();
@@ -56,9 +114,9 @@ export class WebsocketService {
             }
         );
         return this.wsMessages$;
-    }
+    }*/
 
-    public trackerArrSocket() {
+    /*public trackerArrSocket() {
         const url = `${this.api}ws/!miniTicker@arr`;
         return this.connect(url);
     }
@@ -81,14 +139,16 @@ export class WebsocketService {
     public symbolMiniTickerSocket(symbol: string = 'bnbbtc') {
         const url = `${this.api}ws/${symbol}@miniTicker`;
         return this.connect(url);
-    }
+    }*/
 
     public marketTicketsSocket() {
-        const url = `${this.api}ws/!ticker@arr`;
-        return this.connect(url);
+        const socketName = '!ticker@arr';
+        const url = `${this.api}ws/${socketName}`;
+        return this.connectSocket(socketName, url);
     }
 
     public chainSocket({ symbol, levels = 5, intervalMs = 300 }: ChainElement) {
+        const socketName = 'streams';
         const request = Object.values(this.chain).reduce(
             (accumulator, element: ChainElement) =>
                 accumulator +
@@ -97,6 +157,13 @@ export class WebsocketService {
                 }${element.levels ? `${levels}` : ''}/`,
             ''
         );
-        return this.connect(`${this.api}stream?streams=${request}`);
+        const url = `${this.api}stream?${socketName}=${request}`;
+        return this.connectSocket(socketName, url);
+    }
+
+    private connectSocket(type: string, url: string): Observable<any> {
+        if (this.sockets[type]) this.sockets[type].reconnect(url);
+        else this.sockets[type] = new Socket(url);
+        return this.sockets[type].subscribe();
     }
 }

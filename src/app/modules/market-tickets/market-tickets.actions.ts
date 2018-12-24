@@ -1,17 +1,17 @@
 import { Action } from '@ngrx/store';
 
-export enum ActionTypes {
+export enum MarketTicketsActionTypes {
     GetMarketTicketsSocketRequest = '[Socket] Get market tickets Socket Request',
     GetMarketTicketsSocketSuccess = '[Socket] Get market tickets Socket Success'
 }
 
 export class GetMarketTicketsSocketRequest implements Action {
-    readonly type = ActionTypes.GetMarketTicketsSocketRequest;
-    constructor(public payload: any) {}
+    readonly type = MarketTicketsActionTypes.GetMarketTicketsSocketRequest;
+    public payload: any;
 }
 
 export class GetMarketTicketsSocketSuccess implements Action {
-    readonly type = ActionTypes.GetMarketTicketsSocketSuccess;
+    readonly type = MarketTicketsActionTypes.GetMarketTicketsSocketSuccess;
     public payload: any;
 }
 
@@ -20,4 +20,6 @@ export interface EffectAction {
     payload: any;
 }
 
-export type MarketTicketsActions = GetMarketTicketsSocketRequest | GetMarketTicketsSocketSuccess;
+export type MarketTicketsActions =
+    | GetMarketTicketsSocketRequest
+    | GetMarketTicketsSocketSuccess;
