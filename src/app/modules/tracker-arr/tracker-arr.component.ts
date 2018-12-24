@@ -4,6 +4,7 @@ import { select, Store } from '@ngrx/store';
 import { GetTrackerArrSocketRequest } from './tracker-arr.actions';
 import { WebsocketService } from '../../services/websocket.service';
 import { getTrackerArrSelector } from '../../store/reducers';
+import { Column, COLUMN_TYPE } from '../../components/table/column';
 
 @Component({
     selector: 'app-tracker-arr',

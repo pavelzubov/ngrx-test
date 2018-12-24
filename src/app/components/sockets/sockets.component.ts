@@ -32,12 +32,8 @@ export class SocketsComponent implements OnInit {
 
     ngOnInit() {
         this.Symbol$.subscribe(symbol => {
-            this.store.dispatch(
-                new GetSymbolTicketSocketRequest(this.simplexService.getTickers(symbol))
-            );
-            this.store.dispatch(
-                new GetSymbolDepthSocketRequest(this.simplexService.getDepth(symbol))
-            );
+            this.store.dispatch(new GetSymbolTicketSocketRequest(symbol));
+            this.store.dispatch(new GetSymbolDepthSocketRequest(symbol));
             this.store.dispatch(
                 new GetChainSocketRequest({ symbol: symbol, levels: 5, interval: 300 })
             );
