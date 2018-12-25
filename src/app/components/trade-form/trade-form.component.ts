@@ -22,7 +22,7 @@ export class TradeFormComponent implements OnInit {
     constructor() {}
 
     ngOnInit() {
-        console.log(this.status);
+        // console.log(this.status);
     }
     public onSubmit() {
         this.submit.emit(this.tradeForm.value);
