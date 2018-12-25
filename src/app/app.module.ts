@@ -55,6 +55,7 @@ import { MatButtonModule, MatInputModule } from '@angular/material';
 import { LoginModule } from './modules/login/login.module';
 import { BuyFormComponent } from './modules/buy-form/buy-form.component';
 import { TradeEffects } from './store/effects/trade.effects';
+import { KeyComponent } from './modules/key/key.component';
 
 @NgModule({
     declarations: [
@@ -75,7 +76,8 @@ import { TradeEffects } from './store/effects/trade.effects';
         SwitcherComponent,
         TickersComponent,
         ChartContainerComponent,
-        BuyFormComponent
+        BuyFormComponent,
+        KeyComponent
     ],
     imports: [
         HttpClientModule,

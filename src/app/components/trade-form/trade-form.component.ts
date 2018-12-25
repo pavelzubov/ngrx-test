@@ -12,7 +12,7 @@ export class TradeFormComponent implements OnInit {
     @Input() public symbol: string;
     @Input() public price: number;
     @Input() public status: any;
-    @Output() submit = new EventEmitter<any>();
+    @Output() trade = new EventEmitter<any>();
     private PENDING = PENDING;
     private tradeForm = new FormGroup({
         price: new FormControl(null),
@@ -25,6 +25,6 @@ export class TradeFormComponent implements OnInit {
         // console.log(this.status);
     }
     public onSubmit() {
-        this.submit.emit(this.tradeForm.value);
+        this.trade.emit(this.tradeForm.value);
     }
 }

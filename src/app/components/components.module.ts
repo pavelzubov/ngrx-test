@@ -11,9 +11,11 @@ import { ButtonComponent } from './button/button.component';
 import { MatButtonModule, MatInputModule } from '@angular/material';
 import { TradeFormComponent } from './trade-form/trade-form.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { KeyFormComponent } from './key-form/key-form.component';
 
 @NgModule({
     declarations: [
+        KeyFormComponent,
         TradeFormComponent,
         BlockComponent,
         ListComponent,
@@ -25,6 +27,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
         ButtonComponent
     ],
     exports: [
+        KeyFormComponent,
         TradeFormComponent,
         BlockComponent,
         ListComponent,

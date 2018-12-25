@@ -1,0 +1,10 @@
+<form [formGroup]="keyForm" (ngSubmit)="onSave()">
+    <div class="login">
+        <mat-form-field>
+            <input matInput placeholder="Key" formControlName="key" />
+        </mat-form-field>
+    </div>
+    <div class="buttons">
+        <app-button [type]="'submit'" [disabled]="!keyForm.valid">Save</app-button>
+    </div>
+</form>

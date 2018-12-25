@@ -15,7 +15,6 @@ export class TradeEffects {
         ofType(TradeActionTypes.BuyRequest),
         mergeMap((action: EffectAction) =>
             this.simplexService.postBuy(action.payload).pipe(
-                delay(3000),
                 map(data => ({ type: TradeActionTypes.BuySuccess, payload: data })),
                 catchError(() => of({ type: TradeActionTypes.BuyFail }))
             )

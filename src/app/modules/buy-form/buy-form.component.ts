@@ -20,6 +20,7 @@ export class BuyFormComponent implements OnInit {
 
     ngOnInit() {}
     private submit(e) {
+        console.log(e);
         this.store.dispatch(new BuyRequest(e));
     }
 }

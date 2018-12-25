@@ -20,6 +20,7 @@ import { symbolTicketReducer } from '../../modules/symbol-ticket/symbol-ticket.r
 import { tradeReducer, TradeState } from './trade.reducer';
 import { SocketState } from './socket.reducer';
 import { PlatformState } from './platform.reducer';
+import { keysReducer, KeysState } from './keys.reducer';
 
 export interface SocketsState {
     symbolTrade: any;
@@ -44,6 +45,7 @@ export interface State {
     symbolSwitcher?: string;
     sockets?: SocketsState;
     trade?: TradeState;
+    keys?: KeysState;
 }
 export const reducers: ActionReducerMap<State> = {
     platform: platform.platformReducer,
@@ -60,6 +62,7 @@ export const reducers: ActionReducerMap<State> = {
         },
         initialSocketsState
     ),
+    keys: keysReducer,
     trade: tradeReducer
 };
 
@@ -77,6 +80,7 @@ export const getSocketsState = createFeatureSelector<SocketsState>('sockets');
 export const getPlatformState = createFeatureSelector<PlatformState>('platform');
 export const getSocketState = createFeatureSelector<SocketState>('socket');
 export const getTradeState = createFeatureSelector<TradeState>('trade');
+export const getKeysState = createFeatureSelector<KeysState>('keys');
 
 export const getMarketTicketsState = (state: SocketsState) => state.marketTickets;
 export const getSymbolTradeState = (state: SocketsState) => state.symbolTrade;
@@ -86,6 +90,8 @@ export const getSymbolDepthState = (state: SocketsState) => state.symbolDepth;
 export const getSymbolTicketState = (state: SocketsState) => state.symbolTicket;
 export const getBuyState = (state: TradeState) => state.buy;
 export const getSellState = (state: TradeState) => state.sell;
+export const getPrivateKeysState = (state: KeysState) => state.private;
+export const getPublicKeysState = (state: KeysState) => state.public;
 
 export const getPlatformStatistic = createSelector(
     getPlatformState,
@@ -135,4 +141,14 @@ export const getBuyTradeSelector = createSelector(
 export const getSellTradeSelector = createSelector(
     getTradeState,
     getSellState
+);
+
+export const getPrivateKeySelector = createSelector(
+    getKeysState,
+    getPrivateKeysState
+);
+
+export const getPublicKeySelector = createSelector(
+    getKeysState,
+    getPublicKeysState
 );
