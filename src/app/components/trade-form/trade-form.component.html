@@ -1,0 +1,38 @@
+<div class="trade-form">
+    <div class="trade-form-header">
+        <div class="trade-form-header__title">{{ action }} {{ symbol }}</div>
+        <div class="trade-form-header__symbol">{{ symbol }}</div>
+    </div>
+    <form [formGroup]="tradeForm" (ngSubmit)="onSubmit()">
+        <div class="trade-form-price">
+            <mat-form-field>
+                <input matInput placeholder="Price" formControlName="price" />
+                <mat-error>{{ tradeForm.get('price').getError('error') }}</mat-error>
+            </mat-form-field>
+        </div>
+        <div class="trade-form-amount">
+            <mat-form-field>
+                <input matInput placeholder="Amount" formControlName="amount" />
+                <mat-error>{{ tradeForm.get('amount').getError('error') }}</mat-error>
+            </mat-form-field>
+        </div>
+        <div class="trade-form-total">
+            <mat-form-field>
+                <input matInput placeholder="Total" formControlName="total" />
+                <mat-error>{{ tradeForm.get('total').getError('error') }}</mat-error>
+            </mat-form-field>
+        </div>
+        <div class="trade-form-submit">
+            <div class="trade-form-submit__button">
+              <app-button
+                [type]="'submit'"
+                [disabled]="!tradeForm.valid || status.status === PENDING"
+              >Trade</app-button
+              >
+            </div>
+          <div class="trade-form-submit__status">
+            {{status.status}}
+          </div>
+        </div>
+    </form>
+</div>

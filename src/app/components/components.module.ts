@@ -8,10 +8,13 @@ import { StatisticItemComponent } from './statistic-item/statistic-item.componen
 import { BlockLoaderComponent } from './block/socket-loader/block-loader.component';
 import { TableComponent } from './table/table/table.component';
 import { ButtonComponent } from './button/button.component';
-import { MatButtonModule } from '@angular/material';
+import { MatButtonModule, MatInputModule } from '@angular/material';
+import { TradeFormComponent } from './trade-form/trade-form.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
     declarations: [
+        TradeFormComponent,
         BlockComponent,
         ListComponent,
         SymbolComponent,
@@ -22,6 +25,7 @@ import { MatButtonModule } from '@angular/material';
         ButtonComponent
     ],
     exports: [
+        TradeFormComponent,
         BlockComponent,
         ListComponent,
         SymbolComponent,
@@ -30,6 +34,12 @@ import { MatButtonModule } from '@angular/material';
         TableComponent,
         ButtonComponent
     ],
-    imports: [CommonModule, MatButtonModule]
+    imports: [
+        CommonModule,
+        MatButtonModule,
+        MatInputModule,
+        FormsModule,
+        ReactiveFormsModule
+    ]
 })
 export class ComponentsModule {}

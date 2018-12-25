@@ -9,6 +9,7 @@ import {
 import * as platform from './platform.reducer';
 import * as programs from './programs.reducer';
 import * as socket from './socket.reducer';
+import * as trade from './trade.reducer';
 import { symbolDepthReducer } from '../../modules/symbol-depth/symbol-depth.reducer';
 import { symbolSwitchReducer } from '../../modules/symbol-switch/symbol-switch.reducer';
 import { symbolTradeReducer } from '../../modules/symbol-trade/symbol-trade.reducer';
@@ -16,6 +17,9 @@ import { symbolMiniTickerReducer } from '../../modules/symbol-mini-ticker/symbol
 import { marketTicketsReducer } from '../../modules/market-tickets/market-tickets.reducer';
 import { trackerArrReducer } from '../../modules/tracker-arr/tracker-arr.reducer';
 import { symbolTicketReducer } from '../../modules/symbol-ticket/symbol-ticket.reducer';
+import { tradeReducer, TradeState } from './trade.reducer';
+import { SocketState } from './socket.reducer';
+import { PlatformState } from './platform.reducer';
 
 export interface SocketsState {
     symbolTrade: any;
@@ -39,6 +43,7 @@ export interface State {
     programs: programs.ProgramsState;
     symbolSwitcher?: string;
     sockets?: SocketsState;
+    trade?: TradeState;
 }
 export const reducers: ActionReducerMap<State> = {
     platform: platform.platformReducer,
@@ -54,7 +59,8 @@ export const reducers: ActionReducerMap<State> = {
             symbolTicket: symbolTicketReducer
         },
         initialSocketsState
-    )
+    ),
+    trade: tradeReducer
 };
 
 export function logger(reducer: ActionReducer<State>): ActionReducer<State> {
@@ -68,10 +74,9 @@ export function logger(reducer: ActionReducer<State>): ActionReducer<State> {
 export const metaReducers: MetaReducer<State>[] = [logger];
 
 export const getSocketsState = createFeatureSelector<SocketsState>('sockets');
-
-export const getPlatformState = createFeatureSelector<platform.PlatformState>('platform');
-
-export const getSocketState = createFeatureSelector<socket.SocketState>('socket');
+export const getPlatformState = createFeatureSelector<PlatformState>('platform');
+export const getSocketState = createFeatureSelector<SocketState>('socket');
+export const getTradeState = createFeatureSelector<TradeState>('trade');
 
 export const getMarketTicketsState = (state: SocketsState) => state.marketTickets;
 export const getSymbolTradeState = (state: SocketsState) => state.symbolTrade;
@@ -79,6 +84,8 @@ export const getSymbolMiniTickerState = (state: SocketsState) => state.symbolMin
 export const getTrackerArrState = (state: SocketsState) => state.trackerArr;
 export const getSymbolDepthState = (state: SocketsState) => state.symbolDepth;
 export const getSymbolTicketState = (state: SocketsState) => state.symbolTicket;
+export const getBuyState = (state: TradeState) => state.buy;
+export const getSellState = (state: TradeState) => state.sell;
 
 export const getPlatformStatistic = createSelector(
     getPlatformState,
@@ -118,4 +125,14 @@ export const getSymbolDepthSelector = createSelector(
 export const getSymbolTicketSelector = createSelector(
     getSocketsState,
     getSymbolTicketState
+);
+
+export const getBuyTradeSelector = createSelector(
+    getTradeState,
+    getBuyState
+);
+
+export const getSellTradeSelector = createSelector(
+    getTradeState,
+    getSellState
 );

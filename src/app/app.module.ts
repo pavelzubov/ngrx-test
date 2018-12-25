@@ -53,6 +53,8 @@ import { FormsModule } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatButtonModule, MatInputModule } from '@angular/material';
 import { LoginModule } from './modules/login/login.module';
+import { BuyFormComponent } from './modules/buy-form/buy-form.component';
+import { TradeEffects } from './store/effects/trade.effects';
 
 @NgModule({
     declarations: [
@@ -72,13 +74,14 @@ import { LoginModule } from './modules/login/login.module';
         SymbolSwitchComponent,
         SwitcherComponent,
         TickersComponent,
-        ChartContainerComponent
+        ChartContainerComponent,
+        BuyFormComponent
     ],
     imports: [
         HttpClientModule,
         StoreModule.forRoot(reducers),
         !environment.production ? StoreDevtoolsModule.instrument() : [],
-        EffectsModule.forRoot([SocketEffects]),
+        EffectsModule.forRoot([SocketEffects, TradeEffects]),
         BrowserModule,
         AppRoutingModule,
         ApiModule,

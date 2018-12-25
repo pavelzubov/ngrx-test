@@ -1,0 +1,8 @@
+<app-block [data]="Symbol$ | async">
+    <app-trade-form
+        [action]="'Buy'"
+        [symbol]="Symbol$ | async"
+        [status]="Status$ | async"
+        (submit)="submit($event)"
+    ></app-trade-form>
+</app-block>
