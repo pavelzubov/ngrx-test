@@ -1,7 +1,7 @@
 import { Injectable, OnInit } from '@angular/core';
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
-import { Observable, of } from 'rxjs';
-import { map } from 'rxjs/operators';
+import { Observable, of, throwError } from 'rxjs';
+import { catchError, map } from 'rxjs/operators';
 import * as crypto from 'crypto-js';
 import * as Base64 from 'crypto-js/enc-base64';
 import { select, Store } from '@ngrx/store';
@@ -16,7 +16,6 @@ import { ChangePrivateKeyRequest } from '../store/actions/keys.actions';
 export class SimplexService {
     private url = 'https://www.binance.com/api/v1/';
     private privateKey: string;
-    // private url = 'https://www.binance.com/api/v1/';
     constructor(private http: HttpClient, private store: Store<{}>) {
         this.privateKey = localStorage.getItem('privateKey');
         this.store.dispatch(new ChangePrivateKeyRequest(this.privateKey));
@@ -26,7 +25,6 @@ export class SimplexService {
         });
     }
     public getTrades(symbol): Observable<any[]> {
-        // console.log(crypto);
         const httpOptions = {
             params: new HttpParams({
                 fromObject: { symbol: symbol.toUpperCase(), limit: '20' }
@@ -56,33 +54,40 @@ export class SimplexService {
     }
 
     public postBuy({ price, amount, total }: TradeRequest): Observable<any[]> {
-        console.log(this.privateKey);
-        this.newOrder({
-            symbol: 'BTC',
+        return this.newOrder({
+            symbol: 'ETHBTC',
             side: 'BUY',
-            type: 'type',
-            quantity: '100',
-            timestamp: new Date().toString()
+            type: 'LIMIT',
+            quantity: '0.03',
+            timestamp: String(Date.now())
         });
-        return of(['success']);
     }
 
     public postSell({ price, amount, total }: TradeRequest): Observable<any[]> {
         return of(['success']);
     }
 
-    private newOrder({ symbol, side, type, quantity, timestamp }: OrderRequest) {
+    private newOrder({
+        symbol,
+        side,
+        type,
+        quantity,
+        timestamp
+    }: OrderRequest): Observable<any[]> {
+        const options = { symbol, side, type, quantity, timestamp };
         const httpOptions = {
             params: new HttpParams({
-                fromObject: { symbol, side, type, quantity, timestamp }
+                fromObject: options
             })
         };
-        const hmac = Base64.stringify(
-            crypto.HmacSHA256(
-                JSON.stringify({ symbol, side, type, quantity, timestamp }),
-                '123'
-            )
+        const hmac256 = Base64.stringify(
+            crypto.HmacSHA256(JSON.stringify(options), this.privateKey)
         );
+        const hmac512 = Base64.stringify(
+            crypto.HmacSHA512(JSON.stringify(options), this.privateKey)
+        );
+        console.log(hmac256, hmac512);
+        return this.privateKey ? of(['success']) : throwError('');
         // console.log(hmac);
     }
 }
