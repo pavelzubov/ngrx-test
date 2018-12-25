@@ -75,17 +75,19 @@ export class SimplexService {
         timestamp
     }: OrderRequest): Observable<any[]> {
         const options = { symbol, side, type, quantity, timestamp };
-        const parseOptions = Object.entries(options)
-            .map(item => `${item[0]}=${item[1].toUpperCase()}`)
-            .join('&');
-        const signature = String(crypto.HmacSHA256(parseOptions, this.privateKey));
+        const signature = this.signOptions(options);
         const httpOptions = {
             params: new HttpParams({
                 fromObject: { ...options, signature }
             })
         };
-        console.log(parseOptions, signature);
         return this.privateKey ? of(['success']) : throwError('');
+    }
+    private signOptions(options: { [key: string]: string }): string {
+        const parseOptions = Object.entries(options)
+            .map(item => `${item[0]}=${item[1].toUpperCase()}`)
+            .join('&');
+        return String(crypto.HmacSHA256(parseOptions, this.privateKey));
     }
 }
 export interface TradeRequest {
