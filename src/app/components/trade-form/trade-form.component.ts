@@ -15,9 +15,9 @@ export class TradeFormComponent implements OnInit {
     @Output() submit = new EventEmitter<any>();
     private PENDING = PENDING;
     private tradeForm = new FormGroup({
-        price: new FormControl(null, Validators.required),
-        amount: new FormControl(null, Validators.required),
-        total: new FormControl(null, Validators.required)
+        price: new FormControl(null),
+        amount: new FormControl(null),
+        total: new FormControl(null)
     });
     constructor() {}
 

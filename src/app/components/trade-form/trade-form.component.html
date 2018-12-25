@@ -24,6 +24,12 @@
         </div>
         <div class="trade-form-submit">
             <div class="trade-form-submit__button">
+              <!--<app-button
+                [type]="'submit'"
+                [disabled]="!tradeForm.valid || status.status === PENDING"
+              >Trade</app-button
+              >
+            </div>-->
               <app-button
                 [type]="'submit'"
                 [disabled]="!tradeForm.valid || status.status === PENDING"

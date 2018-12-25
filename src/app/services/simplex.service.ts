@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Observable, of } from 'rxjs';
 import { map } from 'rxjs/operators';
+import * as crypto from 'crypto-js';
 
 @Injectable()
 export class SimplexService {
@@ -9,6 +10,8 @@ export class SimplexService {
     // private url = 'https://www.binance.com/api/v1/';
     constructor(private http: HttpClient) {}
     public getTrades(symbol): Observable<any[]> {
+        console.log(crypto);
+        console.log(crypto.HmacSHA256('123', '123'));
         const httpOptions = {
             params: new HttpParams({
                 fromObject: { symbol: symbol.toUpperCase(), limit: '20' }

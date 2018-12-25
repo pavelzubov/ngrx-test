@@ -13,7 +13,7 @@ import { BuyRequest } from '../../store/actions/trade.actions';
 export class BuyFormComponent implements OnInit {
     private Symbol$: Observable<any>;
     private Status$: Observable<any>;
-    constructor(private store: Store) {
+    constructor(private store: Store<{}>) {
         this.Symbol$ = store.pipe(select(getSymbolSwitchSelector));
         this.Status$ = store.pipe(select(getBuyTradeSelector));
     }
