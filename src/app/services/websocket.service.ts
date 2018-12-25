@@ -90,6 +90,12 @@ export class WebsocketService implements OnDestroy {
             socket.disconnect()
         );
     }
+
+    private connectSocket(type: string, url: string): Observable<any> {
+        if (this.sockets[type]) this.sockets[type].reconnect(url);
+        else this.sockets[type] = new Socket(url);
+        return this.sockets[type].subscribe();
+    }
     /*private connect(url) {
         this.url = url;
         if (this.websocket$) {
@@ -159,11 +165,5 @@ export class WebsocketService implements OnDestroy {
         );
         const url = `${this.api}stream?${socketName}=${request}`;
         return this.connectSocket(socketName, url);
-    }
-
-    private connectSocket(type: string, url: string): Observable<any> {
-        if (this.sockets[type]) this.sockets[type].reconnect(url);
-        else this.sockets[type] = new Socket(url);
-        return this.sockets[type].subscribe();
     }
 }

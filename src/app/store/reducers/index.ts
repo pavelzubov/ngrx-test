@@ -38,7 +38,7 @@ export interface State {
     platform: platform.PlatformState;
     programs: programs.ProgramsState;
     symbolSwitcher?: string;
-    sockets?: any;
+    sockets?: SocketsState;
 }
 export const reducers: ActionReducerMap<State> = {
     platform: platform.platformReducer,
