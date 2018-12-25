@@ -29,5 +29,5 @@ export function tradeReducer(state = initialState, action: any): TradeState {
     }
 }
 
-export const getMiniTrackerArrSocket = (state: TradeState) => state.miniTrackerArrSocket;
+// export const getMiniTrackerArrSocket = (state: TradeState) => state.miniTrackerArrSocket;
 // export const getAllMarketTicketsSocket = (state: SocketState) => state.allMarketTickets;
