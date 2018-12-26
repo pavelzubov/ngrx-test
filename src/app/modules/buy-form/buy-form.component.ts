@@ -19,11 +19,13 @@ export class BuyFormComponent implements OnInit {
     constructor(private store: Store<{}>) {
         this.Symbol$ = store.pipe(select(getSymbolSwitchSelector));
         this.Status$ = store.pipe(select(getBuyTradeSelector));
-        this.lastPrice = store.pipe(
-            select(getSymbolTradeSelector),
-            filter(trade => trade !== null),
-            map(trade => <number>trade.p)
-        );
+        this.Symbol$.subscribe(sumbol => {
+            this.lastPrice = store.pipe(
+                select(getSymbolTradeSelector),
+                filter(trade => trade !== null),
+                map(trade => <number>trade.p)
+            );
+        });
     }
 
     ngOnInit() {}

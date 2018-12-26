@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnChanges, OnInit, Output } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { PENDING } from '../../store/reducers/trade.reducer';
 import { select, Store } from '@ngrx/store';
@@ -10,7 +10,7 @@ import { Observable } from 'rxjs';
     templateUrl: './trade-form.component.html',
     styleUrls: ['./trade-form.component.sass']
 })
-export class TradeFormComponent implements OnInit {
+export class TradeFormComponent implements OnInit, OnChanges {
     @Input() public action: string;
     @Input() public symbol: string;
     @Input() public price: Observable<number>;
@@ -25,7 +25,8 @@ export class TradeFormComponent implements OnInit {
     });
     constructor() {}
 
-    ngOnInit() {
+    ngOnInit() {}
+    ngOnChanges() {
         const priceSub = this.price.subscribe(price => {
             this.tradeForm.get('price').setValue(price);
             priceSub.unsubscribe();

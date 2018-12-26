@@ -1,4 +1,4 @@
-<app-block [data]="Symbol$ | async">
+<app-block [data]="lastPrice | async">
     <app-trade-form
         [action]="'Buy'"
         [symbol]="Symbol$ | async"
