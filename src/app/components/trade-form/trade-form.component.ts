@@ -17,6 +17,7 @@ export class TradeFormComponent implements OnInit, OnChanges {
     // @Input() public lastPrice: number;
     @Input() public status: any;
     @Output() trade = new EventEmitter<any>();
+    priceSub: any;
     private PENDING = PENDING;
     private tradeForm = new FormGroup({
         price: new FormControl(this.price, [Validators.required]),
@@ -27,9 +28,9 @@ export class TradeFormComponent implements OnInit, OnChanges {
 
     ngOnInit() {}
     ngOnChanges() {
-        const priceSub = this.price.subscribe(price => {
+        this.priceSub = this.price.subscribe(price => {
             this.tradeForm.get('price').setValue(price);
-            priceSub.unsubscribe();
+            this.priceSub.unsubscribe();
         });
     }
 
