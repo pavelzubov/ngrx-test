@@ -10,6 +10,7 @@
                     type="number"
                     placeholder="Price"
                     formControlName="price"
+                    autocomplete="off"
                 />
                 <mat-error>{{ tradeForm.get('price').getError('error') }}</mat-error>
             </mat-form-field>
@@ -22,6 +23,7 @@
                     placeholder="Amount"
                     formControlName="quantity"
                     (input)="quantityChange()"
+                    autocomplete="off"
                 />
                 <mat-error>{{ tradeForm.get('quantity').getError('error') }}</mat-error>
             </mat-form-field>
@@ -34,18 +36,13 @@
                     placeholder="Total"
                     formControlName="total"
                     (input)="totalChange()"
+                    autocomplete="off"
                 />
                 <mat-error>{{ tradeForm.get('total').getError('error') }}</mat-error>
             </mat-form-field>
         </div>
         <div class="trade-form-submit">
             <div class="trade-form-submit__button">
-                <!--<app-button
-                [type]="'submit'"
-                [disabled]="!tradeForm.valid || status.status === PENDING"
-              >Trade</app-button
-              >
-            </div>-->
                 <app-button
                     [type]="'submit'"
                     [disabled]="!tradeForm.valid || status.status === PENDING"

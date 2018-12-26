@@ -3,6 +3,7 @@
         [action]="'Buy'"
         [symbol]="Symbol$ | async"
         [status]="Status$ | async"
+        [price]="lastPrice"
         (trade)="submit($event)"
     ></app-trade-form>
 </app-block>

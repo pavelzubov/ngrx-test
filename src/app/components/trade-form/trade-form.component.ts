@@ -3,6 +3,7 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { PENDING } from '../../store/reducers/trade.reducer';
 import { select, Store } from '@ngrx/store';
 import { getSymbolSwitchSelector } from '../../modules/symbol-switch/symbol-switch.reducer';
+import { Observable } from 'rxjs';
 
 @Component({
     selector: 'app-trade-form',
@@ -12,18 +13,24 @@ import { getSymbolSwitchSelector } from '../../modules/symbol-switch/symbol-swit
 export class TradeFormComponent implements OnInit {
     @Input() public action: string;
     @Input() public symbol: string;
-    @Input() public price: number;
+    @Input() public price: Observable<number>;
+    // @Input() public lastPrice: number;
     @Input() public status: any;
     @Output() trade = new EventEmitter<any>();
     private PENDING = PENDING;
     private tradeForm = new FormGroup({
-        price: new FormControl(0.034196, [Validators.required]),
+        price: new FormControl(this.price, [Validators.required]),
         quantity: new FormControl(null, [Validators.required]),
         total: new FormControl(null, [Validators.required, Validators.min(0.001)])
     });
     constructor() {}
 
-    ngOnInit() {}
+    ngOnInit() {
+        const priceSub = this.price.subscribe(price => {
+            this.tradeForm.get('price').setValue(price);
+            priceSub.unsubscribe();
+        });
+    }
 
     public quantityChange(): void {
         const price = this.tradeForm.get('price');
