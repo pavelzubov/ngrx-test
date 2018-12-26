@@ -8,7 +8,8 @@ import { select, Store } from '@ngrx/store';
 import {
     getBuyTradeSelector,
     getPrivateKeySelector,
-    getPrivateKeysState
+    getPrivateKeysState,
+    getPublicKeySelector
 } from '../store/reducers';
 import { ChangePrivateKeyRequest } from '../store/actions/keys.actions';
 
@@ -16,6 +17,7 @@ import { ChangePrivateKeyRequest } from '../store/actions/keys.actions';
 export class SimplexService {
     private url = 'https://www.binance.com/api/v1/';
     private privateKey: string;
+    private publicKey: string;
     constructor(private http: HttpClient, private store: Store<{}>) {
         this.privateKey = localStorage.getItem('privateKey');
         this.store.dispatch(new ChangePrivateKeyRequest(this.privateKey));
@@ -23,6 +25,7 @@ export class SimplexService {
             localStorage.setItem('privateKey', key);
             this.privateKey = key;
         });
+        store.pipe(select(getPublicKeySelector)).subscribe(key => (this.publicKey = key));
     }
     public getTrades(symbol): Observable<any[]> {
         const httpOptions = {
@@ -55,6 +58,8 @@ export class SimplexService {
 
     public postBuy({ price, amount, total }: TradeRequest): Observable<any[]> {
         return this.newOrder({
+            price: '0.033773',
+            timeInForce: TimeInForce.GTC,
             symbol: 'ETHBTC',
             side: 'BUY',
             type: 'LIMIT',
@@ -67,28 +72,28 @@ export class SimplexService {
         return of(['success']);
     }
 
-    private newOrder({
-        symbol,
-        side,
-        type,
-        quantity,
-        timestamp
-    }: OrderRequest): Observable<any[]> {
-        const options = { symbol, side, type, quantity, timestamp };
+    private newOrder(options: OrderRequest): Observable<any> {
+        // const options = { symbol, side, type, quantity, timestamp };
         const signature = this.signOptions(options, this.privateKey);
         const httpOptions = {
-            params: new HttpParams({
-                fromObject: { ...options, signature }
+            headers: new HttpHeaders({
+                'X-MBX-APIKEY': this.publicKey,
+                'content-type': 'application/x-www-form-urlencoded'
             })
         };
-        return this.privateKey ? of(['success']) : throwError('');
+        const body = { ...options, signature };
+        // console.log(httpOptions.headers.get('X-MBX-APIKEY'));
+        return this.http.post('/api/v3/order', this.parseOptions(body), httpOptions);
+        // return this.privateKey ? of(['success']) : throwError('');
     }
-    private signOptions(options: { [key: string]: string }, privateKey: string): string {
-        const parseOptions = Object.entries(options)
+
+    private signOptions = (options: OrderRequest, privateKey: string): string =>
+        String(crypto.HmacSHA256(this.parseOptions(options), privateKey));
+
+    private parseOptions = (options: OrderRequest) =>
+        Object.entries(options)
             .map(item => `${item[0]}=${item[1].toUpperCase()}`)
             .join('&');
-        return String(crypto.HmacSHA256(parseOptions, privateKey));
-    }
 }
 export interface TradeRequest {
     symbol: string;
@@ -97,9 +102,16 @@ export interface TradeRequest {
     total: number;
 }
 export interface OrderRequest {
+    price: string;
+    timeInForce: TimeInForce;
     symbol: string;
     side: string;
     type: string;
     quantity: string;
     timestamp: string;
+}
+export enum TimeInForce {
+    GTC = 'GTC',
+    IOC = 'IOC',
+    FOK = 'FOK'
 }

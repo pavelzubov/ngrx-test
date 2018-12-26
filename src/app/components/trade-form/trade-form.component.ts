@@ -15,14 +15,24 @@ export class TradeFormComponent implements OnInit {
     @Output() trade = new EventEmitter<any>();
     private PENDING = PENDING;
     private tradeForm = new FormGroup({
-        price: new FormControl(null),
-        amount: new FormControl(null),
-        total: new FormControl(null)
+        price: new FormControl(1000, [Validators.required]),
+        quantity: new FormControl(null, [Validators.required]),
+        total: new FormControl(null, [Validators.required, Validators.min(0.001)])
     });
     constructor() {}
 
     ngOnInit() {
-        // console.log(this.status);
+        this.tradeForm.get('quantity').valueChanges.subscribe(val => {
+            const price = this.tradeForm.get('price');
+            const total = this.tradeForm.get('total');
+            console.log(val, price.value);
+            // if (price.value) total.setValue(val * price.value);
+        });
+        this.tradeForm.get('total').valueChanges.subscribe(val => {
+            const price = this.tradeForm.get('price');
+            const quantity = this.tradeForm.get('quantity');
+            if (price.value) quantity.setValue(val / price.value);
+        });
     }
     public onSubmit() {
         this.trade.emit(this.tradeForm.value);
