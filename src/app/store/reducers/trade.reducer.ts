@@ -16,13 +16,13 @@ export function tradeReducer(state = initialState, action: any): TradeState {
         case TradeActionTypes.BuyRequest:
             return { ...state, buy: { status: PENDING } };
         case TradeActionTypes.BuySuccess:
-            return { ...state, buy: { status: action.payload } };
+            return { ...state, buy: { status: action.payload.status } };
         case TradeActionTypes.BuyFail:
             return { ...state, buy: { status: FAIL } };
         case TradeActionTypes.SellRequest:
             return { ...state, sell: { status: PENDING } };
         case TradeActionTypes.SellSuccess:
-            return { ...state, sell: { status: action.payload } };
+            return { ...state, sell: { status: action.payload.status } };
         case TradeActionTypes.SellFail:
             return { ...state, sell: { status: FAIL } };
         /*case TickerActionTypes.GetAllMarketTicketsSocketSuccess:

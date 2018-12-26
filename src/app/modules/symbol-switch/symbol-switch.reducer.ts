@@ -1,7 +1,7 @@
 import { SymbolSwitchActions, ActionTypes } from './symbol-switch.actions';
 import { createFeatureSelector, createSelector } from '@ngrx/store';
 
-export const initialState: string = 'bnbbtc';
+export const initialState = 'ethbtc';
 
 export function symbolSwitchReducer(
     state = initialState,

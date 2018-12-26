@@ -56,14 +56,11 @@ export class SimplexService {
         return this.http.get('/api/v1/depth', httpOptions).pipe(map(res => <any[]>res));
     }
 
-    public postBuy({ price, amount, total }: TradeRequest): Observable<any[]> {
+    public postBuy(options: TradeRequest): Observable<any[]> {
         return this.newOrder({
-            price: '0.033773',
-            timeInForce: TimeInForce.GTC,
-            symbol: 'ETHBTC',
+            ...options,
             side: 'BUY',
-            type: 'LIMIT',
-            quantity: '0.03',
+            timeInForce: TimeInForce.GTC,
             timestamp: String(Date.now())
         });
     }
@@ -83,6 +80,7 @@ export class SimplexService {
         };
         const body = { ...options, signature };
         // console.log(httpOptions.headers.get('X-MBX-APIKEY'));
+        // console.log(body);
         return this.http.post('/api/v3/order', this.parseOptions(body), httpOptions);
         // return this.privateKey ? of(['success']) : throwError('');
     }
@@ -92,23 +90,23 @@ export class SimplexService {
 
     private parseOptions = (options: OrderRequest) =>
         Object.entries(options)
-            .map(item => `${item[0]}=${item[1].toUpperCase()}`)
+            .map(item => `${item[0]}=${String(item[1]).toUpperCase()}`)
             .join('&');
 }
 export interface TradeRequest {
     symbol: string;
     price: number;
-    amount: number;
-    total: number;
+    quantity: number;
+    type: string;
 }
 export interface OrderRequest {
-    price: string;
-    timeInForce: TimeInForce;
     symbol: string;
+    price: string | number;
+    quantity: string | number;
+    timeInForce: TimeInForce;
     side: string;
     type: string;
-    quantity: string;
-    timestamp: string;
+    timestamp: string | number;
 }
 export enum TimeInForce {
     GTC = 'GTC',

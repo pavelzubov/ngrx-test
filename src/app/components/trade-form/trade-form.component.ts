@@ -1,6 +1,8 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { PENDING } from '../../store/reducers/trade.reducer';
+import { select, Store } from '@ngrx/store';
+import { getSymbolSwitchSelector } from '../../modules/symbol-switch/symbol-switch.reducer';
 
 @Component({
     selector: 'app-trade-form',
@@ -15,26 +17,29 @@ export class TradeFormComponent implements OnInit {
     @Output() trade = new EventEmitter<any>();
     private PENDING = PENDING;
     private tradeForm = new FormGroup({
-        price: new FormControl(1000, [Validators.required]),
+        price: new FormControl(0.034196, [Validators.required]),
         quantity: new FormControl(null, [Validators.required]),
         total: new FormControl(null, [Validators.required, Validators.min(0.001)])
     });
     constructor() {}
 
-    ngOnInit() {
-        this.tradeForm.get('quantity').valueChanges.subscribe(val => {
-            const price = this.tradeForm.get('price');
-            const total = this.tradeForm.get('total');
-            console.log(val, price.value);
-            // if (price.value) total.setValue(val * price.value);
-        });
-        this.tradeForm.get('total').valueChanges.subscribe(val => {
-            const price = this.tradeForm.get('price');
-            const quantity = this.tradeForm.get('quantity');
-            if (price.value) quantity.setValue(val / price.value);
-        });
+    ngOnInit() {}
+
+    public quantityChange(): void {
+        const price = this.tradeForm.get('price');
+        const total = this.tradeForm.get('total');
+        const quantity = this.tradeForm.get('quantity');
+        total.setValue(quantity.value * price.value);
     }
+    public totalChange(): void {
+        const price = this.tradeForm.get('price');
+        const total = this.tradeForm.get('total');
+        const quantity = this.tradeForm.get('quantity');
+        quantity.setValue(total.value / price.value);
+    }
+
     public onSubmit() {
-        this.trade.emit(this.tradeForm.value);
+        const { price, quantity } = this.tradeForm.value;
+        this.trade.emit({ price, quantity, symbol: this.symbol, type: 'LIMIT' });
     }
 }
