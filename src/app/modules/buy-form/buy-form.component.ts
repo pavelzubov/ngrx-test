@@ -1,26 +1,46 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { select, Store } from '@ngrx/store';
 import { getSymbolSwitchSelector } from '../symbol-switch/symbol-switch.reducer';
 import { Observable } from 'rxjs';
 import { getBuyTradeSelector, getSymbolTradeSelector } from '../../store/reducers';
 import { BuyRequest } from '../../store/actions/trade.actions';
-import { filter, map } from 'rxjs/operators';
+import { distinct, distinctUntilChanged, filter, map } from 'rxjs/operators';
+import {
+    AccountBalance,
+    AccountInformation,
+    getAccountBalancesSelector,
+    getAccountInformationSelector
+} from '../../store/reducers/account.reducer';
+import { FormattingService } from '../../services/formatting.service';
+import { GetAccountInformationRequest } from '../../store/actions/account.actions';
 
 @Component({
     selector: 'app-buy-form',
     templateUrl: './buy-form.component.html',
-    styleUrls: ['./buy-form.component.sass']
+    styleUrls: ['./buy-form.component.sass'],
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class BuyFormComponent implements OnInit {
     private Symbol$: Observable<any>;
     private Status$: Observable<any>;
-    private lastPrice: Observable<number>;
+    private Balance$: string;
+    private lastPrice$: Observable<number>;
 
-    constructor(private store: Store<{}>) {
+    constructor(private store: Store<{}>, private formattingService: FormattingService) {
         this.Symbol$ = store.pipe(select(getSymbolSwitchSelector));
         this.Status$ = store.pipe(select(getBuyTradeSelector));
-        this.Symbol$.subscribe(sumbol => {
-            this.lastPrice = store.pipe(
+        this.Symbol$.subscribe((symbols: string) => {
+            const symbolsArr = formattingService.splitSymbols(symbols.toUpperCase());
+            store
+                .pipe(
+                    select(getAccountBalancesSelector),
+                    filter(item => item !== null),
+                    map(item => item.find(balance => balance.asset === symbolsArr[1])),
+                    map(item => item.free),
+                    distinct()
+                )
+                .subscribe(balance => (this.Balance$ = balance));
+            this.lastPrice$ = store.pipe(
                 select(getSymbolTradeSelector),
                 filter(trade => trade !== null),
                 map(trade => <number>trade.p)

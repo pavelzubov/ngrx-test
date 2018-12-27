@@ -6,6 +6,8 @@ import { Injectable } from '@angular/core';
 export class FormattingService {
     constructor() {}
 
+    public splitSymbols = (symbols: string) => [symbols.slice(0, 3), symbols.slice(3)];
+
     private reverseString = value =>
         String(value)
             .split('')

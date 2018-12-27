@@ -24,8 +24,11 @@ export class SimplexService {
         private requestService: RequestService
     ) {}
 
-    public getAccountInformation = () =>
-        this.requestService.get({ url: '/api/v3/account' });
+    public getAccountInformation = (): Observable<any[]> =>
+        this.requestService.get({
+            url: '/api/v3/account',
+            type: [REQUEST_TYPE.SIGNED, REQUEST_TYPE.AUTHORIZED]
+        });
 
     public getTrades = (symbol): Observable<any[]> =>
         this.requestService.get({

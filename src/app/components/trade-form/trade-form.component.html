@@ -1,6 +1,9 @@
 <div class="trade-form">
     <div class="trade-form-header">
         <div class="trade-form-header__title">{{ action }} {{ symbol }}</div>
+        <div *ngIf="balance" class="trade-form-header__title">
+            {{ balance }} {{ symbol }}
+        </div>
     </div>
     <form [formGroup]="tradeForm" (ngSubmit)="onSubmit()">
         <div class="trade-form-price">

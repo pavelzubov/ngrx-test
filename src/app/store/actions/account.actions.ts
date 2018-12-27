@@ -6,15 +6,15 @@ export enum AccountActionTypes {
     GetAccountFail = '[Accounts] Get account information Fail'
 }
 
-export class ChangePrivateAccountRequest implements Action {
+export class GetAccountInformationRequest implements Action {
     readonly type = AccountActionTypes.GetAccountRequest;
     public payload: string;
 }
-export class ChangePrivateAccountSuccess implements Action {
+export class GetAccountInformationSuccess implements Action {
     readonly type = AccountActionTypes.GetAccountSuccess;
     constructor(public payload: string) {}
 }
-export class ChangePrivateAccountFail implements Action {
+export class GetAccountInformationFail implements Action {
     readonly type = AccountActionTypes.GetAccountFail;
     constructor(public payload: string) {}
 }
@@ -24,6 +24,6 @@ export interface EffectAction {
     payload: any;
 }
 export type AccountsActions =
-    | ChangePrivateAccountRequest
-    | ChangePrivateAccountSuccess
-    | ChangePrivateAccountFail;
+    | GetAccountInformationRequest
+    | GetAccountInformationSuccess
+    | GetAccountInformationFail;

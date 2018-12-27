@@ -57,6 +57,7 @@ import { BuyFormComponent } from './modules/buy-form/buy-form.component';
 import { TradeEffects } from './store/effects/trade.effects';
 import { KeyComponent } from './modules/key/key.component';
 import { SellFormComponent } from './modules/sell-form/sell-form.component';
+import { AccountEffects } from './store/effects/account.effects';
 
 @NgModule({
     declarations: [
@@ -85,7 +86,7 @@ import { SellFormComponent } from './modules/sell-form/sell-form.component';
         HttpClientModule,
         StoreModule.forRoot(reducers),
         !environment.production ? StoreDevtoolsModule.instrument() : [],
-        EffectsModule.forRoot([SocketEffects, TradeEffects]),
+        EffectsModule.forRoot([SocketEffects, TradeEffects, AccountEffects]),
         BrowserModule,
         AppRoutingModule,
         ApiModule,
