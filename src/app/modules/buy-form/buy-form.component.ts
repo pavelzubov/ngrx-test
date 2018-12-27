@@ -21,16 +21,21 @@ import { GetAccountInformationRequest } from '../../store/actions/account.action
     changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class BuyFormComponent implements OnInit {
-    private Symbol$: Observable<any>;
+    private Symbol$: string; // Observable<any>;
     private Status$: Observable<any>;
-    private Balance$: string;
+    private Balance: string;
+    private BalanceSymbol: string;
+    private TitleSymbol: string;
     private lastPrice$: Observable<number>;
 
     constructor(private store: Store<{}>, private formattingService: FormattingService) {
-        this.Symbol$ = store.pipe(select(getSymbolSwitchSelector));
+        // this.Symbol$ = store.pipe(select(getSymbolSwitchSelector));
         this.Status$ = store.pipe(select(getBuyTradeSelector));
-        this.Symbol$.subscribe((symbols: string) => {
+        store.pipe(select(getSymbolSwitchSelector)).subscribe((symbols: string) => {
             const symbolsArr = formattingService.splitSymbols(symbols.toUpperCase());
+            this.Symbol$ = symbols;
+            this.BalanceSymbol = symbolsArr[1];
+            this.TitleSymbol = symbolsArr[0];
             store
                 .pipe(
                     select(getAccountBalancesSelector),
@@ -39,7 +44,7 @@ export class BuyFormComponent implements OnInit {
                     map(item => item.free),
                     distinct()
                 )
-                .subscribe(balance => (this.Balance$ = balance));
+                .subscribe(balance => (this.Balance = balance));
             this.lastPrice$ = store.pipe(
                 select(getSymbolTradeSelector),
                 filter(trade => trade !== null),

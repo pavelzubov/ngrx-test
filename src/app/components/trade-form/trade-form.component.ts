@@ -24,6 +24,8 @@ export class TradeFormComponent implements OnInit, OnChanges {
     @Input() public balance: string;
     @Input() public action: string;
     @Input() public symbol: string;
+    @Input() public balanceSymbol: string;
+    @Input() public titleSymbol: string;
     @Input() public price: Observable<number>;
     @Input() public status: any;
     @Output() trade = new EventEmitter<any>();
@@ -39,7 +41,6 @@ export class TradeFormComponent implements OnInit, OnChanges {
     ngOnInit() {}
     ngOnChanges(changes) {
         this.priceSub = this.price.subscribe(price => {
-            console.log(1);
             this.tradeForm.get('price').setValue(price);
             this.priceSub.unsubscribe();
         });

@@ -8,7 +8,9 @@ import {
     getSymbolTradeSelector
 } from '../../store/reducers';
 import { SellRequest } from '../../store/actions/trade.actions';
-import { filter, map } from 'rxjs/operators';
+import { distinct, filter, map } from 'rxjs/operators';
+import { FormattingService } from '../../services/formatting.service';
+import { getAccountBalancesSelector } from '../../store/reducers/account.reducer';
 
 @Component({
     selector: 'app-sell-form',
@@ -16,15 +18,30 @@ import { filter, map } from 'rxjs/operators';
     styleUrls: ['./sell-form.component.sass']
 })
 export class SellFormComponent implements OnInit {
-    private Symbol$: Observable<any>;
+    private Symbol$: string; // Observable<any>;
     private Status$: Observable<any>;
-    private lastPrice: Observable<number>;
+    private Balance: string;
+    private BalanceSymbol: string;
+    private TitleSymbol: string;
+    private lastPrice$: Observable<number>;
 
-    constructor(private store: Store<{}>) {
-        this.Symbol$ = store.pipe(select(getSymbolSwitchSelector));
-        this.Status$ = store.pipe(select(getSellTradeSelector));
-        this.Symbol$.subscribe(sumbol => {
-            this.lastPrice = store.pipe(
+    constructor(private store: Store<{}>, private formattingService: FormattingService) {
+        this.Status$ = store.pipe(select(getBuyTradeSelector));
+        store.pipe(select(getSymbolSwitchSelector)).subscribe((symbols: string) => {
+            const symbolsArr = formattingService.splitSymbols(symbols.toUpperCase());
+            this.Symbol$ = symbols;
+            this.BalanceSymbol = symbolsArr[0];
+            this.TitleSymbol = symbolsArr[0];
+            store
+                .pipe(
+                    select(getAccountBalancesSelector),
+                    filter(item => item !== null),
+                    map(item => item.find(balance => balance.asset === symbolsArr[0])),
+                    map(item => item.free),
+                    distinct()
+                )
+                .subscribe(balance => (this.Balance = balance));
+            this.lastPrice$ = store.pipe(
                 select(getSymbolTradeSelector),
                 filter(trade => trade !== null),
                 map(trade => <number>trade.p)

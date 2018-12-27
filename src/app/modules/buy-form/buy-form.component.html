@@ -1,10 +1,12 @@
-<app-block [data]="lastPrice$ | async">
+<app-block [data]="Balance">
     <app-trade-form
         [action]="'Buy'"
-        [symbol]="Symbol$ | async"
+        [symbol]="Symbol$"
+        [balanceSymbol]="BalanceSymbol"
+        [titleSymbol]="TitleSymbol"
         [status]="Status$ | async"
         [price]="lastPrice$"
         (trade)="submit($event)"
-        [balance]="Balance$"
+        [balance]="Balance"
     ></app-trade-form>
 </app-block>
