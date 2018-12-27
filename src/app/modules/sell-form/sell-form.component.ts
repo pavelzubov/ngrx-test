@@ -26,7 +26,7 @@ export class SellFormComponent implements OnInit {
     private lastPrice$: Observable<number>;
 
     constructor(private store: Store<{}>, private formattingService: FormattingService) {
-        this.Status$ = store.pipe(select(getBuyTradeSelector));
+        this.Status$ = store.pipe(select(getSellTradeSelector));
         store.pipe(select(getSymbolSwitchSelector)).subscribe((symbols: string) => {
             const symbolsArr = formattingService.splitSymbols(symbols.toUpperCase());
             this.Symbol$ = symbols;
