@@ -64,7 +64,7 @@ export class RequestService {
 }
 export interface RequestOptions {
     url: string;
-    params: OrderRequest;
+    params?: OrderRequest;
     type?: REQUEST_TYPE[];
     method?: HTTP_METHODS;
 }

@@ -23,6 +23,10 @@ export class SimplexService {
         private formattingService: FormattingService,
         private requestService: RequestService
     ) {}
+
+    public getAccountInformation = () =>
+        this.requestService.get({ url: '/api/v3/account' });
+
     public getTrades = (symbol): Observable<any[]> =>
         this.requestService.get({
             url: '/api/v1/trades',

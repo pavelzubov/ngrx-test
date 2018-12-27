@@ -21,6 +21,7 @@ import { tradeReducer, TradeState } from './trade.reducer';
 import { SocketState } from './socket.reducer';
 import { PlatformState } from './platform.reducer';
 import { keysReducer, KeysState } from './keys.reducer';
+import { accountReducer, AccountState } from './account.reducer';
 
 export interface SocketsState {
     symbolTrade: any;
@@ -46,6 +47,7 @@ export interface State {
     sockets?: SocketsState;
     trade?: TradeState;
     keys?: KeysState;
+    account?: AccountState;
 }
 export const reducers: ActionReducerMap<State> = {
     platform: platform.platformReducer,
@@ -63,7 +65,8 @@ export const reducers: ActionReducerMap<State> = {
         initialSocketsState
     ),
     keys: keysReducer,
-    trade: tradeReducer
+    trade: tradeReducer,
+    account: accountReducer
 };
 
 export function logger(reducer: ActionReducer<State>): ActionReducer<State> {
