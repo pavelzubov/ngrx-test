@@ -76,6 +76,7 @@ export interface OrderRequest {
     side?: string;
     type?: string;
     timestamp?: string;
+    limit?: string;
 }
 export enum TimeInForce {
     GTC = 'GTC',
