@@ -46,8 +46,9 @@ export class RequestService {
         };
         return this.http[method](
             options.url,
-            HTTP_METHODS.POST && this.parseOptions(body),
-            httpOptions
+            (method === HTTP_METHODS.GET && httpOptions) ||
+                (method === HTTP_METHODS.POST && this.parseOptions(body)),
+            method === HTTP_METHODS.POST && httpOptions
         );
     }
 

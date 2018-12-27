@@ -51,7 +51,7 @@ export class SimplexService {
         };*/
         return this.requestService.get({
             url: '/api/v1/depth',
-            params: { symbol: symbol, limit: '5' }
+            params: { symbol: symbol.toUpperCase(), limit: '5' }
         });
         // return this.http.get('/api/v1/depth', httpOptions).pipe(map(res => <any[]>res));
     }
