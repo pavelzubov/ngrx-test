@@ -22,12 +22,12 @@ export class RequestService {
         store.pipe(select(getPublicKeySelector)).subscribe(key => (this.publicKey = key));
     }
 
-    public get(options: RequestOptions): Observable<any> {
-        return this.sendRequest(options, HTTP_METHODS.GET);
-    }
-    public post(options: RequestOptions): Observable<any> {
-        return this.sendRequest(options, HTTP_METHODS.POST);
-    }
+    public get = (options: RequestOptions): Observable<any> =>
+        this.sendRequest(options, HTTP_METHODS.GET);
+
+    public post = (options: RequestOptions): Observable<any> =>
+        this.sendRequest(options, HTTP_METHODS.POST);
+
     public sendRequest(options: RequestOptions, method: string): Observable<any> {
         const headers = {};
         const body = { ...options.params };
@@ -44,12 +44,13 @@ export class RequestService {
                 method === HTTP_METHODS.GET ? new HttpParams({ fromObject: body }) : null,
             headers: new HttpHeaders(headers)
         };
-        return this.http[method](
-            options.url,
-            (method === HTTP_METHODS.GET && httpOptions) ||
-                (method === HTTP_METHODS.POST && this.parseOptions(body)),
-            method === HTTP_METHODS.POST && httpOptions
-        );
+        switch (method) {
+            case HTTP_METHODS.GET:
+                return this.http.get(options.url, httpOptions);
+            case HTTP_METHODS.POST:
+            default:
+                return this.http.post(options.url, this.parseOptions(body), httpOptions);
+        }
     }
 
     private signOptions = (options: OrderRequest, privateKey: string): string =>

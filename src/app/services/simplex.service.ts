@@ -23,41 +23,31 @@ export class SimplexService {
         private formattingService: FormattingService,
         private requestService: RequestService
     ) {}
-    public getTrades(symbol): Observable<any[]> {
-        const httpOptions = {
-            params: new HttpParams({
-                fromObject: { symbol: symbol.toUpperCase(), limit: '20' }
-            })
-        };
-        return this.http.get('/api/v1/trades', httpOptions).pipe(map(res => <any[]>res));
-    }
+    public getTrades = (symbol): Observable<any[]> =>
+        this.requestService.get({
+            url: '/api/v1/trades',
+            params: { symbol: symbol.toUpperCase(), limit: '20' }
+        });
 
-    public getTickers(symbol?: string): Observable<any[]> {
-        const httpOptions = {
-            params: new HttpParams({
-                fromObject: symbol ? { symbol: symbol.toUpperCase() } : {}
-            })
-        };
-        return this.http
-            .get('/api/v1/ticker/24hr', httpOptions)
-            .pipe(map(res => <any[]>res));
-    }
+    public getTickers = (symbol?: string): Observable<any[]> =>
+        this.requestService.get({
+            url: '/api/v1/ticker/24hr',
+            params: symbol ? { symbol: symbol.toUpperCase() } : {}
+        });
 
-    public getDepth(symbol?: string): Observable<any[]> {
-        /*const httpOptions = {
-            params: new HttpParams({
-                fromObject: { symbol: symbol.toUpperCase(), limit: '5' }
-            })
-        };*/
-        return this.requestService.get({
+    public getDepth = (symbol?: string): Observable<any[]> =>
+        this.requestService.get({
             url: '/api/v1/depth',
             params: { symbol: symbol.toUpperCase(), limit: '5' }
         });
-        // return this.http.get('/api/v1/depth', httpOptions).pipe(map(res => <any[]>res));
-    }
 
-    public postBuy({ symbol, price, quantity, type }: TradeRequest): Observable<any[]> {
-        return this.newOrder({
+    public postBuy = ({
+        symbol,
+        price,
+        quantity,
+        type
+    }: TradeRequest): Observable<any[]> =>
+        this.newOrder({
             symbol,
             type,
             price: String(price),
@@ -65,10 +55,14 @@ export class SimplexService {
             timeInForce: TimeInForce.GTC,
             side: 'BUY'
         });
-    }
 
-    public postSell({ symbol, price, quantity, type }: TradeRequest): Observable<any[]> {
-        return this.newOrder({
+    public postSell = ({
+        symbol,
+        price,
+        quantity,
+        type
+    }: TradeRequest): Observable<any[]> =>
+        this.newOrder({
             symbol,
             type,
             price: String(price),
@@ -76,15 +70,13 @@ export class SimplexService {
             timeInForce: TimeInForce.GTC,
             side: 'SELL'
         });
-    }
 
-    private newOrder(options: OrderRequest): Observable<any> {
-        return this.requestService.post({
+    private newOrder = (options: OrderRequest): Observable<any> =>
+        this.requestService.post({
             url: '/api/v3/order',
             params: options,
             type: [REQUEST_TYPE.SIGNED, REQUEST_TYPE.AUTHORIZED]
         });
-    }
 }
 export interface TradeRequest {
     symbol: string;
