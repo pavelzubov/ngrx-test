@@ -23,19 +23,20 @@ export class RequestService {
     }
 
     public get = (options: RequestOptions): Observable<any> =>
-        this.sendRequest(options, HTTP_METHODS.GET);
+        this.sendRequest({ ...options, method: HTTP_METHODS.GET });
 
     public post = (options: RequestOptions): Observable<any> =>
-        this.sendRequest(options, HTTP_METHODS.POST);
+        this.sendRequest({ ...options, method: HTTP_METHODS.POST });
 
-    public sendRequest(options: RequestOptions, method: string): Observable<any> {
+    public sendRequest(options: RequestOptions): Observable<any> {
+        const { method, params, type, url } = options;
         const headers = {};
-        const body = { ...options.params };
-        if (options.type && options.type.includes(REQUEST_TYPE.AUTHORIZED)) {
+        const body = { ...params };
+        if (type && type.includes(REQUEST_TYPE.AUTHORIZED)) {
             headers['X-MBX-APIKEY'] = this.publicKey;
             headers['content-type'] = 'application/x-www-form-urlencoded';
         }
-        if (options.type && options.type.includes(REQUEST_TYPE.SIGNED)) {
+        if (type && type.includes(REQUEST_TYPE.SIGNED)) {
             body['timestamp'] = String(Date.now());
             body['signature'] = this.signOptions(body, this.privateKey);
         }
@@ -46,10 +47,10 @@ export class RequestService {
         };
         switch (method) {
             case HTTP_METHODS.GET:
-                return this.http.get(options.url, httpOptions);
+                return this.http.get(url, httpOptions);
             case HTTP_METHODS.POST:
             default:
-                return this.http.post(options.url, this.parseOptions(body), httpOptions);
+                return this.http.post(url, this.parseOptions(body), httpOptions);
         }
     }
 
@@ -65,6 +66,7 @@ export interface RequestOptions {
     url: string;
     params: OrderRequest;
     type?: REQUEST_TYPE[];
+    method?: HTTP_METHODS;
 }
 export enum REQUEST_TYPE {
     AUTHORIZED,
