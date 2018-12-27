@@ -14,6 +14,7 @@ import {
     GetSymbolTicketSocketRequest,
     GetSymbolTicketSocketSuccess
 } from '../../modules/symbol-ticket/symbol-ticket.actions';
+import { getPrivateKeySelector } from '../../store/reducers';
 
 @Component({
     selector: 'app-sockets',
@@ -23,11 +24,15 @@ import {
 })
 export class SocketsComponent implements OnInit {
     Symbol$: Observable<any>;
+    private privateKey: string;
     constructor(
         private store: Store<{ socket: any[] }>,
         private simplexService: SimplexService
     ) {
         this.Symbol$ = store.pipe(select(getSymbolSwitchSelector));
+        store
+            .pipe(select(getPrivateKeySelector))
+            .subscribe(key => (this.privateKey = key));
     }
 
     ngOnInit() {

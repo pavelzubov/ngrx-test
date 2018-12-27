@@ -1,6 +1,7 @@
 <div class="sockets">
     <app-buy-form></app-buy-form>
-    <app-key></app-key>
+    <app-sell-form></app-sell-form>
+    <app-key *ngIf="!privateKey"></app-key>
     <app-symbol-trade></app-symbol-trade>
     <app-symbol-ticket></app-symbol-ticket>
     <app-symbol-depth></app-symbol-depth>

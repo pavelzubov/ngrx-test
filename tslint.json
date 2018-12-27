@@ -85,10 +85,10 @@
       "single"
     ],
     "radix": true,
-    "semicolon": [
+    /*"semicolon": [
       true,
       "always"
-    ],
+    ],*/
     "triple-equals": [
       true,
       "allow-null-check"

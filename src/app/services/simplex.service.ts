@@ -1,32 +1,28 @@
-import { Injectable, OnInit } from '@angular/core';
+import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
-import { Observable, of, throwError } from 'rxjs';
-import { catchError, map } from 'rxjs/operators';
+import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
 import * as crypto from 'crypto-js';
-import * as Base64 from 'crypto-js/enc-base64';
 import { select, Store } from '@ngrx/store';
-import {
-    getBuyTradeSelector,
-    getPrivateKeySelector,
-    getPrivateKeysState,
-    getPublicKeySelector
-} from '../store/reducers';
+import { getPrivateKeySelector, getPublicKeySelector } from '../store/reducers';
 import { ChangePrivateKeyRequest } from '../store/actions/keys.actions';
+import { FormattingService } from './formatting.service';
+import {
+    OrderRequest,
+    RequestService,
+    REQUEST_TYPE,
+    TimeInForce
+} from './request.service';
 
 @Injectable()
 export class SimplexService {
     private url = 'https://www.binance.com/api/v1/';
-    private privateKey: string;
-    private publicKey: string;
-    constructor(private http: HttpClient, private store: Store<{}>) {
-        this.privateKey = localStorage.getItem('privateKey');
-        this.store.dispatch(new ChangePrivateKeyRequest(this.privateKey));
-        store.pipe(select(getPrivateKeySelector)).subscribe(key => {
-            localStorage.setItem('privateKey', key);
-            this.privateKey = key;
-        });
-        store.pipe(select(getPublicKeySelector)).subscribe(key => (this.publicKey = key));
-    }
+    constructor(
+        private http: HttpClient,
+        private store: Store<{}>,
+        private formattingService: FormattingService,
+        private requestService: RequestService
+    ) {}
     public getTrades(symbol): Observable<any[]> {
         const httpOptions = {
             params: new HttpParams({
@@ -48,68 +44,51 @@ export class SimplexService {
     }
 
     public getDepth(symbol?: string): Observable<any[]> {
-        const httpOptions = {
+        /*const httpOptions = {
             params: new HttpParams({
                 fromObject: { symbol: symbol.toUpperCase(), limit: '5' }
             })
-        };
-        return this.http.get('/api/v1/depth', httpOptions).pipe(map(res => <any[]>res));
+        };*/
+        return this.requestService.get({
+            url: '/api/v1/depth',
+            params: { symbol: symbol, limit: '5' }
+        });
+        // return this.http.get('/api/v1/depth', httpOptions).pipe(map(res => <any[]>res));
     }
 
-    public postBuy(options: TradeRequest): Observable<any[]> {
+    public postBuy({ symbol, price, quantity, type }: TradeRequest): Observable<any[]> {
         return this.newOrder({
-            ...options,
-            side: 'BUY',
+            symbol,
+            type,
+            price: String(price),
+            quantity: this.formattingService.formatValue(quantity, 4),
             timeInForce: TimeInForce.GTC,
-            timestamp: String(Date.now())
+            side: 'BUY'
         });
     }
 
-    public postSell({ price, amount, total }: TradeRequest): Observable<any[]> {
-        return of(['success']);
+    public postSell({ symbol, price, quantity, type }: TradeRequest): Observable<any[]> {
+        return this.newOrder({
+            symbol,
+            type,
+            price: String(price),
+            quantity: this.formattingService.formatValue(quantity, 4),
+            timeInForce: TimeInForce.GTC,
+            side: 'SELL'
+        });
     }
 
     private newOrder(options: OrderRequest): Observable<any> {
-        // const options = { symbol, side, type, quantity, timestamp };
-        const signature = this.signOptions(options, this.privateKey);
-        const httpOptions = {
-            headers: new HttpHeaders({
-                'X-MBX-APIKEY': this.publicKey,
-                'content-type': 'application/x-www-form-urlencoded'
-            })
-        };
-        const body = { ...options, signature };
-        // console.log(httpOptions.headers.get('X-MBX-APIKEY'));
-        // console.log(body);
-        return this.http.post('/api/v3/order', this.parseOptions(body), httpOptions);
-        // return this.privateKey ? of(['success']) : throwError('');
+        return this.requestService.post({
+            url: '/api/v3/order',
+            params: options,
+            type: [REQUEST_TYPE.SIGNED, REQUEST_TYPE.AUTHORIZED]
+        });
     }
-
-    private signOptions = (options: OrderRequest, privateKey: string): string =>
-        String(crypto.HmacSHA256(this.parseOptions(options), privateKey));
-
-    private parseOptions = (options: OrderRequest) =>
-        Object.entries(options)
-            .map(item => `${item[0]}=${String(item[1]).toUpperCase()}`)
-            .join('&');
 }
 export interface TradeRequest {
     symbol: string;
     price: number;
     quantity: number;
     type: string;
-}
-export interface OrderRequest {
-    symbol: string;
-    price: string | number;
-    quantity: string | number;
-    timeInForce: TimeInForce;
-    side: string;
-    type: string;
-    timestamp: string | number;
-}
-export enum TimeInForce {
-    GTC = 'GTC',
-    IOC = 'IOC',
-    FOK = 'FOK'
 }

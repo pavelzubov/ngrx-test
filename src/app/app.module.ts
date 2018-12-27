@@ -56,6 +56,7 @@ import { LoginModule } from './modules/login/login.module';
 import { BuyFormComponent } from './modules/buy-form/buy-form.component';
 import { TradeEffects } from './store/effects/trade.effects';
 import { KeyComponent } from './modules/key/key.component';
+import { SellFormComponent } from './modules/sell-form/sell-form.component';
 
 @NgModule({
     declarations: [
@@ -77,6 +78,7 @@ import { KeyComponent } from './modules/key/key.component';
         TickersComponent,
         ChartContainerComponent,
         BuyFormComponent,
+        SellFormComponent,
         KeyComponent
     ],
     imports: [
