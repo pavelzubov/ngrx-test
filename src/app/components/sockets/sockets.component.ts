@@ -1,6 +1,9 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { select, Store } from '@ngrx/store';
-import { GetChainSocketRequest } from '../../store/actions/socket.actions';
+import {
+    GetChainSocketRequest,
+    GetUserDataStreamRequest
+} from '../../store/actions/socket.actions';
 import { GetSymbolDepthSocketRequest } from '../../modules/symbol-depth/symbol-depth.actions';
 import { Observable } from 'rxjs';
 import { getSymbolSwitchSelector } from '../../modules/symbol-switch/symbol-switch.reducer';
@@ -44,6 +47,7 @@ export class SocketsComponent implements OnInit {
                 new GetChainSocketRequest({ symbol: symbol, levels: 5, interval: 300 })
             );
             this.store.dispatch(new GetAccountInformationRequest());
+            this.store.dispatch(new GetUserDataStreamRequest());
         });
     }
 }

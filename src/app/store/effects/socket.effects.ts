@@ -16,6 +16,7 @@ import { DepthActionTypes } from '../../modules/symbol-depth/symbol-depth.action
 import { TrackerArrActionTypes } from '../../modules/tracker-arr/tracker-arr.actions';
 import { TickerActionTypes } from '../../modules/symbol-ticket/symbol-ticket.actions';
 import { MarketTicketsActionTypes } from '../../modules/market-tickets/market-tickets.actions';
+import { AccountActionTypes } from '../actions/account.actions';
 
 @Injectable()
 export class SocketEffects {
@@ -52,6 +53,22 @@ export class SocketEffects {
                     };
             }
         })
+    );
+
+    @Effect()
+    UserData$: Observable<Action> = this.actions$.pipe(
+        ofType(ActionTypes.GetUserDataStreamRequest),
+        mergeMap((action: EffectAction) =>
+            this.websocketService.getUserDataStream().pipe(
+                map(data => ({
+                    type: ActionTypes.GetUserDataStreamSuccess,
+                    payload: data
+                })),
+                catchError(error =>
+                    of({ type: ActionTypes.GetUserDataStreamFail, payload: error })
+                )
+            )
+        )
     );
 
     @Effect()

@@ -24,6 +24,12 @@ export class SimplexService {
         private requestService: RequestService
     ) {}
 
+    public getUserStreamKey = (): Observable<any[]> =>
+        this.requestService.post({
+            url: '/api/v1/userDataStream',
+            type: [REQUEST_TYPE.AUTHORIZED]
+        });
+
     public getAccountInformation = (): Observable<any[]> =>
         this.requestService.get({
             url: '/api/v3/account',
@@ -58,7 +64,7 @@ export class SimplexService {
             symbol,
             type,
             price: String(price),
-            quantity: this.formattingService.formatValue(quantity, 4),
+            quantity: this.formattingService.formatValue(quantity, 3),
             timeInForce: TimeInForce.GTC,
             side: 'BUY'
         });
@@ -73,7 +79,7 @@ export class SimplexService {
             symbol,
             type,
             price: String(price),
-            quantity: this.formattingService.formatValue(quantity, 4),
+            quantity: this.formattingService.formatValue(quantity, 3),
             timeInForce: TimeInForce.GTC,
             side: 'SELL'
         });

@@ -1,3 +1,5 @@
+import { ActionTypes } from '../actions/socket.actions';
+
 export interface SocketState {
     miniTrackerArrSocket?: any;
 }

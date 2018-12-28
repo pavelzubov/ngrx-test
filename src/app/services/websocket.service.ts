@@ -1,7 +1,8 @@
 import { Injectable, OnDestroy } from '@angular/core';
 import { WebSocketSubject } from 'rxjs/webSocket';
 import { interval, Observable, Subject } from 'rxjs';
-import { catchError, map, takeWhile } from 'rxjs/operators';
+import { catchError, filter, map, switchMap, takeWhile } from 'rxjs/operators';
+import { SimplexService } from './simplex.service';
 
 export interface ChainElement {
     method: string;
@@ -83,7 +84,7 @@ export class WebsocketService implements OnDestroy {
     };
     private sockets: { [key: string]: SocketInterface } = {};
 
-    constructor() {}
+    constructor(private simplexService: SimplexService) {}
 
     ngOnDestroy() {
         Object.values(this.sockets).forEach((socket: SocketInterface) =>
@@ -166,4 +167,18 @@ export class WebsocketService implements OnDestroy {
         const url = `${this.api}stream?${socketName}=${request}`;
         return this.connectSocket(socketName, url);
     }
+    public getUserDataStream = () => {
+        const socketName = 'userData';
+        return this.simplexService.getUserStreamKey().pipe(
+            switchMap((key: any) => {
+                const url = `${this.api}ws/${key.listenKey}`;
+                return this.connectSocket(socketName, url).pipe(
+                    filter(info => info.e === 'outboundAccountInfo'),
+                    map(info => {
+                        return { ...info, balances: info.B };
+                    })
+                );
+            })
+        );
+    };
 }

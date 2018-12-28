@@ -4,13 +4,19 @@
   margin-right: $block-padding
   margin-bottom: $block-padding
   border-radius: $block-radius
-  height: $block-height
+  //min-height: $block-height
+  max-height: $block-height+$block-padding*5
   overflow: auto
   padding: $block-padding
   position: relative
-  box-shadow: 0 2px 4px 1px rgba(0, 0, 0, .2)
+  box-shadow: 0 2px 4px 1px rgba(0, 0, 0, .4)
   background: $block-background
   &__data, &__loader
     height: 100%
     width: 100%
+  &__data
+    display: flex
+    align-items: center
+    justify-content: center
+    flex-direction: row
 

@@ -1,5 +1,6 @@
 import { AccountActionTypes } from '../actions/account.actions';
 import { createFeatureSelector, createSelector } from '@ngrx/store';
+import { ActionTypes } from '../actions/socket.actions';
 
 export interface AccountState {
     accountInformation: AccountInformation;
@@ -21,7 +22,9 @@ export interface AccountInformation {
 
 export interface AccountBalance {
     asset: string;
+    a?: string;
     free: string;
+    f?: string;
     locked: string;
 }
 
@@ -33,8 +36,12 @@ export const initialState: AccountState = {
 export function accountReducer(state = initialState, action: any): AccountState {
     switch (action.type) {
         case AccountActionTypes.GetAccountSuccess:
-            return { ...state, accountInformation: action.payload };
+            return { error: undefined, ...state, accountInformation: action.payload };
         case AccountActionTypes.GetAccountFail:
+            return { ...state, error: action.payload };
+        case ActionTypes.GetUserDataStreamSuccess:
+            return { ...state, accountInformation: action.payload };
+        case ActionTypes.GetUserDataStreamFail:
             return { ...state, error: action.payload };
         default:
             return state;
