@@ -55,7 +55,7 @@ export class SocketEffects {
         })
     );
 
-    @Effect()
+    /*@Effect()
     UserData$: Observable<Action> = this.actions$.pipe(
         ofType(ActionTypes.GetUserDataStreamRequest),
         mergeMap((action: EffectAction) =>
@@ -69,7 +69,7 @@ export class SocketEffects {
                 )
             )
         )
-    );
+    );*/
 
     @Effect()
     MarketTickets$: Observable<Action> = this.actions$.pipe(

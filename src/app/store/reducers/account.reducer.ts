@@ -36,7 +36,6 @@ export const initialState: AccountState = {
 export function accountReducer(state = initialState, action: any): AccountState {
     switch (action.type) {
         case AccountActionTypes.GetAccountSuccess:
-            console.log(action.payload);
             return { error: undefined, ...state, accountInformation: action.payload };
         case AccountActionTypes.GetAccountFail:
             return { accountInformation: undefined, ...state, error: action.payload };
