@@ -20,6 +20,7 @@ import {
 import { getPrivateKeySelector } from '../../store/reducers';
 import {
     GetAccountInformationRequest,
+    GetAllOrdersRequest,
     GetOpenOrdersRequest
 } from '../../store/actions/account.actions';
 
@@ -51,6 +52,7 @@ export class SocketsComponent implements OnInit {
             );
             this.store.dispatch(new GetAccountInformationRequest());
             this.store.dispatch(new GetOpenOrdersRequest());
+            this.store.dispatch(new GetAllOrdersRequest(symbol));
             // this.store.dispatch(new GetUserDataStreamRequest());
         });
     }

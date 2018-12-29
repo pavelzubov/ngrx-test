@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { SimplexService } from './simplex.service';
 import { WebsocketService } from './websocket.service';
 import { merge, Observable, of } from 'rxjs';
-import { map, pairwise } from 'rxjs/operators';
+import { filter, map, pairwise } from 'rxjs/operators';
 
 @Injectable({
     providedIn: 'root'
@@ -29,20 +29,12 @@ export class StreamService {
     public getOpenOrders = (symbol?: string): Observable<any> =>
         merge(
             this.simplexService.getOpenOrders(symbol),
-            this.websocketService.getOpenOrdersStream()
-        ).pipe(
-            pairwise(),
-            map(values => {
-                let res = [];
-
-                console.log(values);
-                values.forEach(value => {
-                    if (Array.isArray(values)) res = [...res, ...value];
-                    else res.push(value);
-                });
-                console.log(res);
-                return res;
-            })
+            this.websocketService.getOpenOrdersStream().pipe(map(item => [item]))
+        );
+    public getAllOrders = (symbol?: string): Observable<any> =>
+        merge(
+            this.simplexService.getAllOrders(symbol),
+            this.websocketService.getAllOrdersStream(symbol).pipe(map(item => [item]))
         );
 }
 export const USER_DATA = 'USER_DATA';

@@ -31,6 +31,13 @@ export class SimplexService {
             type: [REQUEST_TYPE.SIGNED, REQUEST_TYPE.AUTHORIZED]
         });
 
+    public getAllOrders = (symbol: string): Observable<any[]> =>
+        this.requestService.get({
+            url: '/api/v3/allOrders',
+            params: { symbol: symbol.toUpperCase() },
+            type: [REQUEST_TYPE.SIGNED, REQUEST_TYPE.AUTHORIZED]
+        });
+
     public getUserStreamKey = (): Observable<any[]> =>
         this.requestService.post({
             url: '/api/v1/userDataStream',

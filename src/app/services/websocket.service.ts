@@ -18,6 +18,7 @@ export const TRADE = 'trade';
 interface SocketInterface {
     reconnectInterval: number;
     reconnectAttempts: number;
+    url: string;
     reconnect(url: string): void;
     disconnect(): void;
     subscribe(): Subject<any>;
@@ -28,8 +29,10 @@ class Socket implements SocketInterface {
     private wsMessages$: Subject<any>;
     readonly reconnectInterval = 5000;
     readonly reconnectAttempts = 10;
+    public url: string;
 
     constructor(url: string) {
+        this.url = url;
         this.connect(url);
     }
 
@@ -93,8 +96,10 @@ export class WebsocketService implements OnDestroy {
     }
 
     private connectSocket(type: string, url: string): Observable<any> {
-        if (this.sockets[type]) this.sockets[type].reconnect(url);
-        else this.sockets[type] = new Socket(url);
+        if (this.sockets[type]) {
+            console.log(this.sockets[type].url, url);
+            if (this.sockets[type].url !== url) this.sockets[type].reconnect(url);
+        } else this.sockets[type] = new Socket(url);
         return this.sockets[type].subscribe();
     }
     /*private connect(url) {
@@ -184,12 +189,25 @@ export class WebsocketService implements OnDestroy {
     };
 
     public getOpenOrdersStream = () => {
-        const socketName = 'openOrders$';
+        const socketName = 'accountInformation';
         return this.simplexService.getUserStreamKey().pipe(
             switchMap((key: any) => {
                 const url = `${this.api}ws/${key.listenKey}`;
                 return this.connectSocket(socketName, url).pipe(
                     filter(info => info.e === 'executionReport')
+                );
+            })
+        );
+    };
+
+    public getAllOrdersStream = (symbol: string) => {
+        const socketName = 'accountInformation';
+        return this.simplexService.getUserStreamKey().pipe(
+            switchMap((key: any) => {
+                const url = `${this.api}ws/${key.listenKey}`;
+                return this.connectSocket(socketName, url).pipe(
+                    filter(info => info.e === 'executionReport'),
+                    filter(info => info.s === symbol.toUpperCase())
                 );
             })
         );

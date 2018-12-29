@@ -3,15 +3,18 @@ import { Column, COLUMN_TYPE } from '../../components/table/column';
 import { select, Store } from '@ngrx/store';
 import { getSymbolTradeSelector } from '../../store/reducers';
 import { Observable } from 'rxjs';
-import { getOpenOrdersSelector } from '../../store/reducers/account.reducer';
+import {
+    getAllOrdersSelector,
+    getOpenOrdersSelector
+} from '../../store/reducers/account.reducer';
 import { filter, pairwise } from 'rxjs/operators';
 
 @Component({
-    selector: 'app-open-orders',
-    templateUrl: './open-orders.component.html',
-    styleUrls: ['./open-orders.component.sass']
+    selector: 'app-all-orders',
+    templateUrl: './all-orders.component.html',
+    styleUrls: ['./all-orders.component.sass']
 })
-export class OpenOrdersComponent implements OnInit, OnChanges {
+export class AllOrdersComponent implements OnInit, OnChanges {
     columns: Column[] = [
         {
             name: ['time', 'T'],
@@ -51,29 +54,23 @@ export class OpenOrdersComponent implements OnInit, OnChanges {
             label: 'Trigger conditions?'
         }
     ];
-    openOrders: any[] = [];
-    openOrdersStream$: Observable<any>;
+    Orders: any[] = [];
+    OrdersStream$: Observable<any>;
     constructor(private store: Store<{}>) {
-        this.openOrdersStream$ = store.pipe(select(getOpenOrdersSelector));
-        this.openOrdersStream$
-            .pipe(
-                filter(item => !!item && !!item[0]),
-                filter(item => {
-                    const lastOrderId = item[0].clientOrderId || item[0].c;
-                    const newOrderId = this.openOrders.length
-                        ? this.openOrders[this.openOrders.length - 1].clientOrderId ||
-                          this.openOrders[this.openOrders.length - 1].c
-                        : null;
-                    return lastOrderId !== newOrderId;
-                })
-            )
-            .subscribe(line => (this.openOrders = [...this.openOrders, ...line]));
+        this.OrdersStream$ = store.pipe(select(getAllOrdersSelector));
+        this.OrdersStream$.pipe(
+            filter(item => item !== null),
+            filter(item => {
+                const lastOrderId = item[0].clientOrderId || item[0].c;
+                const newOrderId = this.Orders.length
+                    ? this.Orders[this.Orders.length - 1].clientOrderId ||
+                      this.Orders[this.Orders.length - 1].c
+                    : null;
+                return lastOrderId !== newOrderId;
+            })
+        ).subscribe(line => (this.Orders = [...this.Orders, ...line].reverse()));
     }
 
-    ngOnInit() {
-        // console.log(this.openOrders$);
-    }
-    ngOnChanges() {
-        console.log(this.openOrders, this.openOrders.length);
-    }
+    ngOnInit() {}
+    ngOnChanges() {}
 }

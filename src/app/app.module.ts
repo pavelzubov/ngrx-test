@@ -61,6 +61,7 @@ import { AccountEffects } from './store/effects/account.effects';
 import { TradeModuleComponent } from './modules/trade-module/trade-module.component';
 import { TradeBlockComponent } from './modules/trade-block/trade-block.component';
 import { OpenOrdersComponent } from './modules/open-orders/open-orders.component';
+import { AllOrdersComponent } from './modules/all-orders/all-orders.component';
 
 @NgModule({
     declarations: [
@@ -86,6 +87,7 @@ import { OpenOrdersComponent } from './modules/open-orders/open-orders.component
         KeyComponent,
         TradeModuleComponent,
         TradeBlockComponent,
+        AllOrdersComponent,
         OpenOrdersComponent
     ],
     imports: [

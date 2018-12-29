@@ -6,34 +6,24 @@ export enum AccountActionTypes {
     GetAccountInformationFail = '[Accounts] Get account information Fail',
     GetOpenOrdersRequest = '[Accounts] Get open orders Request',
     GetOpenOrdersSuccess = '[Accounts] Get open orders Success',
-    GetOpenOrdersFail = '[Accounts] Get open orders Fail'
+    GetOpenOrdersFail = '[Accounts] Get open orders Fail',
+    GetAllOrdersRequest = '[Accounts] Get All orders Request',
+    GetAllOrdersSuccess = '[Accounts] Get All orders Success',
+    GetAllOrdersFail = '[Accounts] Get All orders Fail'
 }
 
 export class GetAccountInformationRequest implements Action {
     readonly type = AccountActionTypes.GetAccountInformationRequest;
     public payload: string;
 }
-export class GetAccountInformationSuccess implements Action {
-    readonly type = AccountActionTypes.GetAccountInformationSuccess;
-    constructor(public payload: string) {}
-}
-export class GetAccountInformationFail implements Action {
-    readonly type = AccountActionTypes.GetAccountInformationFail;
-    constructor(public payload: string) {}
-}
 export class GetOpenOrdersRequest implements Action {
     readonly type = AccountActionTypes.GetOpenOrdersRequest;
     constructor(public payload: string = null) {}
 }
-export class GetOpenOrdersSuccess implements Action {
-    readonly type = AccountActionTypes.GetOpenOrdersSuccess;
-    constructor(public payload: string) {}
+export class GetAllOrdersRequest implements Action {
+    readonly type = AccountActionTypes.GetAllOrdersRequest;
+    constructor(public payload: string = null) {}
 }
-export class GetOpenOrdersFail implements Action {
-    readonly type = AccountActionTypes.GetOpenOrdersFail;
-    constructor(public payload: string) {}
-}
-
 export interface EffectAction {
     type: string;
     payload: any;

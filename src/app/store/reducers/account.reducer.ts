@@ -4,11 +4,12 @@ import { ActionTypes } from '../actions/socket.actions';
 
 export interface AccountState {
     accountInformation: AccountInformation;
-    openOrders?: OpenOrders;
+    openOrders?: Order[];
+    allOrders?: Order[];
     error: any;
 }
 
-export interface OpenOrders {
+export interface Order {
     symbol: string;
     orderId: number;
     clientOrderId: string;
@@ -51,6 +52,7 @@ export interface AccountBalance {
 export const initialState: AccountState = {
     accountInformation: { balances: null },
     openOrders: null,
+    allOrders: null,
     error: null
 };
 
@@ -68,6 +70,10 @@ export function accountReducer(state = initialState, action: any): AccountState 
             return { error: undefined, ...state, openOrders: action.payload };
         case AccountActionTypes.GetOpenOrdersFail:
             return { openOrders: undefined, ...state, error: action.payload };
+        case AccountActionTypes.GetAllOrdersSuccess:
+            return { error: undefined, ...state, allOrders: action.payload };
+        case AccountActionTypes.GetAllOrdersFail:
+            return { allOrders: undefined, ...state, error: action.payload };
         default:
             return state;
     }
@@ -87,7 +93,12 @@ export const getAccountBalancesSelector = createSelector(
 );
 
 export const getOpenOrdersState = (state: AccountState) => state.openOrders;
+export const getAllOrdersState = (state: AccountState) => state.allOrders;
 export const getOpenOrdersSelector = createSelector(
     getAccountState,
     getOpenOrdersState
+);
+export const getAllOrdersSelector = createSelector(
+    getAccountState,
+    getAllOrdersState
 );
