@@ -24,6 +24,13 @@ export class SimplexService {
         private requestService: RequestService
     ) {}
 
+    public getOpenOrders = (symbol: string = null): Observable<any[]> =>
+        this.requestService.get({
+            url: '/api/v3/openOrders',
+            params: { symbol: symbol },
+            type: [REQUEST_TYPE.SIGNED, REQUEST_TYPE.AUTHORIZED]
+        });
+
     public getUserStreamKey = (): Observable<any[]> =>
         this.requestService.post({
             url: '/api/v1/userDataStream',
@@ -96,4 +103,8 @@ export interface TradeRequest {
     price: number;
     quantity: number;
     type: string;
+}
+export interface OpenOrdersRequest {
+    symbol?: string;
+    recvWindow?: string;
 }

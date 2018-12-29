@@ -18,7 +18,10 @@ import {
     GetSymbolTicketSocketSuccess
 } from '../../modules/symbol-ticket/symbol-ticket.actions';
 import { getPrivateKeySelector } from '../../store/reducers';
-import { GetAccountInformationRequest } from '../../store/actions/account.actions';
+import {
+    GetAccountInformationRequest,
+    GetOpenOrdersRequest
+} from '../../store/actions/account.actions';
 
 @Component({
     selector: 'app-sockets',
@@ -47,7 +50,8 @@ export class SocketsComponent implements OnInit {
                 new GetChainSocketRequest({ symbol: symbol, levels: 5, interval: 300 })
             );
             this.store.dispatch(new GetAccountInformationRequest());
-            this.store.dispatch(new GetUserDataStreamRequest());
+            this.store.dispatch(new GetOpenOrdersRequest());
+            // this.store.dispatch(new GetUserDataStreamRequest());
         });
     }
 }

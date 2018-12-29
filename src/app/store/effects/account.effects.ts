@@ -16,15 +16,37 @@ export class AccountEffects {
     ) {}
     @Effect()
     getAccountInformation$: Observable<Action> = this.actions$.pipe(
-        ofType(AccountActionTypes.GetAccountRequest),
+        ofType(AccountActionTypes.GetAccountInformationRequest),
         mergeMap((action: EffectAction) =>
-            this.streamService.getStream(USER_DATA).pipe(
+            this.streamService.getUserData().pipe(
                 map(data => ({
-                    type: AccountActionTypes.GetAccountSuccess,
+                    type: AccountActionTypes.GetAccountInformationSuccess,
                     payload: data
                 })),
                 catchError(error =>
-                    of({ type: AccountActionTypes.GetAccountFail, payload: error })
+                    of({
+                        type: AccountActionTypes.GetAccountInformationFail,
+                        payload: error
+                    })
+                )
+            )
+        )
+    );
+
+    @Effect()
+    getOpenOrders$: Observable<Action> = this.actions$.pipe(
+        ofType(AccountActionTypes.GetOpenOrdersRequest),
+        mergeMap((action: EffectAction) =>
+            this.streamService.getOpenOrders(action.payload).pipe(
+                map(data => ({
+                    type: AccountActionTypes.GetOpenOrdersSuccess,
+                    payload: data
+                })),
+                catchError(error =>
+                    of({
+                        type: AccountActionTypes.GetOpenOrdersFail,
+                        payload: error
+                    })
                 )
             )
         )

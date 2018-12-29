@@ -167,8 +167,9 @@ export class WebsocketService implements OnDestroy {
         const url = `${this.api}stream?${socketName}=${request}`;
         return this.connectSocket(socketName, url);
     }
-    public getUserDataStream = () => {
-        const socketName = 'userData';
+
+    public getAccountInformationStream = () => {
+        const socketName = 'accountInformation';
         return this.simplexService.getUserStreamKey().pipe(
             switchMap((key: any) => {
                 const url = `${this.api}ws/${key.listenKey}`;
@@ -177,6 +178,18 @@ export class WebsocketService implements OnDestroy {
                     map(info => {
                         return { ...info, balances: info.B };
                     })
+                );
+            })
+        );
+    };
+
+    public getOpenOrdersStream = () => {
+        const socketName = 'openOrders$';
+        return this.simplexService.getUserStreamKey().pipe(
+            switchMap((key: any) => {
+                const url = `${this.api}ws/${key.listenKey}`;
+                return this.connectSocket(socketName, url).pipe(
+                    filter(info => info.e === 'executionReport')
                 );
             })
         );

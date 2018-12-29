@@ -31,7 +31,11 @@ export class RequestService {
     public sendRequest(options: RequestOptions): Observable<any> {
         const { method, params, type, url } = options;
         const headers = {};
-        const body = { ...params };
+        const body = {};
+
+        if (params)
+            for (const param in params) if (params[param]) body[param] = params[param];
+
         if (type && type.includes(REQUEST_TYPE.AUTHORIZED)) {
             headers['X-MBX-APIKEY'] = this.publicKey;
             headers['content-type'] = 'application/x-www-form-urlencoded';
@@ -63,7 +67,7 @@ export class RequestService {
             .join('&');
 }
 export interface RequestOptions {
-    url: string;
+    url?: string;
     params?: OrderRequest;
     type?: REQUEST_TYPE[];
     method?: HTTP_METHODS;

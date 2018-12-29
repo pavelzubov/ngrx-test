@@ -4,7 +4,27 @@ import { ActionTypes } from '../actions/socket.actions';
 
 export interface AccountState {
     accountInformation: AccountInformation;
+    openOrders?: OpenOrders;
     error: any;
+}
+
+export interface OpenOrders {
+    symbol: string;
+    orderId: number;
+    clientOrderId: string;
+    price: string;
+    origQty: string;
+    executedQty: string;
+    cummulativeQuoteQty: string;
+    status: string;
+    timeInForce: string;
+    type: string;
+    side: string;
+    stopPrice: string;
+    icebergQty: string;
+    time: number;
+    updateTime: number;
+    isWorking: boolean;
 }
 
 export interface AccountInformation {
@@ -30,19 +50,24 @@ export interface AccountBalance {
 
 export const initialState: AccountState = {
     accountInformation: { balances: null },
+    openOrders: null,
     error: null
 };
 
 export function accountReducer(state = initialState, action: any): AccountState {
     switch (action.type) {
-        case AccountActionTypes.GetAccountSuccess:
+        case AccountActionTypes.GetAccountInformationSuccess:
             return { error: undefined, ...state, accountInformation: action.payload };
-        case AccountActionTypes.GetAccountFail:
+        case AccountActionTypes.GetAccountInformationFail:
             return { accountInformation: undefined, ...state, error: action.payload };
         case ActionTypes.GetUserDataStreamSuccess:
             return { ...state, accountInformation: action.payload };
         case ActionTypes.GetUserDataStreamFail:
             return { ...state, error: action.payload };
+        case AccountActionTypes.GetOpenOrdersSuccess:
+            return { error: undefined, ...state, openOrders: action.payload };
+        case AccountActionTypes.GetOpenOrdersFail:
+            return { openOrders: undefined, ...state, error: action.payload };
         default:
             return state;
     }
@@ -59,4 +84,10 @@ export const getAccountInformationSelector = createSelector(
 export const getAccountBalancesSelector = createSelector(
     getAccountInformationSelector,
     getAccountBalanceState
+);
+
+export const getOpenOrdersState = (state: AccountState) => state.openOrders;
+export const getOpenOrdersSelector = createSelector(
+    getAccountState,
+    getOpenOrdersState
 );

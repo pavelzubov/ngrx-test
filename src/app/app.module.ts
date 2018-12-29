@@ -60,6 +60,7 @@ import { SellFormComponent } from './modules/sell-form/sell-form.component';
 import { AccountEffects } from './store/effects/account.effects';
 import { TradeModuleComponent } from './modules/trade-module/trade-module.component';
 import { TradeBlockComponent } from './modules/trade-block/trade-block.component';
+import { OpenOrdersComponent } from './modules/open-orders/open-orders.component';
 
 @NgModule({
     declarations: [
@@ -84,7 +85,8 @@ import { TradeBlockComponent } from './modules/trade-block/trade-block.component
         SellFormComponent,
         KeyComponent,
         TradeModuleComponent,
-        TradeBlockComponent
+        TradeBlockComponent,
+        OpenOrdersComponent
     ],
     imports: [
         HttpClientModule,
