@@ -10,10 +10,10 @@ import { WS } from './websocket.events';
 import { getSymbolSwitchSelector } from './modules/symbol-switch/symbol-switch.reducer';
 
 @Component({
+    // changeDetection: ChangeDetectionStrategy.OnPush,
     selector: 'app-root',
     templateUrl: './app.component.html',
-    styleUrls: ['./app.component.sass'],
-    changeDetection: ChangeDetectionStrategy.OnPush
+    styleUrls: ['./app.component.sass']
 })
 export class AppComponent implements OnInit, OnChanges {
     constructor(private store: Store<{}>, public programsService: ProgramsService) {

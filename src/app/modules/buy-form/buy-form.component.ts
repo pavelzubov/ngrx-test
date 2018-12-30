@@ -15,10 +15,10 @@ import { FormattingService } from '../../services/formatting.service';
 import { GetAccountInformationRequest } from '../../store/actions/account.actions';
 
 @Component({
+    // changeDetection: ChangeDetectionStrategy.OnPush,
     selector: 'app-buy-form',
     templateUrl: './buy-form.component.html',
-    styleUrls: ['./buy-form.component.sass'],
-    changeDetection: ChangeDetectionStrategy.OnPush
+    styleUrls: ['./buy-form.component.sass']
 })
 export class BuyFormComponent implements OnInit {
     private Symbol$: string; // Observable<any>;

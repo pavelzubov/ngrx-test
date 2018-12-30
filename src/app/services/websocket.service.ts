@@ -97,7 +97,6 @@ export class WebsocketService implements OnDestroy {
 
     private connectSocket(type: string, url: string): Observable<any> {
         if (this.sockets[type]) {
-            console.log(this.sockets[type].url, url);
             if (this.sockets[type].url !== url) this.sockets[type].reconnect(url);
         } else this.sockets[type] = new Socket(url);
         return this.sockets[type].subscribe();

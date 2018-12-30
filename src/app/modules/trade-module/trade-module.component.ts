@@ -25,9 +25,7 @@ export class TradeModuleComponent implements OnInit {
     private TitleSymbol: string;
     private lastPrice$: Observable<number>;
 
-    constructor(private store: Store<{}>, private formattingService: FormattingService) {
-        // this.Symbol$ = store.pipe(select(getSymbolSwitchSelector));
-    }
+    constructor(private store: Store<{}>, private formattingService: FormattingService) {}
 
     ngOnInit() {
         this.Status$ = this.store.pipe(select(this.tradeSelector));

@@ -27,8 +27,8 @@ import {
 @Component({
     selector: 'app-sockets',
     templateUrl: './sockets.component.html',
-    styleUrls: ['./sockets.component.sass'],
-    changeDetection: ChangeDetectionStrategy.OnPush
+    styleUrls: ['./sockets.component.sass']
+    // changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class SocketsComponent implements OnInit {
     Symbol$: Observable<any>;

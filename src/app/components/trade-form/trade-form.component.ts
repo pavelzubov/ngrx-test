@@ -15,10 +15,10 @@ import { Observable } from 'rxjs';
 import { AccountBalance } from '../../store/reducers/account.reducer';
 
 @Component({
+    // changeDetection: ChangeDetectionStrategy.OnPush,
     selector: 'app-trade-form',
     templateUrl: './trade-form.component.html',
-    styleUrls: ['./trade-form.component.sass'],
-    changeDetection: ChangeDetectionStrategy.OnPush
+    styleUrls: ['./trade-form.component.sass']
 })
 export class TradeFormComponent implements OnInit, OnChanges {
     @Input() public balance: string;

@@ -19,7 +19,10 @@ export class SymbolDepthComponent implements OnInit {
 
     update = '';
 
-    constructor(private store: Store<{ socket: any }>, private websocketService: WebsocketService) {
+    constructor(
+        private store: Store<{ socket: any }>,
+        private websocketService: WebsocketService
+    ) {
         this.SymbolDepth$ = store.pipe(select(getSymbolDepthSelector));
         this.Symbol$ = store.pipe(select(getSymbolSwitchSelector));
     }
