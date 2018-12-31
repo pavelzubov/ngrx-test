@@ -7,7 +7,7 @@ import {
     getAllOrdersSelector,
     getOpenOrdersSelector
 } from '../../store/reducers/account.reducer';
-import { filter, pairwise } from 'rxjs/operators';
+import { filter, map, pairwise } from 'rxjs/operators';
 
 @Component({
     selector: 'app-all-orders',
@@ -54,21 +54,28 @@ export class AllOrdersComponent implements OnInit, OnChanges {
             label: 'Trigger conditions?'
         }
     ];
-    Orders: any[] = [];
+    Orders: any[];
     OrdersStream$: Observable<any>;
     constructor(private store: Store<{}>) {
         this.OrdersStream$ = store.pipe(select(getAllOrdersSelector));
-        this.OrdersStream$.pipe(
-            filter(item => item !== null),
-            filter(item => {
+        this.OrdersStream$
+            .pipe
+            // filter(item => item !== null),
+            /*filter(item => {
                 const lastOrderId = item[0].clientOrderId || item[0].c;
-                const newOrderId = this.Orders.length
-                    ? this.Orders[this.Orders.length - 1].clientOrderId ||
-                      this.Orders[this.Orders.length - 1].c
-                    : null;
+                const newOrderId =
+                    this.Orders && this.Orders.length
+                        ? this.Orders[this.Orders.length - 1].clientOrderId ||
+                          this.Orders[this.Orders.length - 1].c
+                        : null;
                 return lastOrderId !== newOrderId;
-            })
-        ).subscribe(line => (this.Orders = [...this.Orders, ...line].reverse()));
+            }),*/
+            ()
+            .subscribe(line =>
+                Array.isArray(line)
+                    ? (this.Orders = this.Orders ? [...line, ...this.Orders] : [...line])
+                    : line
+            );
     }
 
     ngOnInit() {}

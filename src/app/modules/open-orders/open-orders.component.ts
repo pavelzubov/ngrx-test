@@ -51,29 +51,39 @@ export class OpenOrdersComponent implements OnInit, OnChanges {
             label: 'Trigger conditions?'
         }
     ];
-    openOrders: any[] = [];
+    Orders: any[];
     openOrdersStream$: Observable<any>;
+    isPending = true;
     constructor(private store: Store<{}>) {
         this.openOrdersStream$ = store.pipe(select(getOpenOrdersSelector));
+        this.Orders = [];
         this.openOrdersStream$
-            .pipe(
-                filter(item => !!item && !!item[0]),
+            .pipe
+            /*filter(item => !!item && !!item[0]),
                 filter(item => {
                     const lastOrderId = item[0].clientOrderId || item[0].c;
-                    const newOrderId = this.openOrders.length
-                        ? this.openOrders[this.openOrders.length - 1].clientOrderId ||
-                          this.openOrders[this.openOrders.length - 1].c
-                        : null;
+                    const newOrderId =
+                        this.Orders && this.Orders.length
+                            ? this.Orders[this.Orders.length - 1].clientOrderId ||
+                              this.Orders[this.Orders.length - 1].c
+                            : null;
                     return lastOrderId !== newOrderId;
-                })
-            )
-            .subscribe(line => (this.openOrders = [...this.openOrders, ...line]));
+                })*/
+            ()
+            .subscribe(line =>
+                Array.isArray(line)
+                    ? (this.Orders = this.Orders
+                          ? [...this.Orders, ...line].reverse()
+                          : [...line])
+                    : line
+            );
+        this.isPending = false;
     }
 
     ngOnInit() {
         // console.log(this.openOrders$);
     }
     ngOnChanges() {
-        console.log(this.openOrders, this.openOrders.length);
+        console.log(this.Orders, this.Orders.length);
     }
 }

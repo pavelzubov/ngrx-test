@@ -33,7 +33,7 @@ export class StreamService {
         );
     public getAllOrders = (symbol?: string): Observable<any> =>
         merge(
-            this.simplexService.getAllOrders(symbol),
+            this.simplexService.getAllOrders(symbol).pipe(map(item => item.reverse())),
             this.websocketService.getAllOrdersStream(symbol).pipe(map(item => [item]))
         );
 }

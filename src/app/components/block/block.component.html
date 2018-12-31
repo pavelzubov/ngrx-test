@@ -1,6 +1,9 @@
 <div class="socket" [ngSwitch]="data">
-    <div class="socket__loader" *ngSwitchCase="null || 0">
+    <div class="socket__loader" *ngSwitchCase="null || undefined">
         <app-block-loader></app-block-loader>
+    </div>
+    <div class="socket__loader" *ngSwitchCase="0">
+        <div class="socket__no-items"><div>There are no items</div></div>
     </div>
     <div class="socket__data" *ngSwitchDefault><ng-content></ng-content></div>
 </div>
