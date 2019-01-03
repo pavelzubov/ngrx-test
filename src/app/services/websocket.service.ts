@@ -3,6 +3,8 @@ import { WebSocketSubject } from 'rxjs/webSocket';
 import { interval, Observable, Subject } from 'rxjs';
 import { catchError, filter, map, switchMap, takeWhile } from 'rxjs/operators';
 import { SimplexService } from './simplex.service';
+import { PENDING } from '../store/reducers/trade.reducer';
+import { ORDER_STATUSES } from '../constants';
 
 export interface ChainElement {
     method: string;
@@ -194,7 +196,11 @@ export class WebsocketService implements OnDestroy {
                 const url = `${this.api}ws/${key.listenKey}`;
                 return this.connectSocket(socketName, url).pipe(
                     filter(info => info.e === 'executionReport'),
-                    filter(item => item.X !== ORDER_STATUSES.FILLED)
+                    filter(
+                        item =>
+                            item.X !== ORDER_STATUSES.FILLED &&
+                            item.X !== ORDER_STATUSES.REJECTED
+                    )
                 );
             })
         );
@@ -213,10 +219,4 @@ export class WebsocketService implements OnDestroy {
             })
         );
     };
-}
-export enum ORDER_STATUSES {
-    PARTIALLY_FILLED = 'PARTIALLY_FILLED',
-    FILLED = 'FILLED',
-    NEW = 'NEW',
-    FAIL = 'FAIL'
 }

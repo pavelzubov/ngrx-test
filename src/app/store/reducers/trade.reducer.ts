@@ -1,4 +1,5 @@
 import { TradeActionTypes } from '../actions/trade.actions';
+import { ORDER_STATUSES } from '../../constants';
 export const PENDING = 'PENDING';
 export const FAIL = 'FAIL';
 export interface TradeState {
@@ -14,17 +15,17 @@ export const initialState: TradeState = {
 export function tradeReducer(state = initialState, action: any): TradeState {
     switch (action.type) {
         case TradeActionTypes.BuyRequest:
-            return { ...state, buy: { status: PENDING } };
+            return { ...state, buy: { status: ORDER_STATUSES.PENDING } };
         case TradeActionTypes.BuySuccess:
             return { ...state, buy: { status: action.payload.status } };
         case TradeActionTypes.BuyFail:
-            return { ...state, buy: { status: FAIL } };
+            return { ...state, buy: { status: ORDER_STATUSES.FAIL } };
         case TradeActionTypes.SellRequest:
-            return { ...state, sell: { status: PENDING } };
+            return { ...state, sell: { status: ORDER_STATUSES.PENDING } };
         case TradeActionTypes.SellSuccess:
             return { ...state, sell: { status: action.payload.status } };
         case TradeActionTypes.SellFail:
-            return { ...state, sell: { status: FAIL } };
+            return { ...state, sell: { status: ORDER_STATUSES.FAIL } };
         /*case TickerActionTypes.GetAllMarketTicketsSocketSuccess:
             return { ...state, allMarketTickets: action.payload };
         case TickerActionTypes.GetSymbolMiniTickerSocketSuccess:

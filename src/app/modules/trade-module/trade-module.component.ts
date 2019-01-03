@@ -6,9 +6,8 @@ import { getSymbolTradeSelector } from '../../store/reducers';
 import { getSymbolSwitchSelector } from '../symbol-switch/symbol-switch.reducer';
 import { getAccountBalancesSelector } from '../../store/reducers/account.reducer';
 import { distinct, filter, map, take } from 'rxjs/operators';
-import { BUY } from '../../constants';
+import { BUY, ORDER_STATUSES } from '../../constants';
 import { GetAccountInformationRequest } from '../../store/actions/account.actions';
-import { ORDER_STATUSES } from '../../services/websocket.service';
 
 @Component({
     selector: 'app-trade-module',
