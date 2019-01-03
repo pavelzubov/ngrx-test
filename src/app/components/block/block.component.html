@@ -2,9 +2,9 @@
     class="socket"
     [ngSwitch]="data"
     [ngClass]="{
-        'socket--pending': status && status.status === statuses.pending,
-        'socket--success': status && status.status === statuses.success,
-        'socket--fail': status && status.status === statuses.fail
+        'socket--pending': statuses && status === statuses.pending,
+        'socket--success': statuses && status === statuses.success,
+        'socket--fail': statuses && status === statuses.fail
     }"
 >
     <div class="socket__loader" *ngSwitchCase="null || undefined">

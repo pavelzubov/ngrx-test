@@ -29,7 +29,11 @@ export class TradeModuleComponent implements OnInit {
     constructor(private store: Store<{}>, private formattingService: FormattingService) {}
 
     ngOnInit() {
-        this.Status$ = this.store.pipe(select(this.tradeSelector));
+        this.Status$ = this.store.pipe(
+            select(this.tradeSelector),
+            filter(item => item !== null),
+            map(item => item.status)
+        );
         this.store.pipe(select(getSymbolSwitchSelector)).subscribe((symbols: string) => {
             const symbolsArr = this.formattingService.splitSymbols(symbols.toUpperCase());
             const tradeHalf = this.action === BUY ? 1 : 0;

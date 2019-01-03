@@ -8,7 +8,7 @@ import { Component, Input, OnChanges, OnInit } from '@angular/core';
 export class BlockComponent implements OnInit, OnChanges {
     @Input() data: any;
     @Input() statuses: BlockStatuses;
-    @Input() status: { status: string };
+    @Input() status: string;
     constructor() {}
 
     ngOnInit() {}

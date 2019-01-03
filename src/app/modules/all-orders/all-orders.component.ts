@@ -5,7 +5,7 @@ import { getSymbolTradeSelector } from '../../store/reducers';
 import { Observable } from 'rxjs';
 import {
     getAllOrdersSelector,
-    getOpenOrdersSelector
+    getOpenOrdersDataSelector
 } from '../../store/reducers/account.reducer';
 import { filter, map, pairwise } from 'rxjs/operators';
 

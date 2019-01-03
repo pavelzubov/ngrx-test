@@ -9,7 +9,7 @@ import {
     AccountBalance,
     AccountInformation,
     getAccountBalancesSelector,
-    getAccountInformationSelector
+    getAccountInformationDataSelector
 } from '../../store/reducers/account.reducer';
 import { FormattingService } from '../../services/formatting.service';
 import { GetAccountInformationRequest } from '../../store/actions/account.actions';

@@ -48,11 +48,11 @@
             <div class="trade-form-submit__button">
                 <app-button
                     [type]="'submit'"
-                    [disabled]="!tradeForm.valid || status.status === PENDING"
+                    [disabled]="!tradeForm.valid || status === PENDING"
                     >Trade</app-button
                 >
             </div>
-            <div class="trade-form-submit__status">{{ status.status }}</div>
+            <div class="trade-form-submit__status">{{ status }}</div>
         </div>
     </form>
 </div>

@@ -1,12 +1,18 @@
 import { AccountActionTypes } from '../actions/account.actions';
 import { createFeatureSelector, createSelector } from '@ngrx/store';
 import { ActionTypes } from '../actions/socket.actions';
+import { DATA_STATUSES } from '../../constants';
+
+export interface DataState<T> {
+    data: T;
+    status: DATA_STATUSES;
+}
 
 export interface AccountState {
-    accountInformation: AccountInformation;
-    openOrders?: Order[];
+    accountInformation: DataState<AccountInformation>;
+    openOrders?: DataState<Order[]>;
     allOrders?: Order[];
-    error: any;
+    error?: any;
 }
 
 export interface Order {
@@ -51,26 +57,56 @@ export interface AccountBalance {
 }
 
 export const initialState: AccountState = {
-    accountInformation: { balances: null },
-    openOrders: null,
+    accountInformation: { status: null, data: { balances: null } },
+    openOrders: { status: null, data: null },
     allOrders: null,
     error: null
 };
 
 export function accountReducer(state = initialState, action: any): AccountState {
     switch (action.type) {
+        case AccountActionTypes.GetAccountInformationRequest:
+            return {
+                ...state,
+                accountInformation: {
+                    ...state.accountInformation,
+                    status: DATA_STATUSES.PENDING
+                }
+            };
         case AccountActionTypes.GetAccountInformationSuccess:
-            return { error: undefined, ...state, accountInformation: action.payload };
+            return {
+                error: undefined,
+                ...state,
+                accountInformation: {
+                    data: action.payload,
+                    status: DATA_STATUSES.SUCCESS
+                }
+            };
         case AccountActionTypes.GetAccountInformationFail:
-            return { accountInformation: undefined, ...state, error: action.payload };
+            return {
+                accountInformation: { status: DATA_STATUSES.FAIL },
+                ...state,
+                error: action.payload
+            };
         case ActionTypes.GetUserDataStreamSuccess:
             return { ...state, accountInformation: action.payload };
         case ActionTypes.GetUserDataStreamFail:
             return { ...state, error: action.payload };
+        case AccountActionTypes.GetOpenOrdersRequest:
+            return {
+                ...state,
+                openOrders: { ...state.openOrders, status: DATA_STATUSES.PENDING }
+            };
         case AccountActionTypes.GetOpenOrdersSuccess:
-            return { error: undefined, ...state, openOrders: action.payload };
+            return {
+                ...state,
+                openOrders: { data: action.payload, status: DATA_STATUSES.SUCCESS }
+            };
         case AccountActionTypes.GetOpenOrdersFail:
-            return { openOrders: undefined, ...state, error: action.payload };
+            return {
+                ...state,
+                openOrders: { ...state.openOrders, status: DATA_STATUSES.FAIL }
+            };
         case AccountActionTypes.GetAllOrdersSuccess:
             return { error: undefined, ...state, allOrders: action.payload };
         case AccountActionTypes.GetAllOrdersFail:
@@ -81,23 +117,34 @@ export function accountReducer(state = initialState, action: any): AccountState 
 }
 
 export const getAccountState = createFeatureSelector<AccountState>('account');
-export const getAccountInformationState = (state: AccountState) =>
-    state.accountInformation;
+export const getAccountInformationDataState = (state: AccountState) =>
+    state.accountInformation.data;
+export const getAccountInformationStatusState = (state: AccountState) =>
+    state.accountInformation.status;
 export const getAccountBalanceState = (state: AccountInformation) => state.balances;
-export const getAccountInformationSelector = createSelector(
+export const getAccountInformationDataSelector = createSelector(
     getAccountState,
-    getAccountInformationState
+    getAccountInformationDataState
+);
+export const getAccountInformationStatusSelector = createSelector(
+    getAccountState,
+    getAccountInformationStatusState
 );
 export const getAccountBalancesSelector = createSelector(
-    getAccountInformationSelector,
+    getAccountInformationDataSelector,
     getAccountBalanceState
 );
 
-export const getOpenOrdersState = (state: AccountState) => state.openOrders;
+export const getOpenOrdersDataState = (state: AccountState) => state.openOrders.data;
+export const getOpenOrdersStatusState = (state: AccountState) => state.openOrders.status;
 export const getAllOrdersState = (state: AccountState) => state.allOrders;
-export const getOpenOrdersSelector = createSelector(
+export const getOpenOrdersDataSelector = createSelector(
     getAccountState,
-    getOpenOrdersState
+    getOpenOrdersDataState
+);
+export const getOpenOrdersStatusSelector = createSelector(
+    getAccountState,
+    getOpenOrdersStatusState
 );
 export const getAllOrdersSelector = createSelector(
     getAccountState,

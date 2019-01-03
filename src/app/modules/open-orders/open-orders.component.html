@@ -1,3 +1,11 @@
-<app-block [data]="Orders && Orders.length">
+<app-block
+    [data]="Orders && Orders.length"
+    [status]="Status$ | async"
+    [statuses]="{
+        success: DATA_STATUSES.SUCCESS,
+        pending: DATA_STATUSES.PENDING,
+        fail: DATA_STATUSES.FAIL
+    }"
+>
     <app-table [data]="Orders" [columns]="columns"></app-table>
 </app-block>

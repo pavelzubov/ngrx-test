@@ -9,3 +9,9 @@ export enum ORDER_STATUSES {
     PENDING = 'PENDING',
     REJECTED = 'REJECTED'
 }
+
+export enum DATA_STATUSES {
+    SUCCESS = 'SUCCESS',
+    FAIL = 'FAIL',
+    PENDING = 'PENDING'
+}

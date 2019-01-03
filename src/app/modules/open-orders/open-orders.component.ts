@@ -5,9 +5,11 @@ import { getSymbolTradeSelector } from '../../store/reducers';
 import { Observable } from 'rxjs';
 import {
     getAllOrdersSelector,
-    getOpenOrdersSelector
+    getOpenOrdersDataSelector,
+    getOpenOrdersStatusSelector
 } from '../../store/reducers/account.reducer';
 import { filter, pairwise } from 'rxjs/operators';
+import { DATA_STATUSES } from '../../constants';
 
 @Component({
     selector: 'app-open-orders',
@@ -55,9 +57,12 @@ export class OpenOrdersComponent implements OnInit, OnChanges {
         }
     ];
     Orders: any[];
+    Status$: Observable<any>;
+    DATA_STATUSES = DATA_STATUSES;
     constructor(private store: Store<{}>) {
+        this.Status$ = store.pipe(select(getOpenOrdersStatusSelector));
         store
-            .pipe(select(getOpenOrdersSelector))
+            .pipe(select(getOpenOrdersDataSelector))
             .subscribe(line =>
                 Array.isArray(line)
                     ? (this.Orders = this.Orders
