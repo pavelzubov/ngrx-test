@@ -3,7 +3,10 @@ import { Column, COLUMN_TYPE } from '../../components/table/column';
 import { select, Store } from '@ngrx/store';
 import { getSymbolTradeSelector } from '../../store/reducers';
 import { Observable } from 'rxjs';
-import { getOpenOrdersSelector } from '../../store/reducers/account.reducer';
+import {
+    getAllOrdersSelector,
+    getOpenOrdersSelector
+} from '../../store/reducers/account.reducer';
 import { filter, pairwise } from 'rxjs/operators';
 
 @Component({
@@ -52,24 +55,9 @@ export class OpenOrdersComponent implements OnInit, OnChanges {
         }
     ];
     Orders: any[];
-    openOrdersStream$: Observable<any>;
-    isPending = true;
     constructor(private store: Store<{}>) {
-        this.openOrdersStream$ = store.pipe(select(getOpenOrdersSelector));
-        this.Orders = [];
-        this.openOrdersStream$
-            .pipe
-            /*filter(item => !!item && !!item[0]),
-                filter(item => {
-                    const lastOrderId = item[0].clientOrderId || item[0].c;
-                    const newOrderId =
-                        this.Orders && this.Orders.length
-                            ? this.Orders[this.Orders.length - 1].clientOrderId ||
-                              this.Orders[this.Orders.length - 1].c
-                            : null;
-                    return lastOrderId !== newOrderId;
-                })*/
-            ()
+        store
+            .pipe(select(getOpenOrdersSelector))
             .subscribe(line =>
                 Array.isArray(line)
                     ? (this.Orders = this.Orders
@@ -77,13 +65,15 @@ export class OpenOrdersComponent implements OnInit, OnChanges {
                           : [...line])
                     : line
             );
-        this.isPending = false;
+        store.pipe(select(getAllOrdersSelector)).subscribe(line => {
+            if (!this.Orders) return;
+            const filledOrder = this.Orders.findIndex(
+                item => line[0].c === item.clientOrderId || line[0].c === item.c
+            );
+            if (~filledOrder) this.Orders.splice(filledOrder, 1);
+        });
     }
 
-    ngOnInit() {
-        // console.log(this.openOrders$);
-    }
-    ngOnChanges() {
-        console.log(this.Orders, this.Orders.length);
-    }
+    ngOnInit() {}
+    ngOnChanges() {}
 }

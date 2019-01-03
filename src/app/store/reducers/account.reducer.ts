@@ -13,6 +13,7 @@ export interface Order {
     symbol: string;
     orderId: number;
     clientOrderId: string;
+    c?: string;
     price: string;
     origQty: string;
     executedQty: string;
