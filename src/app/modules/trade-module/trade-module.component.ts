@@ -8,6 +8,7 @@ import { getAccountBalancesSelector } from '../../store/reducers/account.reducer
 import { distinct, filter, map, take } from 'rxjs/operators';
 import { BUY } from '../../constants';
 import { GetAccountInformationRequest } from '../../store/actions/account.actions';
+import { ORDER_STATUSES } from '../../services/websocket.service';
 
 @Component({
     selector: 'app-trade-module',
@@ -24,6 +25,7 @@ export class TradeModuleComponent implements OnInit {
     private BalanceSymbol: string;
     private TitleSymbol: string;
     private lastPrice$: Observable<number>;
+    private ORDER_STATUSES = ORDER_STATUSES;
 
     constructor(private store: Store<{}>, private formattingService: FormattingService) {}
 

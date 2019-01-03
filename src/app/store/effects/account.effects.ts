@@ -5,7 +5,7 @@ import { Observable, of } from 'rxjs';
 import { catchError, filter, map, mergeMap } from 'rxjs/operators';
 import { EffectAction, AccountActionTypes } from '../actions/account.actions';
 import { SimplexService } from '../../services/simplex.service';
-import { StreamService, USER_DATA } from '../../services/stream.service';
+import { StreamService } from '../../services/stream.service';
 
 @Injectable()
 export class AccountEffects {

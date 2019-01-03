@@ -1,4 +1,12 @@
-<app-block [data]="Balance && lastPrice$ | async">
+<app-block
+    [data]="Balance && lastPrice$ | async"
+    [statuses]="{
+        success: ORDER_STATUSES.FILLED,
+        pending: ORDER_STATUSES.NEW,
+        fail: ORDER_STATUSES.FAIL
+    }"
+    [status]="Status$ | async"
+>
     <app-trade-form
         [action]="action"
         [symbol]="Symbol$"

@@ -217,5 +217,6 @@ export class WebsocketService implements OnDestroy {
 export enum ORDER_STATUSES {
     PARTIALLY_FILLED = 'PARTIALLY_FILLED',
     FILLED = 'FILLED',
-    NEW = 'NEW'
+    NEW = 'NEW',
+    FAIL = 'FAIL'
 }
