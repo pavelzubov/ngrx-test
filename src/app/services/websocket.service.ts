@@ -194,11 +194,7 @@ export class WebsocketService implements OnDestroy {
                 const url = `${this.api}ws/${key.listenKey}`;
                 return this.connectSocket(socketName, url).pipe(
                     filter(info => info.e === 'executionReport'),
-                    filter(
-                        item =>
-                            item.X !== ORDER_STATUSES.FILLED &&
-                            item.X !== ORDER_STATUSES.PARTIALLY_FILLED
-                    )
+                    filter(item => item.X !== ORDER_STATUSES.FILLED)
                 );
             })
         );
@@ -211,11 +207,7 @@ export class WebsocketService implements OnDestroy {
                 const url = `${this.api}ws/${key.listenKey}`;
                 return this.connectSocket(socketName, url).pipe(
                     filter(info => info.e === 'executionReport'),
-                    filter(
-                        item =>
-                            item.X === ORDER_STATUSES.FILLED ||
-                            item.X === ORDER_STATUSES.PARTIALLY_FILLED
-                    ),
+                    filter(item => item.X === ORDER_STATUSES.FILLED),
                     filter(info => info.s === symbol.toUpperCase())
                 );
             })
