@@ -1,19 +1,19 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { SocketComponent } from './block.component';
+import { BlockComponent } from './block.component';
 
 describe('SocketComponent', () => {
-    let component: SocketComponent;
-    let fixture: ComponentFixture<SocketComponent>;
+    let component: BlockComponent;
+    let fixture: ComponentFixture<BlockComponent>;
 
     beforeEach(async(() => {
         TestBed.configureTestingModule({
-            declarations: [SocketComponent]
+            declarations: [BlockComponent]
         }).compileComponents();
     }));
 
     beforeEach(() => {
-        fixture = TestBed.createComponent(SocketComponent);
+        fixture = TestBed.createComponent(BlockComponent);
         component = fixture.componentInstance;
         fixture.detectChanges();
     });

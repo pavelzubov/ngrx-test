@@ -5,7 +5,7 @@ import { ListComponent } from './list/list.component';
 import { SymbolComponent } from './symbol/symbol.component';
 import { ChartComponent } from './chart/chart.component';
 import { StatisticItemComponent } from './statistic-item/statistic-item.component';
-import { BlockLoaderComponent } from './block/socket-loader/block-loader.component';
+import { BlockLoaderComponent } from './block/block-loader/block-loader.component';
 import { TableComponent } from './table/table/table.component';
 import { ButtonComponent } from './button/button.component';
 import { MatButtonModule, MatInputModule } from '@angular/material';

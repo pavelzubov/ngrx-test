@@ -33,7 +33,6 @@ import { SwitcherComponent } from './components/switcher/switcher.component';
 import { SymbolTradeModule } from './modules/symbol-trade/symbol-trade.module';
 import { SymbolTicketModule } from './modules/symbol-ticket/symbol-ticket.module';
 import { SymbolModule } from './components/symbol/symbol.module';
-import { BlockModule } from './components/block/block.module';
 import { WebsocketService } from './services/websocket.service';
 import { SymbolMiniTickerModule } from './modules/symbol-mini-ticker/symbol-mini-ticker.module';
 import { MarketTicketsModule } from './modules/market-tickets/market-tickets.module';
