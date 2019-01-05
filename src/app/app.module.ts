@@ -68,7 +68,7 @@ import { AllOrdersComponent } from './modules/all-orders/all-orders.component';
         // TableComponent,
         InsideBlockComponent,
         StatisticComponent,
-        StatisticViewComponent,
+        // StatisticViewComponent,
         // TrackerArrComponent,
         SocketsComponent,
         // MarketTicketsComponent,

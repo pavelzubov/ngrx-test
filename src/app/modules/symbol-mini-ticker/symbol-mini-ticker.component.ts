@@ -24,29 +24,10 @@ export class SymbolMiniTickerComponent implements OnInit {
 
     update = '';
 
-    constructor(
-        private store: Store<{ socket: any }>,
-        private websocketService: WebsocketService,
-        private simplexService: SimplexService
-    ) {
+    constructor(private store: Store<{ socket: any }>) {
         this.SymbolMiniTicker$ = store.pipe(select(getSymbolMiniTickerSelector));
         this.Symbol$ = store.pipe(select(getSymbolSwitchSelector));
     }
 
-    ngOnInit() {
-        // this.service.symbolTradeSocket();
-        /*this.Symbol$.subscribe(symbol => {
-            this.store.dispatch(
-                new GetSymbolMiniTickerSocketRequest(
-                    this.simplexService.getTickers(symbol.toUpperCase())
-                )
-            );
-            this.store.dispatch(
-                new GetSymbolMiniTickerSocketRequest(
-                    this.websocketService.symbolMiniTickerSocket(symbol)
-                )
-            );
-        });*/
-        // this.store.dispatch(new GetSymbolMiniTickerSocketRequest());
-    }
+    ngOnInit() {}
 }

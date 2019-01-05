@@ -16,7 +16,7 @@ import { Column, COLUMN_TYPE } from '../../components/table/column';
 export class TrackerArrComponent implements OnInit {
     TrackerArr$: Observable<any>;
 
-    constructor(private store: Store<{}>, private websocketService: WebsocketService) {
+    constructor(private store: Store<{}>) {
         this.TrackerArr$ = store.pipe(select(getTrackerArrSelector));
     }
 

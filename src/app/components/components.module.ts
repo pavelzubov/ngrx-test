@@ -12,6 +12,7 @@ import { MatButtonModule, MatInputModule } from '@angular/material';
 import { TradeFormComponent } from './trade-form/trade-form.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { KeyFormComponent } from './key-form/key-form.component';
+import { StatisticViewComponent } from '../modules/statistic/statistic-view/statistic-view.component';
 
 @NgModule({
     declarations: [
@@ -24,7 +25,8 @@ import { KeyFormComponent } from './key-form/key-form.component';
         StatisticItemComponent,
         BlockLoaderComponent,
         TableComponent,
-        ButtonComponent
+        ButtonComponent,
+        StatisticViewComponent
     ],
     exports: [
         KeyFormComponent,
@@ -35,7 +37,8 @@ import { KeyFormComponent } from './key-form/key-form.component';
         ChartComponent,
         StatisticItemComponent,
         TableComponent,
-        ButtonComponent
+        ButtonComponent,
+        StatisticViewComponent
     ],
     imports: [
         CommonModule,

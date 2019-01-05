@@ -1,6 +1,7 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { BlockComponent } from './block.component';
+import { BlockLoaderComponent } from './block-loader/block-loader.component';
 
 describe('SocketComponent', () => {
     let component: BlockComponent;
@@ -8,7 +9,7 @@ describe('SocketComponent', () => {
 
     beforeEach(async(() => {
         TestBed.configureTestingModule({
-            declarations: [BlockComponent]
+            declarations: [BlockComponent, BlockLoaderComponent]
         }).compileComponents();
     }));
 
