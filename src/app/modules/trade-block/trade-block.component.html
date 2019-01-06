@@ -1,4 +1,12 @@
 <app-block [data]="true">
-  <app-trade-module [action]="BUY" [tradeRequest]="buyRequest" [tradeSelector]="GetBuyTradeSelector"></app-trade-module>
-  <app-trade-module [action]="SELL" [tradeRequest]="sellRequest" [tradeSelector]="GetSellTradeSelector"></app-trade-module>
+    <app-trade-module
+        [action]="BUY"
+        [tradeRequest]="buyRequest"
+        [tradeData]="GetBuyTrade"
+    ></app-trade-module>
+    <app-trade-module
+        [action]="SELL"
+        [tradeRequest]="sellRequest"
+        [tradeData]="GetSellTrade"
+    ></app-trade-module>
 </app-block>

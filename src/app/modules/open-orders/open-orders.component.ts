@@ -10,6 +10,7 @@ import {
 } from '../../store/reducers/account.reducer';
 import { filter, pairwise } from 'rxjs/operators';
 import { DATA_STATUSES } from '../../constants';
+import { DataService } from '../../services/data.service';
 
 @Component({
     selector: 'app-open-orders',
@@ -59,10 +60,10 @@ export class OpenOrdersComponent implements OnInit, OnChanges {
     Orders: any[];
     Status$: Observable<any>;
     DATA_STATUSES = DATA_STATUSES;
-    constructor(private store: Store<{}>) {
-        this.Status$ = store.pipe(select(getOpenOrdersStatusSelector));
-        store
-            .pipe(select(getOpenOrdersDataSelector))
+    constructor(private dataService: DataService) {
+        this.Status$ = dataService.getOpenOrdersStatus();
+        dataService
+            .getOpenOrdersData()
             .subscribe(line =>
                 Array.isArray(line)
                     ? (this.Orders = this.Orders
@@ -70,7 +71,7 @@ export class OpenOrdersComponent implements OnInit, OnChanges {
                           : [...line])
                     : line
             );
-        store.pipe(select(getAllOrdersSelector)).subscribe(line => {
+        dataService.getAllOrders().subscribe(line => {
             if (!this.Orders || line.length > 1) return;
             const filledOrder = this.Orders.findIndex(
                 item => line[0].c === item.clientOrderId || line[0].c === item.c

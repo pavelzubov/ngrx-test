@@ -8,6 +8,7 @@ import {
     getOpenOrdersDataSelector
 } from '../../store/reducers/account.reducer';
 import { filter, map, pairwise } from 'rxjs/operators';
+import { DataService } from '../../services/data.service';
 
 @Component({
     selector: 'app-all-orders',
@@ -56,9 +57,9 @@ export class AllOrdersComponent implements OnInit, OnChanges {
     ];
     Orders: any[];
     OrdersStream$: Observable<any>;
-    constructor(private store: Store<{}>) {
-        store
-            .pipe(select(getAllOrdersSelector))
+    constructor(private dataService: DataService) {
+        dataService
+            .getAllOrders()
             .subscribe(line =>
                 Array.isArray(line)
                     ? (this.Orders = this.Orders ? [...line, ...this.Orders] : [...line])

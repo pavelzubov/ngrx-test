@@ -8,6 +8,7 @@ import { getAccountBalancesSelector } from '../../store/reducers/account.reducer
 import { distinct, filter, map, take } from 'rxjs/operators';
 import { BUY, ORDER_STATUSES } from '../../constants';
 import { GetAccountInformationRequest } from '../../store/actions/account.actions';
+import { DataService } from '../../services/data.service';
 
 @Component({
     selector: 'app-trade-module',
@@ -17,6 +18,7 @@ import { GetAccountInformationRequest } from '../../store/actions/account.action
 export class TradeModuleComponent implements OnInit {
     @Input() tradeRequest: any;
     @Input() tradeSelector: any;
+    @Input() tradeData: Observable<any>;
     @Input() action: string;
     private Symbol$: string; // Observable<any>;
     private Status$: Observable<any>;
@@ -26,23 +28,26 @@ export class TradeModuleComponent implements OnInit {
     private lastPrice$: Observable<number>;
     private ORDER_STATUSES = ORDER_STATUSES;
 
-    constructor(private store: Store<{}>, private formattingService: FormattingService) {}
+    constructor(
+        private dataService: DataService,
+        private store: Store<{}>,
+        private formattingService: FormattingService
+    ) {}
 
     ngOnInit() {
-        this.Status$ = this.store.pipe(
-            select(this.tradeSelector),
+        this.Status$ = this.tradeData.pipe(
             filter(item => item !== null),
             map(item => item.status)
         );
-        this.store.pipe(select(getSymbolSwitchSelector)).subscribe((symbols: string) => {
+        this.dataService.getSymbolSwitch().subscribe((symbols: string) => {
             const symbolsArr = this.formattingService.splitSymbols(symbols.toUpperCase());
             const tradeHalf = this.action === BUY ? 1 : 0;
             this.Symbol$ = symbols;
             this.BalanceSymbol = symbolsArr[tradeHalf];
             this.TitleSymbol = symbolsArr[0];
-            this.store
+            this.dataService
+                .getAccountBalances()
                 .pipe(
-                    select(getAccountBalancesSelector),
                     filter(balances => balances !== null),
                     map(balances =>
                         balances.find(balance =>
@@ -55,8 +60,7 @@ export class TradeModuleComponent implements OnInit {
                     distinct()
                 )
                 .subscribe(balance => (this.Balance = balance));
-            this.lastPrice$ = this.store.pipe(
-                select(getSymbolTradeSelector),
+            this.lastPrice$ = this.dataService.getSymbolTrade().pipe(
                 filter(trade => trade !== null),
                 filter(trade => trade.s.toUpperCase() === symbols.toUpperCase()),
                 map(trade => <number>trade.p),
@@ -65,6 +69,6 @@ export class TradeModuleComponent implements OnInit {
         });
     }
     private submit(e) {
-        this.store.dispatch(new this.tradeRequest(e));
+        this.tradeRequest(e);
     }
 }
