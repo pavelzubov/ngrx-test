@@ -71,7 +71,7 @@ export class OpenOrdersComponent implements OnInit, OnChanges {
                     : line
             );
         store.pipe(select(getAllOrdersSelector)).subscribe(line => {
-            if (!this.Orders) return;
+            if (!this.Orders || line.length > 1) return;
             const filledOrder = this.Orders.findIndex(
                 item => line[0].c === item.clientOrderId || line[0].c === item.c
             );
