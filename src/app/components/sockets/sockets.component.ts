@@ -23,6 +23,7 @@ import {
     GetAllOrdersRequest,
     GetOpenOrdersRequest
 } from '../../store/actions/account.actions';
+import { DataService } from '../../services/data.service';
 
 @Component({
     selector: 'app-sockets',
@@ -35,7 +36,7 @@ export class SocketsComponent implements OnInit {
     private privateKey: string;
     constructor(
         private store: Store<{ socket: any[] }>,
-        private simplexService: SimplexService
+        private dataService: DataService
     ) {
         this.Symbol$ = store.pipe(select(getSymbolSwitchSelector));
         store
@@ -53,7 +54,8 @@ export class SocketsComponent implements OnInit {
             this.store.dispatch(new GetAccountInformationRequest());
             this.store.dispatch(new GetOpenOrdersRequest());
             this.store.dispatch(new GetAllOrdersRequest(symbol));
-            // this.store.dispatch(new GetUserDataStreamRequest());
+            // new view
+            this.dataService.setSymbolTradeRequest(symbol);
         });
     }
 }

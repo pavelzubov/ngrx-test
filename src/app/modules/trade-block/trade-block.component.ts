@@ -10,14 +10,10 @@ import { DataService } from '../../services/data.service';
     styleUrls: ['./trade-block.component.sass']
 })
 export class TradeBlockComponent implements OnInit {
-    private GetBuyTradeSelector = getBuyTradeSelector;
-    private GetSellTradeSelector = getSellTradeSelector;
     private GetBuyTrade = this.dataService.getBuyTrade();
     private GetSellTrade = this.dataService.getSellTrade();
     private buyRequest = this.dataService.setBuyRequest;
     private sellRequest = this.dataService.setSellRequest;
-    /*private buyRequest = BuyRequest;
-    private sellRequest = SellRequest;*/
     private SELL = SELL;
     private BUY = BUY;
     constructor(private dataService: DataService) {}

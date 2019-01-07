@@ -35,11 +35,11 @@ export class SocketEffects {
         map(data => {
             const method = data.stream.split('@')[1];
             switch (method) {
-                case TRADE:
+                /*case TRADE:
                     return {
                         type: TradeActionTypes.GetSymbolTradeSocketSuccess,
                         payload: data.data
-                    };
+                    };*/
                 case TICKER:
                     return {
                         type: TickerActionTypes.GetSymbolTicketSocketSuccess,

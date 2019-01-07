@@ -4,7 +4,7 @@ import { select, Store } from '@ngrx/store';
 import { getSymbolTradeSelector } from '../../store/reducers';
 import { Observable } from 'rxjs';
 import {
-    getAllOrdersSelector,
+    getAllOrdersDataSelector,
     getOpenOrdersDataSelector
 } from '../../store/reducers/account.reducer';
 import { filter, map, pairwise } from 'rxjs/operators';

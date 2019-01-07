@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { SimplexService } from './simplex.service';
 import { WebsocketService } from './websocket.service';
 import { merge, Observable, of } from 'rxjs';
-import { filter, map, pairwise } from 'rxjs/operators';
+import { filter, map, pairwise, reduce, scan, tap } from 'rxjs/operators';
 
 @Injectable({
     providedIn: 'root'
@@ -38,6 +38,18 @@ export class StreamService {
             ],
             STREAM_TYPE.ARRAY
         );
+
+    public getSymbolTrade = (symbol: string): Observable<any> =>
+        this.generateStream(
+            [
+                this.simplexService.getTrades(symbol).pipe(map(item => item.reverse())),
+                this.websocketService.chainSocket({ symbol: symbol }).pipe(
+                    filter(item => item.stream === `${symbol.toLowerCase()}@trade`),
+                    map(item => item.data)
+                )
+            ],
+            STREAM_TYPE.ARRAY
+        ).pipe(scan((acc, curr, []) => [...curr, ...acc]));
 
     public generateStream = (
         streams: Observable<any>[],

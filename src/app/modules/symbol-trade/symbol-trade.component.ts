@@ -7,6 +7,7 @@ import { getSymbolTradeSelector } from '../../store/reducers';
 import { SimplexService } from '../../services/simplex.service';
 import { filter, map, switchMap } from 'rxjs/operators';
 import { Column, COLUMN_TYPE } from '../../components/table/column';
+import { DataService } from '../../services/data.service';
 
 @Component({
     selector: 'app-symbol-trade',
@@ -16,8 +17,6 @@ import { Column, COLUMN_TYPE } from '../../components/table/column';
     providers: [WebsocketService]
 })
 export class SymbolTradeComponent implements OnInit {
-    SymbolTrade$: Observable<any>;
-    Symbol$: Observable<any>;
     columns: Column[] = [
         {
             name: ['time', 'T'],
@@ -34,26 +33,10 @@ export class SymbolTradeComponent implements OnInit {
         }
     ];
     trades: any[];
-    constructor(
-        private store: Store<{}>,
-        private websocketService: WebsocketService,
-        private simplexService: SimplexService
-    ) {
-        this.SymbolTrade$ = store.pipe(select(getSymbolTradeSelector));
-        this.Symbol$ = store.pipe(select(getSymbolSwitchSelector));
-        this.Symbol$.subscribe(symbol =>
-            this.simplexService
-                .getTrades(symbol)
-                .pipe(
-                    switchMap(trades => {
-                        this.trades = trades.reverse();
-                        return store.pipe(select(getSymbolTradeSelector));
-                    }),
-                    filter(trade => trade !== null && trade.s.toLowerCase() === symbol),
-                    map(trade => [trade, ...this.trades])
-                )
-                .subscribe(trades => (this.trades = trades.slice(0, 20)))
-        );
+    constructor(private dataService: DataService) {
+        dataService
+            .getSymbolTrade()
+            .subscribe(trades => (this.trades = trades ? trades.slice(0, 20) : []));
     }
 
     ngOnInit() {}

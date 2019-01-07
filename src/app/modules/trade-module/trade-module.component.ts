@@ -1,13 +1,8 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
-import { select, Store } from '@ngrx/store';
 import { FormattingService } from '../../services/formatting.service';
-import { getSymbolTradeSelector } from '../../store/reducers';
-import { getSymbolSwitchSelector } from '../symbol-switch/symbol-switch.reducer';
-import { getAccountBalancesSelector } from '../../store/reducers/account.reducer';
-import { distinct, filter, map, take } from 'rxjs/operators';
+import { distinct, filter, map, take, tap } from 'rxjs/operators';
 import { BUY, ORDER_STATUSES } from '../../constants';
-import { GetAccountInformationRequest } from '../../store/actions/account.actions';
 import { DataService } from '../../services/data.service';
 
 @Component({
@@ -30,7 +25,6 @@ export class TradeModuleComponent implements OnInit {
 
     constructor(
         private dataService: DataService,
-        private store: Store<{}>,
         private formattingService: FormattingService
     ) {}
 
@@ -61,9 +55,12 @@ export class TradeModuleComponent implements OnInit {
                 )
                 .subscribe(balance => (this.Balance = balance));
             this.lastPrice$ = this.dataService.getSymbolTrade().pipe(
-                filter(trade => trade !== null),
-                filter(trade => trade.s.toUpperCase() === symbols.toUpperCase()),
-                map(trade => <number>trade.p),
+                filter(trades => trades !== null),
+                map(trades => trades[0]),
+                filter(trade =>
+                    trade.s ? trade.s.toUpperCase() === symbols.toUpperCase() : true
+                ),
+                map(trade => <number>trade.p || <number>trade.price),
                 take(1)
             );
         });

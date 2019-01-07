@@ -7,7 +7,7 @@ import { PENDING } from '../store/reducers/trade.reducer';
 import { ORDER_STATUSES } from '../constants';
 
 export interface ChainElement {
-    method: string;
+    method?: string;
     symbol?: boolean | string;
     levels?: boolean | number;
     intervalMs?: boolean | number;

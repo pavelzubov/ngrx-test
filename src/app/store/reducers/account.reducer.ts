@@ -10,8 +10,8 @@ export interface DataState<T> {
 
 export interface AccountState {
     accountInformation: DataState<AccountInformation>;
-    openOrders?: DataState<Order[]>;
-    allOrders?: Order[];
+    openOrders: DataState<Order[]>;
+    allOrders: DataState<Order[]>;
     error?: any;
 }
 
@@ -59,7 +59,7 @@ export interface AccountBalance {
 export const initialState: AccountState = {
     accountInformation: { status: null, data: { balances: null } },
     openOrders: { status: null, data: null },
-    allOrders: null,
+    allOrders: { status: null, data: null },
     error: null
 };
 
@@ -108,9 +108,17 @@ export function accountReducer(state = initialState, action: any): AccountState 
                 openOrders: { ...state.openOrders, status: DATA_STATUSES.FAIL }
             };
         case AccountActionTypes.GetAllOrdersSuccess:
-            return { error: undefined, ...state, allOrders: action.payload };
+            return {
+                error: undefined,
+                ...state,
+                allOrders: { data: action.payload, status: DATA_STATUSES.SUCCESS }
+            };
         case AccountActionTypes.GetAllOrdersFail:
-            return { allOrders: undefined, ...state, error: action.payload };
+            return {
+                allOrders: { ...state.openOrders, status: DATA_STATUSES.FAIL },
+                ...state,
+                error: action.payload
+            };
         default:
             return state;
     }
@@ -137,7 +145,8 @@ export const getAccountBalancesSelector = createSelector(
 
 export const getOpenOrdersDataState = (state: AccountState) => state.openOrders.data;
 export const getOpenOrdersStatusState = (state: AccountState) => state.openOrders.status;
-export const getAllOrdersState = (state: AccountState) => state.allOrders;
+export const getAllOrdersDataState = (state: AccountState) => state.allOrders.data;
+export const getAllOrdersStatusState = (state: AccountState) => state.allOrders.status;
 export const getOpenOrdersDataSelector = createSelector(
     getAccountState,
     getOpenOrdersDataState
@@ -146,7 +155,11 @@ export const getOpenOrdersStatusSelector = createSelector(
     getAccountState,
     getOpenOrdersStatusState
 );
-export const getAllOrdersSelector = createSelector(
+export const getAllOrdersDataSelector = createSelector(
     getAccountState,
-    getAllOrdersState
+    getAllOrdersDataState
+);
+export const getAllOrdersStatusSelector = createSelector(
+    getAccountState,
+    getAllOrdersStatusState
 );
