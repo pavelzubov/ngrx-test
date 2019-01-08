@@ -1,7 +1,16 @@
-import { Component, EventEmitter, Input, OnChanges, OnInit, Output } from '@angular/core';
+import {
+    ChangeDetectionStrategy,
+    Component,
+    EventEmitter,
+    Input,
+    OnChanges,
+    OnInit,
+    Output
+} from '@angular/core';
 import { Column, COLUMN_TYPE } from '../column';
 
 @Component({
+    changeDetection: ChangeDetectionStrategy.OnPush,
     selector: 'app-table',
     templateUrl: './table.component.html',
     styleUrls: ['./table.component.sass']

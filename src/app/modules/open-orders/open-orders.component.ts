@@ -76,7 +76,11 @@ export class OpenOrdersComponent implements OnInit, OnChanges {
             const filledOrder = this.Orders.findIndex(
                 item => line[0].c === item.clientOrderId || line[0].c === item.c
             );
-            if (~filledOrder) this.Orders.splice(filledOrder, 1);
+            const spliceOrders = [...this.Orders];
+            if (~filledOrder) {
+                spliceOrders.splice(filledOrder, 1);
+                this.Orders = spliceOrders;
+            }
         });
     }
 

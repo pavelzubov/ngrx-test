@@ -11,7 +11,6 @@ import { filter, map, pairwise, scan, tap } from 'rxjs/operators';
 import { DataService } from '../../services/data.service';
 
 @Component({
-    // changeDetection: ChangeDetectionStrategy.OnPush,
     selector: 'app-all-orders',
     templateUrl: './all-orders.component.html',
     styleUrls: ['./all-orders.component.sass']

@@ -10,7 +10,7 @@
         </tr>
     </thead>
     <tbody>
-        <tr *ngFor="let item of data">
+        <tr *ngFor="let item of data" [ngClass]="{ 'table__tr--mark': item.mark }">
             <td
                 *ngFor="let column of columns"
                 class="table__td table__td-{{ column.name[0] }}"

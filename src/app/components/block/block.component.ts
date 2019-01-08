@@ -1,6 +1,13 @@
-import { Component, Input, OnChanges, OnInit } from '@angular/core';
+import {
+    ChangeDetectionStrategy,
+    Component,
+    Input,
+    OnChanges,
+    OnInit
+} from '@angular/core';
 
 @Component({
+    changeDetection: ChangeDetectionStrategy.OnPush,
     selector: 'app-block',
     templateUrl: './block.component.html',
     styleUrls: ['./block.component.sass']

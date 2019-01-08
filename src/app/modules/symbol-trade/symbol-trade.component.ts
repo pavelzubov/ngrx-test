@@ -13,7 +13,6 @@ import { DataService } from '../../services/data.service';
     selector: 'app-symbol-trade',
     templateUrl: './symbol-trade.component.html',
     styleUrls: ['./symbol-trade.component.sass'],
-    changeDetection: ChangeDetectionStrategy.OnPush,
     providers: [WebsocketService]
 })
 export class SymbolTradeComponent implements OnInit {
@@ -33,11 +32,31 @@ export class SymbolTradeComponent implements OnInit {
         }
     ];
     trades: any[];
+    Orders: any[];
     constructor(private dataService: DataService) {
         dataService
+            .getAllOrders()
+            .pipe(
+                filter(value => value !== null),
+                scan((acc, curr, []) => [...curr, ...acc])
+            )
+            .subscribe(orders => (this.Orders = orders));
+        dataService
             .getSymbolTrade()
-            .pipe(scan((acc, curr, []) => [...curr, ...acc]))
-            .subscribe(trades => (this.trades = trades ? trades.slice(0, 20) : []));
+            .pipe(
+                filter(value => value !== null),
+                // !!! Говнокод !!!
+                map(arr => {
+                    if (!this.Orders) return arr;
+                    arr[0].mark = this.Orders.find(
+                        order => order.orderId === arr[0].a || order.orderId === arr[0].b
+                    );
+                    return arr;
+                }),
+                // !!! Говнокод !!!
+                scan((acc, curr, []) => [...curr, ...acc])
+            )
+            .subscribe(trades => (this.trades = trades.slice(0, 20)));
     }
 
     ngOnInit() {}
