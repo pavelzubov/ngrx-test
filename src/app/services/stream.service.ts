@@ -49,7 +49,7 @@ export class StreamService {
                 )
             ],
             STREAM_TYPE.ARRAY
-        ).pipe(scan((acc, curr, []) => [...curr, ...acc]));
+        ).pipe();
 
     public generateStream = (
         streams: Observable<any>[],

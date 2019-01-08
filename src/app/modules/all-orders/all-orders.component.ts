@@ -1,4 +1,4 @@
-import { Component, OnChanges, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnChanges, OnInit } from '@angular/core';
 import { Column, COLUMN_TYPE } from '../../components/table/column';
 import { select, Store } from '@ngrx/store';
 import { getSymbolTradeSelector } from '../../store/reducers';
@@ -7,10 +7,11 @@ import {
     getAllOrdersDataSelector,
     getOpenOrdersDataSelector
 } from '../../store/reducers/account.reducer';
-import { filter, map, pairwise } from 'rxjs/operators';
+import { filter, map, pairwise, scan, tap } from 'rxjs/operators';
 import { DataService } from '../../services/data.service';
 
 @Component({
+    // changeDetection: ChangeDetectionStrategy.OnPush,
     selector: 'app-all-orders',
     templateUrl: './all-orders.component.html',
     styleUrls: ['./all-orders.component.sass']
@@ -56,15 +57,14 @@ export class AllOrdersComponent implements OnInit, OnChanges {
         }
     ];
     Orders: any[];
-    OrdersStream$: Observable<any>;
     constructor(private dataService: DataService) {
         dataService
             .getAllOrders()
-            .subscribe(line =>
-                Array.isArray(line)
-                    ? (this.Orders = this.Orders ? [...line, ...this.Orders] : [...line])
-                    : line
-            );
+            .pipe(
+                filter(value => value !== null),
+                scan((acc, curr, []) => [...curr, ...acc])
+            )
+            .subscribe(orders => (this.Orders = orders));
     }
 
     ngOnInit() {}
