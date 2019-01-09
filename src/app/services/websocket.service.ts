@@ -174,7 +174,7 @@ export class WebsocketService implements OnDestroy {
         return this.connectSocket(socketName, url);
     }
 
-    public getAccountInformationStream = () => {
+    public getAccountInformationSocket = () => {
         const socketName = 'accountInformation';
         return this.simplexService.getUserStreamKey().pipe(
             switchMap((key: any) => {
@@ -189,7 +189,7 @@ export class WebsocketService implements OnDestroy {
         );
     };
 
-    public getOpenOrdersStream = () => {
+    public getOpenOrdersSocket = () => {
         const socketName = 'accountInformation';
         return this.simplexService.getUserStreamKey().pipe(
             switchMap((key: any) => {
@@ -199,6 +199,7 @@ export class WebsocketService implements OnDestroy {
                     filter(
                         item =>
                             item.X !== ORDER_STATUSES.FILLED &&
+                            item.X !== ORDER_STATUSES.PARTIALLY_FILLED &&
                             item.X !== ORDER_STATUSES.REJECTED
                     )
                 );
@@ -206,14 +207,18 @@ export class WebsocketService implements OnDestroy {
         );
     };
 
-    public getAllOrdersStream = (symbol: string) => {
+    public getAllOrdersSocket = (symbol: string) => {
         const socketName = 'accountInformation';
         return this.simplexService.getUserStreamKey().pipe(
             switchMap((key: any) => {
                 const url = `${this.api}ws/${key.listenKey}`;
                 return this.connectSocket(socketName, url).pipe(
                     filter(info => info.e === 'executionReport'),
-                    filter(item => item.X === ORDER_STATUSES.FILLED),
+                    filter(
+                        item =>
+                            item.X === ORDER_STATUSES.FILLED ||
+                            item.X === ORDER_STATUSES.PARTIALLY_FILLED
+                    ),
                     filter(info => info.s === symbol.toUpperCase())
                 );
             })

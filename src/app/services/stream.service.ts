@@ -16,14 +16,14 @@ export class StreamService {
     public getUserData = (): Observable<any> =>
         this.generateStream([
             this.simplexService.getAccountInformation(),
-            this.websocketService.getAccountInformationStream()
+            this.websocketService.getAccountInformationSocket()
         ]);
 
     public getOpenOrders = (symbol?: string): Observable<any> =>
         this.generateStream(
             [
                 this.simplexService.getOpenOrders(symbol),
-                this.websocketService.getOpenOrdersStream()
+                this.websocketService.getOpenOrdersSocket()
             ],
             STREAM_TYPE.ARRAY
         );
@@ -34,7 +34,7 @@ export class StreamService {
                 this.simplexService
                     .getAllOrders(symbol)
                     .pipe(map(item => item.reverse())),
-                this.websocketService.getAllOrdersStream(symbol)
+                this.websocketService.getAllOrdersSocket(symbol)
             ],
             STREAM_TYPE.ARRAY
         );
