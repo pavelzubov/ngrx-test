@@ -26,14 +26,14 @@ export class SimplexService {
 
     public getOpenOrders = (symbol: string = null): Observable<any[]> =>
         this.requestService.get({
-            url: '/api/v3/openOrders',
+            url: 'http://localhost:2000/openOrders',
             params: { symbol: symbol },
             type: [REQUEST_TYPE.SIGNED, REQUEST_TYPE.AUTHORIZED]
         });
 
     public getAllOrders = (symbol: string): Observable<any[]> =>
         this.requestService.get({
-            url: '/api/v3/allOrders',
+            url: 'http://localhost:2000/allOrders',
             params: { symbol: symbol.toUpperCase() },
             type: [REQUEST_TYPE.SIGNED, REQUEST_TYPE.AUTHORIZED]
         });
@@ -46,13 +46,13 @@ export class SimplexService {
 
     public getAccountInformation = (): Observable<any[]> =>
         this.requestService.get({
-            url: '/api/v3/account',
+            url: 'http://localhost:2000/account',
             type: [REQUEST_TYPE.SIGNED, REQUEST_TYPE.AUTHORIZED]
         });
 
     public getTrades = (symbol): Observable<any[]> =>
         this.requestService.get({
-            url: '/api/v1/trades',
+            url: 'http://localhost:2000/trades',
             params: { symbol: symbol.toUpperCase(), limit: '20' }
         });
 

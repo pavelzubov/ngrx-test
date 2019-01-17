@@ -42,7 +42,7 @@ export class RequestService {
         }
         if (type && type.includes(REQUEST_TYPE.SIGNED)) {
             body['timestamp'] = String(Date.now());
-            body['signature'] = this.signOptions(body, this.privateKey);
+            // body['signature'] = this.signOptions(body, this.privateKey);
         }
         const httpOptions = {
             params:
