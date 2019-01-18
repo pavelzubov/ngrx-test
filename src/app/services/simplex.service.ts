@@ -75,7 +75,7 @@ export class SimplexService {
         type
     }: TradeRequest): Observable<any[]> =>
         this.newOrder({
-            symbol,
+            symbol: symbol.toUpperCase(),
             type,
             price: String(price),
             quantity: this.formattingService.formatValue(quantity, 3),
@@ -90,7 +90,7 @@ export class SimplexService {
         type
     }: TradeRequest): Observable<any[]> =>
         this.newOrder({
-            symbol,
+            symbol: symbol.toUpperCase(),
             type,
             price: String(price),
             quantity: this.formattingService.formatValue(quantity, 3),
@@ -100,7 +100,7 @@ export class SimplexService {
 
     private newOrder = (options: OrderRequest): Observable<any> =>
         this.requestService.post({
-            url: '/api/v3/order',
+            url: 'http://localhost:2000/order',
             params: options,
             type: [REQUEST_TYPE.SIGNED, REQUEST_TYPE.AUTHORIZED]
         });

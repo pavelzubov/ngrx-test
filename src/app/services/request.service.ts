@@ -45,8 +45,7 @@ export class RequestService {
             // body['signature'] = this.signOptions(body, this.privateKey);
         }
         const httpOptions = {
-            params:
-                method === HTTP_METHODS.GET ? new HttpParams({ fromObject: body }) : null,
+            params: new HttpParams({ fromObject: body }),
             headers: new HttpHeaders(headers)
         };
         switch (method) {
@@ -54,7 +53,7 @@ export class RequestService {
                 return this.http.get(url, httpOptions);
             case HTTP_METHODS.POST:
             default:
-                return this.http.post(url, this.parseOptions(body), httpOptions);
+                return this.http.post(url, null, httpOptions);
         }
     }
 
