@@ -55,7 +55,7 @@ export class TradeModuleComponent implements OnInit {
                 )
                 .subscribe(balance => (this.Balance = balance));
             this.lastPrice$ = this.dataService.getSymbolTrade().pipe(
-                filter(trades => trades !== null),
+                filter(trades => trades !== null && trades.length),
                 map(trades => trades[0]),
                 filter(trade =>
                     trade.s ? trade.s.toUpperCase() === symbols.toUpperCase() : true

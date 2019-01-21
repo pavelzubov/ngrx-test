@@ -43,10 +43,12 @@ export class StreamService {
         this.generateStream(
             [
                 this.simplexService.getTrades(symbol).pipe(map(item => item.reverse())),
-                this.websocketService.chainSocket({ symbol: symbol }).pipe(
-                    filter(item => item.stream === `${symbol.toLowerCase()}@trade`),
-                    map(item => item.data)
-                )
+                this.websocketService
+                    .getSymbolTradeSocket()
+                    .pipe
+                    // filter(item => item.stream === `${symbol.toLowerCase()}@trade`),
+                    // map(item => item.data)
+                    ()
             ],
             STREAM_TYPE.ARRAY
         ).pipe();

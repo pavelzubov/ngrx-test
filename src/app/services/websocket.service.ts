@@ -1,7 +1,7 @@
 import { Injectable, OnDestroy } from '@angular/core';
 import { WebSocketSubject } from 'rxjs/webSocket';
 import { interval, Observable, Subject } from 'rxjs';
-import { catchError, filter, map, switchMap, takeWhile } from 'rxjs/operators';
+import { catchError, filter, map, switchMap, takeWhile, tap } from 'rxjs/operators';
 import { SimplexService } from './simplex.service';
 import { PENDING } from '../store/reducers/trade.reducer';
 import { ORDER_STATUSES } from '../constants';
@@ -44,6 +44,7 @@ class Socket implements SocketInterface {
         this.websocket$.subscribe(
             message => this.wsMessages$.next(message),
             error => {
+                console.log(error);
                 if (!this.websocket$) {
                     console.log('Disconnect', error);
                     return interval(this.reconnectInterval).pipe(
@@ -207,20 +208,41 @@ export class WebsocketService implements OnDestroy {
         );
     };
 
-    public getAllOrdersSocket = (symbol: string) => {
-        const socketName = 'accountInformation';
+    public getSymbolTradeSocket = (symbol?: string) => {
+        const socketName = 'symbolTrade';
         return this.simplexService.getUserStreamKey().pipe(
             switchMap((key: any) => {
-                const url = `${this.api}ws/${key.listenKey}`;
-                return this.connectSocket(socketName, url).pipe(
-                    filter(info => info.e === 'executionReport'),
+                const url = `ws://localhost:2000/ws/trade`;
+                // const url = `${this.api}ws/${key.listenKey}`;
+                return this.connectSocket(socketName, url)
+                    .pipe
+                    /*filter(info => info.e === 'executionReport'),
                     filter(
                         item =>
                             item.X === ORDER_STATUSES.FILLED ||
                             item.X === ORDER_STATUSES.PARTIALLY_FILLED
                     ),
-                    filter(info => info.s === symbol.toUpperCase())
-                );
+                    filter(info => info.s === symbol.toUpperCase())*/
+                    ();
+            })
+        );
+    };
+    public getAllOrdersSocket = (symbol: string) => {
+        const socketName = 'allOrders';
+        return this.simplexService.getUserStreamKey().pipe(
+            switchMap((key: any) => {
+                const url = `ws://localhost:2000/ws/allOrders`;
+                // const url = `${this.api}ws/${key.listenKey}`;
+                return this.connectSocket(socketName, url)
+                    .pipe
+                    /*filter(info => info.e === 'executionReport'),
+                    filter(
+                        item =>
+                            item.X === ORDER_STATUSES.FILLED ||
+                            item.X === ORDER_STATUSES.PARTIALLY_FILLED
+                    ),
+                    filter(info => info.s === symbol.toUpperCase())*/
+                    ();
             })
         );
     };
