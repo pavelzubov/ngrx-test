@@ -5,6 +5,8 @@ import { catchError, filter, map, switchMap, takeWhile, tap } from 'rxjs/operato
 import { SimplexService } from './simplex.service';
 import { PENDING } from '../store/reducers/trade.reducer';
 import { ORDER_STATUSES } from '../constants';
+import { select, Store } from '@ngrx/store';
+import { getPublicKeySelector } from '../store/reducers';
 
 export interface ChainElement {
     method?: string;
@@ -29,12 +31,12 @@ interface SocketInterface {
 class Socket implements SocketInterface {
     private websocket$: WebSocketSubject<any>;
     private wsMessages$: Subject<any>;
-    readonly id: number;
+    readonly id: string;
     readonly reconnectInterval = 5000;
     readonly reconnectAttempts = 10;
     public url: string;
 
-    constructor(url: string, id: number) {
+    constructor(url: string, id: string) {
         this.id = id;
         this.url = url;
         this.connect(url);
@@ -77,7 +79,7 @@ class Socket implements SocketInterface {
 @Injectable()
 export class WebsocketService implements OnDestroy {
     private api = 'wss://stream.binance.com:9443/';
-    public id = randomInteger(0, 100);
+    public id: string;
     /*private reconnectInterval = 5000;
     private reconnectAttempts = 10;
     private websocket$: WebSocketSubject<any>;
@@ -93,7 +95,9 @@ export class WebsocketService implements OnDestroy {
     };
     private sockets: { [key: string]: SocketInterface } = {};
 
-    constructor(private simplexService: SimplexService) {}
+    constructor(private simplexService: SimplexService, private store: Store<{}>) {
+        store.pipe(select(getPublicKeySelector)).subscribe(key => (this.id = key));
+    }
 
     ngOnDestroy() {
         Object.values(this.sockets).forEach((socket: SocketInterface) =>
@@ -250,8 +254,3 @@ export class WebsocketService implements OnDestroy {
         );
     };
 }
-const randomInteger = (min, max) => {
-    let rand = min - 0.5 + Math.random() * (max - min + 1);
-    rand = Math.round(rand);
-    return rand;
-};
