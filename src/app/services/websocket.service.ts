@@ -29,17 +29,19 @@ interface SocketInterface {
 class Socket implements SocketInterface {
     private websocket$: WebSocketSubject<any>;
     private wsMessages$: Subject<any>;
+    readonly id: number;
     readonly reconnectInterval = 5000;
     readonly reconnectAttempts = 10;
     public url: string;
 
-    constructor(url: string) {
+    constructor(url: string, id: number) {
+        this.id = id;
         this.url = url;
         this.connect(url);
     }
 
     private connect = (url: string) => {
-        this.websocket$ = new WebSocketSubject(url);
+        this.websocket$ = new WebSocketSubject(`${url}?id=${this.id}`);
         this.wsMessages$ = new Subject<any>();
         this.websocket$.subscribe(
             message => this.wsMessages$.next(message),
@@ -75,6 +77,7 @@ class Socket implements SocketInterface {
 @Injectable()
 export class WebsocketService implements OnDestroy {
     private api = 'wss://stream.binance.com:9443/';
+    public id = randomInteger(0, 100);
     /*private reconnectInterval = 5000;
     private reconnectAttempts = 10;
     private websocket$: WebSocketSubject<any>;
@@ -101,7 +104,7 @@ export class WebsocketService implements OnDestroy {
     private connectSocket(type: string, url: string): Observable<any> {
         if (this.sockets[type]) {
             if (this.sockets[type].url !== url) this.sockets[type].reconnect(url);
-        } else this.sockets[type] = new Socket(url);
+        } else this.sockets[type] = new Socket(url, this.id);
         return this.sockets[type].subscribe();
     }
     /*private connect(url) {
@@ -247,3 +250,8 @@ export class WebsocketService implements OnDestroy {
         );
     };
 }
+const randomInteger = (min, max) => {
+    let rand = min - 0.5 + Math.random() * (max - min + 1);
+    rand = Math.round(rand);
+    return rand;
+};
