@@ -38,6 +38,7 @@ export class RequestService {
 
         if (type && type.includes(REQUEST_TYPE.AUTHORIZED)) {
             headers['X-MBX-APIKEY'] = this.publicKey;
+            // headers['id'] = this.publicKey;
             headers['content-type'] = 'application/x-www-form-urlencoded';
         }
         if (type && type.includes(REQUEST_TYPE.SIGNED)) {

@@ -41,7 +41,7 @@ class Socket implements SocketInterface {
     }
 
     private connect = (url: string) => {
-        this.websocket$ = new WebSocketSubject(`${url}?id=${this.id}`);
+        this.websocket$ = new WebSocketSubject(`${url}?X-MBX-APIKEY=${this.id}`);
         this.wsMessages$ = new Subject<any>();
         this.websocket$.subscribe(
             message => this.wsMessages$.next(message),
