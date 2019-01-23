@@ -200,20 +200,21 @@ export class WebsocketService implements OnDestroy {
     };
 
     public getOpenOrdersSocket = () => {
-        const socketName = 'accountInformation';
+        const socketName = 'openOrders';
         // return this.simplexService.getUserStreamKey().pipe(
         return of([]).pipe(
             switchMap((key: any) => {
-                const url = `${this.api}ws/${key.listenKey}`;
-                return this.connectSocket(socketName, url).pipe(
-                    filter(info => info.e === 'executionReport'),
+                const url = `ws://localhost:2000/ws/openOrders`;
+                return this.connectSocket(socketName, url)
+                    .pipe
+                    /*filter(info => info.e === 'executionReport'),
                     filter(
                         item =>
                             item.X !== ORDER_STATUSES.FILLED &&
                             item.X !== ORDER_STATUSES.PARTIALLY_FILLED &&
                             item.X !== ORDER_STATUSES.REJECTED
-                    )
-                );
+                    )*/
+                    ();
             })
         );
     };

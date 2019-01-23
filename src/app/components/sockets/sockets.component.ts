@@ -52,7 +52,7 @@ export class SocketsComponent implements OnInit {
                 new GetChainSocketRequest({ symbol: symbol, levels: 5, interval: 300 })
             );
             this.store.dispatch(new GetAccountInformationRequest());
-            // this.store.dispatch(new GetOpenOrdersRequest());
+            this.store.dispatch(new GetOpenOrdersRequest());
             this.store.dispatch(new GetAllOrdersRequest(symbol));
             // new view
             this.dataService.setSymbolTradeRequest(symbol);
