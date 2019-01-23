@@ -1,6 +1,6 @@
 import { Injectable, OnDestroy } from '@angular/core';
 import { WebSocketSubject } from 'rxjs/webSocket';
-import { interval, Observable, Subject } from 'rxjs';
+import { interval, Observable, of, Subject } from 'rxjs';
 import { catchError, filter, map, switchMap, takeWhile, tap } from 'rxjs/operators';
 import { SimplexService } from './simplex.service';
 import { PENDING } from '../store/reducers/trade.reducer';
@@ -43,7 +43,7 @@ class Socket implements SocketInterface {
     }
 
     private connect = (url: string) => {
-        this.websocket$ = new WebSocketSubject(`${url}?id=${this.id}`);
+        this.websocket$ = new WebSocketSubject(`${url}?x-mbx-apikey=${this.id}`);
         this.wsMessages$ = new Subject<any>();
         this.websocket$.subscribe(
             message => this.wsMessages$.next(message),
@@ -184,40 +184,45 @@ export class WebsocketService implements OnDestroy {
 
     public getAccountInformationSocket = () => {
         const socketName = 'accountInformation';
-        return this.simplexService.getUserStreamKey().pipe(
+        // return this.simplexService.getUserStreamKey().pipe(
+        return of([]).pipe(
             switchMap((key: any) => {
-                const url = `${this.api}ws/${key.listenKey}`;
-                return this.connectSocket(socketName, url).pipe(
-                    filter(info => info.e === 'outboundAccountInfo'),
-                    map(info => {
-                        return { ...info, balances: info.B };
-                    })
-                );
+                const url = `ws://localhost:2000/ws/accountInformation`;
+                return this.connectSocket(socketName, url)
+                    .pipe
+                    // filter(info => info.e === 'outboundAccountInfo'),
+                    // map(info => {
+                    //     return { ...info, balances: info.B };
+                    // })
+                    ();
             })
         );
     };
 
     public getOpenOrdersSocket = () => {
-        const socketName = 'accountInformation';
-        return this.simplexService.getUserStreamKey().pipe(
+        const socketName = 'openOrders';
+        // return this.simplexService.getUserStreamKey().pipe(
+        return of([]).pipe(
             switchMap((key: any) => {
-                const url = `${this.api}ws/${key.listenKey}`;
-                return this.connectSocket(socketName, url).pipe(
-                    filter(info => info.e === 'executionReport'),
+                const url = `ws://localhost:2000/ws/openOrders`;
+                return this.connectSocket(socketName, url)
+                    .pipe
+                    /*filter(info => info.e === 'executionReport'),
                     filter(
                         item =>
                             item.X !== ORDER_STATUSES.FILLED &&
                             item.X !== ORDER_STATUSES.PARTIALLY_FILLED &&
                             item.X !== ORDER_STATUSES.REJECTED
-                    )
-                );
+                    )*/
+                    ();
             })
         );
     };
 
     public getSymbolTradeSocket = (symbol?: string) => {
         const socketName = 'symbolTrade';
-        return this.simplexService.getUserStreamKey().pipe(
+        // return this.simplexService.getUserStreamKey().pipe(
+        return of([]).pipe(
             switchMap((key: any) => {
                 const url = `ws://localhost:2000/ws/trade`;
                 // const url = `${this.api}ws/${key.listenKey}`;
@@ -236,7 +241,8 @@ export class WebsocketService implements OnDestroy {
     };
     public getAllOrdersSocket = (symbol: string) => {
         const socketName = 'allOrders';
-        return this.simplexService.getUserStreamKey().pipe(
+        // return this.simplexService.getUserStreamKey().pipe(
+        return of([]).pipe(
             switchMap((key: any) => {
                 const url = `ws://localhost:2000/ws/allOrders`;
                 // const url = `${this.api}ws/${key.listenKey}`;

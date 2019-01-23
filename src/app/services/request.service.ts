@@ -37,7 +37,8 @@ export class RequestService {
             for (const param in params) if (params[param]) body[param] = params[param];
 
         if (type && type.includes(REQUEST_TYPE.AUTHORIZED)) {
-            headers['X-MBX-APIKEY'] = this.publicKey;
+            headers['x-mbx-apikey'] = this.publicKey;
+            // headers['id'] = this.publicKey;
             headers['content-type'] = 'application/x-www-form-urlencoded';
         }
         if (type && type.includes(REQUEST_TYPE.SIGNED)) {
