@@ -50,8 +50,8 @@ export class TradeModuleComponent implements OnInit {
                                 : balance.a === symbolsArr[tradeHalf]
                         )
                     ),
-                    map(balance => (balance.free ? balance.free : balance.f)),
-                    distinct()
+                    map(balance => (balance.free ? balance.free : balance.f))
+                    // distinct()
                 )
                 .subscribe(balance => (this.Balance = balance));
             this.lastPrice$ = this.dataService.getSymbolTrade().pipe(
